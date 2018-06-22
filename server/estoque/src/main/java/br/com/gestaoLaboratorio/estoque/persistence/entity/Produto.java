@@ -13,5 +13,12 @@ public class Produto {
     @GeneratedValue
     private Long id;
 
+    private String codigoProduto;
+
+    private String nome;
+
+    private String descricao;
+
+    private String categoria;
 
 }
