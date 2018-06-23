@@ -2,10 +2,9 @@ package br.com.gestaoLaboratorio.estoque.persistence.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,6 +18,8 @@ public class ItemEstoque {
 
     private String lote;
 
+    private Long qtdUtilizado;
+
     private LocalDate dataPedido;
 
     private LocalDate dataValidade;
@@ -27,8 +28,13 @@ public class ItemEstoque {
 
     private LocalDate dataSaida;
 
+    @OneToOne
     private Produto produto;
 
+    @OneToOne
     private Fornecedor fornecedor;
+
+    @OneToMany
+    private List<ItemProdutoHistorico> itemProdutoHistorico;
 
 }
