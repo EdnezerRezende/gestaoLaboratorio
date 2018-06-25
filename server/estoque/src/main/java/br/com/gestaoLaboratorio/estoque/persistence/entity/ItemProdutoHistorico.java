@@ -18,7 +18,6 @@ public class ItemProdutoHistorico {
     @ManyToOne
     private Usuario usuario;
 
-    @ManyToOne
-    private ItemEstoque itemEstoque;
+
 
 }
