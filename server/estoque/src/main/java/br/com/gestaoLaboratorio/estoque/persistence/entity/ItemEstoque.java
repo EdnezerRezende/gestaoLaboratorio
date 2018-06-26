@@ -34,7 +34,7 @@ public class ItemEstoque {
     @OneToOne
     private Fornecedor fornecedor;
 
-    @OneToMany
-    private List<ItemProdutoHistorico> itemProdutoHistorico;
+   // @OneToMany
+    //private List<ItemProdutoHistorico> itemProdutoHistorico;
 
 }
