@@ -1,8 +1,7 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle >
+    <button ion-button menuToggle>
       <ion-icon name="menu">
-
       </ion-icon>
     </button>
     <ion-title>
@@ -13,9 +12,16 @@
 </ion-header>
 
 <ion-content padding>
- <ion-list>
+  <button ion-button (click)="scan()">Scan ... </button>
+  <div *ngIf="scanData">
+      <p>Scanned Text : </p>
+      <p>Scanned Format : </p>
+
+  </div>
+
+  <ion-list>
    <ion-item>
      {{produtos}}
    </ion-item>
- </ion-list>
+  </ion-list>
 </ion-content>
