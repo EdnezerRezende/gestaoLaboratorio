@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Produto } from '../../modelos/produtos';
+import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 
 
 @IonicPage()
@@ -9,11 +11,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CadastroProdutoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public produto: Produto;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private _produtoServiceProvider: ProdutoServiceProvider
+  ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CadastroProdutoPage');
   }
+  
+  salvarProduto(){
+    console.log(this.produto);
+    this._produtoServiceProvider.salvar(this.produto)
+    .subscribe(
+      () => console.log("Realizado com sucesso!")
+    );
+  }
+
 
 }

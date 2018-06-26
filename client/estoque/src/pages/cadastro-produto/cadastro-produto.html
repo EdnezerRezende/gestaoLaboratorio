@@ -8,5 +8,22 @@
 
 
 <ion-content padding>
-  <p>Cheguei na cadastro produto</p>
+  <form (ngSubmit)="salvarProduto()">
+    <ion-item >
+      <ion-label stacked >Código</ion-label>
+      <ion-input [(ngModel)]="produto.codigoProduto" name="codigoProduto" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >Nome</ion-label>
+      <ion-input [(ngModel)]="produto.nome" name="nome" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >Descrição</ion-label>
+      <ion-input [(ngModel)]="produto.descricao" name="descricao" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >Código</ion-label>
+      <ion-input [(ngModel)]="produto.categoria" name="categoria" type="text"></ion-input>
+    </ion-item>
+  </form>
 </ion-content>
