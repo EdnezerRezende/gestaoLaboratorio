@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { CadastroProdutoPage } from '../pages/cadastro-produto/cadastro-produto';
+import { ProdutoPage } from '../pages/produto/produto';
 
 @Component({
   selector: 'myapp',
@@ -15,7 +15,7 @@ export class MyApp {
   rootPage:any = HomePage;
 
   public paginas = [
-    {titulo: 'Cadastro de Produtos', componente: CadastroProdutoPage.name, icone: 'arrow-forward'}
+    {titulo: 'Produtos', componente: ProdutoPage.name, icone: 'create'}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {

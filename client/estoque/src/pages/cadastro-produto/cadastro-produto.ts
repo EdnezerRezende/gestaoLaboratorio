@@ -26,6 +26,10 @@ export class CadastroProdutoPage {
   }
   
   salvarProduto(){
+    this.produto.categoria = this.categoria;
+    this.produto.codigoProduto = this.codigoProduto;
+    this.produto.descricao = this.descricao;
+    this.produto.nome = this.nome;
     console.log(this.produto);
     this._produtoServiceProvider.salvar(this.produto)
     .subscribe(

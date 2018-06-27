@@ -8,7 +8,7 @@
 
 
 <ion-content padding>
-  <form (ngSubmit)="salvarProduto()">
+  <form (ngSubmit)="salvarProduto()" #formulario="ngForm"  >
     <ion-item >
       <ion-label stacked >Código</ion-label>
       <ion-input [(ngModel)]="codigoProduto" name="codigoProduto" type="text"></ion-input>
@@ -26,4 +26,10 @@
       <ion-input [(ngModel)]="categoria" name="categoria" type="text"></ion-input>
     </ion-item>
   </form>
+
+  <ion-fab top right edge>
+      <button ion-fab (click)="formulario.ngSubmit.emit()">
+        <ion-icon name="send"></ion-icon>
+      </button>
+  </ion-fab>
 </ion-content>
