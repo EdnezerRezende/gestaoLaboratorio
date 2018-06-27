@@ -12,6 +12,10 @@ import { ProdutoServiceProvider } from '../../providers/produto-service/produto-
 export class CadastroProdutoPage {
 
   public produto: Produto;
+  public codigoProduto:string;
+  public nome:string;
+  public descricao:string;
+  public categoria:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _produtoServiceProvider: ProdutoServiceProvider
