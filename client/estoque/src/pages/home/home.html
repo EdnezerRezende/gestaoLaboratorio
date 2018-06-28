@@ -12,11 +12,11 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button (click)="scan()">Scan ... </button>
+  <button ion-button (click)="scan()">Registro de item </button>
   <div *ngIf="scanData">
-      <p>Scanned Text : </p>
-      <p>Scanned Format : </p>
-
+      <p>Scanned Text : {{scanData.text}}</p>
+      <p>Scanned Format : {{scanData.format}}</p>
+    {{scanData}}
   </div>
 
   <ion-list>

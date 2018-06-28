@@ -11,19 +11,19 @@
   <form (ngSubmit)="salvarProduto()" #formulario="ngForm"  >
     <ion-item >
       <ion-label stacked >Código</ion-label>
-      <ion-input [(ngModel)]="codigoProduto" name="codigoProduto" type="text"></ion-input>
+      <ion-input [(ngModel)]="produto.codigoProduto" name="codigoProduto" type="text"></ion-input>
     </ion-item>
     <ion-item >
       <ion-label stacked >Nome</ion-label>
-      <ion-input [(ngModel)]="nome" name="nome" type="text"></ion-input>
+      <ion-input [(ngModel)]="produto.nome" name="nome" type="text"></ion-input>
     </ion-item>
     <ion-item >
       <ion-label stacked >Descrição</ion-label>
-      <ion-input [(ngModel)]="descricao" name="descricao" type="text"></ion-input>
+      <ion-input [(ngModel)]="produto.descricao" name="descricao" type="text"></ion-input>
     </ion-item>
     <ion-item >
       <ion-label stacked >Categoria</ion-label>
-      <ion-input [(ngModel)]="categoria" name="categoria" type="text"></ion-input>
+      <ion-input [(ngModel)]="produto.categoria" name="categoria" type="text"></ion-input>
     </ion-item>
   </form>
 
