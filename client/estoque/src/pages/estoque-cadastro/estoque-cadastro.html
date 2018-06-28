@@ -1,0 +1,31 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cadastro de Estoque</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-fab style="position: relative;" >
+      <button class="buttonLarge"  ion-fab  (click)="scan()"  >
+          <ion-icon name="barcode"></ion-icon>
+      </button>
+      <div *ngIf="scanData">
+          <p>Scanned Text : {{scanData.text}}</p>
+          <p>Scanned Format : {{scanData.format}}</p>
+        {{scanData}}
+      </div>
+    </ion-fab>
+    <ion-item style="text-align: center;">
+      <h3>OU</h3>
+    </ion-item>
+    <ion-item class="centralizarTexto" (click)="inserirManualmente()">
+      <ion-icon name="hand"></ion-icon>
+      <h2>Inserir manualmente</h2>
+    </ion-item>
+  </ion-list>
+</ion-content>

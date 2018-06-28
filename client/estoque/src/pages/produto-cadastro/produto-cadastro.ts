@@ -6,10 +6,10 @@ import { ProdutoServiceProvider } from '../../providers/produto-service/produto-
 
 @IonicPage()
 @Component({
-  selector: 'page-cadastro-produto',
-  templateUrl: 'cadastro-produto.html',
+  selector: 'page-produto-cadastro',
+  templateUrl: 'produto-cadastro.html',
 })
-export class CadastroProdutoPage {
+export class ProdutoCadastroPage {
 
   public produto: Produto;
 

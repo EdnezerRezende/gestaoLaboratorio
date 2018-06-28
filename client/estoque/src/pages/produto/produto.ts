@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CadastroProdutoPage } from '../cadastro-produto/cadastro-produto';
 import { ListagemProdutoPage } from '../listagem-produto/listagem-produto';
+import { ProdutoCadastroPage } from '../produto-cadastro/produto-cadastro';
 
 @IonicPage()
 @Component({
@@ -18,7 +18,7 @@ export class ProdutoPage {
 
   direcionaPagina(pagina:string){
     if (pagina == "cadastro"){
-      this.navCtrl.push(CadastroProdutoPage.name);
+      this.navCtrl.push(ProdutoCadastroPage.name);
     }else{
       this.navCtrl.push(ListagemProdutoPage.name);
     }

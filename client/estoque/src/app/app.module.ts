@@ -16,6 +16,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/of';
+import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import 'rxjs/add/observable/of';
     SplashScreen,
     BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProdutoServiceProvider
+    ProdutoServiceProvider,
+    UsuariosServiceProvider
   ]
 })
 export class AppModule {}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
-import { BarcodeScanner ,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
+import { EstoqueCadastroPage } from '../estoque-cadastro/estoque-cadastro';
+import { EstoqueListagemPage } from '../estoque-listagem/estoque-listagem';
 
 @Component({
   selector: 'page-home',
@@ -9,28 +9,23 @@ import { BarcodeScanner ,BarcodeScannerOptions } from '@ionic-native/barcode-sca
 })
 export class HomePage {
 
-  scanData : {};
-  options :BarcodeScannerOptions;
-
   produtos: string = "Calibrador";
   
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    private _barcodeScanner: BarcodeScanner) {
+    public navParams: NavParams
+    ) {
 
   }
 
-  scan(){
-    this.options = {
-        prompt : "Scan your barcode "
+  direcionaPagina(pagina:string){
+    if (pagina == "inserir"){
+      this.navCtrl.push(EstoqueCadastroPage.name);
+    }else{
+      this.navCtrl.push(EstoqueListagemPage.name);
     }
-    this._barcodeScanner.scan(this.options).then((barcodeData) => {
-        console.log(barcodeData);
-        this.scanData = barcodeData;
-    }, (err) => {
-        console.log("Error occured : " + err);
-    });         
-}    
+  }
+
+ 
 
 
 }

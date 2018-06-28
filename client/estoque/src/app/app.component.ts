@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ProdutoPage } from '../pages/produto/produto';
+import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 
 @Component({
   selector: 'myapp',
@@ -18,7 +19,8 @@ export class MyApp {
     {titulo: 'Produtos', componente: ProdutoPage.name, icone: 'create'}
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+    private _usuariosService: UsuariosServiceProvider,) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -29,6 +31,14 @@ export class MyApp {
 
   irPagina(componente){
     this.nav.push(componente);
+  }
+  
+  get avatar() {
+    return this._usuariosService.obtemAvatar();
+  }
+
+  get usuarioLogado() {
+    return this._usuariosService.obtemUsuarioLogado();
   }
 }
 

@@ -12,16 +12,12 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button (click)="scan()">Registro de item </button>
-  <div *ngIf="scanData">
-      <p>Scanned Text : {{scanData.text}}</p>
-      <p>Scanned Format : {{scanData.format}}</p>
-    {{scanData}}
-  </div>
-
   <ion-list>
-   <ion-item>
-     {{produtos}}
-   </ion-item>
-  </ion-list>
+    <ion-item class="alinharTexto" (click)="direcionaPagina('inserir')">
+      <h2>Inserir Estoque</h2>
+    </ion-item>
+    <ion-item class="alinharTexto" (click)="direcionaPagina('listar')">
+        <h2>Listar Estoque</h2>
+    </ion-item>
+   </ion-list>
 </ion-content>
