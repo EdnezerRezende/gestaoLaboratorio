@@ -3,7 +3,7 @@ myapp {
         border: none;
     }
     .cabecalho-menu {
-        background-image: url('../assets/img/material-design-background.jpg');
+        background-image: url('../assets/img/fundo_menu.jpg');
         height: 150px;
         margin-bottom: 10px;
 
@@ -18,7 +18,17 @@ myapp {
         }
 
         p {
-            color: #eee;
+            color: #1b0000;
         }
     }
+    .fundoImagem{
+        background-image: url('../assets/img/policlinica.gif');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        background-size: contain;
+        opacity: 0.5;
+        background-color: rgba(245, 248, 248, 0.959) transparent;
+    }
+    
 }

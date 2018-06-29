@@ -6,18 +6,23 @@
     </button>
     <ion-title>
       <ion-icon name="beaker"></ion-icon>
-      Estoque CBM/DF - Lab
+      Gestão CBM/DF
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <ion-item class="alinharTexto" (click)="direcionaPagina('inserir')">
-      <h2>Inserir Estoque</h2>
-    </ion-item>
-    <ion-item class="alinharTexto" (click)="direcionaPagina('listar')">
-        <h2>Listar Estoque</h2>
-    </ion-item>
-   </ion-list>
+<ion-content padding class="fundoImagem">
+ 
 </ion-content>
+<ion-footer>
+  <ion-toolbar style="text-align: center">
+    <button style="background-color: transparent; color: black;font-size: 60%;" class=""  (click)="direcionaPagina('inserir')"  >
+        <ion-icon style="    font-size: 30px;" name="ios-add-circle-outline"></ion-icon>
+        <p>Registrar</p>
+    </button>
+    <button style="background-color: transparent; color: black;font-size: 60%;" class=""  (click)="direcionaPagina('listar')"  >
+        <ion-icon style="    font-size: 30px;" name="ios-list-box-outline" ></ion-icon>
+        <p>Listar</p>
+    </button>
+  </ion-toolbar>
+</ion-footer>

@@ -13,8 +13,6 @@ export class ProdutoServiceProvider {
 
   salvar(produto: Produto){
     return this._http
-              .post(this._url+'produto/salvar', produto)
-              .do(() => console.log("Fez") )
-              .catch((err) => Observable.of(new Error('Não foi possível salvar o produto, Tente novamente! Tente novamente mais tarde!')));
+              .post(this._url+'produto/salvar', produto);
   }
 }

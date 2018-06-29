@@ -16,7 +16,7 @@ export class MyApp {
   rootPage:any = HomePage;
 
   public paginas = [
-    {titulo: 'Produtos', componente: ProdutoPage.name, icone: 'create'}
+    {titulo: 'Produtos', componente: ProdutoPage.name, icone: 'ios-flask-outline'}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,

@@ -29,14 +29,15 @@ export class ProdutoCadastroPage {
     this._produtoServiceProvider.salvar(this.produto)
     .subscribe(
       () => {
-        this.produto = new Produto();
-
         this._alertCtrl.create({
           title: 'Sucesso',
           subTitle: 'Produto inserido! Deseja inserir mais produtos ? ',
           buttons: [
             {
-              text: 'Sim'
+              text: 'Sim', 
+              handler: ()=> {
+                this.limparCamposFormulario();
+              }
             },
             { text: 'Não', 
               handler: ()=>{
@@ -45,9 +46,26 @@ export class ProdutoCadastroPage {
             }
           ]
         }).present();
+      },
+    () => {
+        this._alertCtrl.create({
+          title: 'Falha de cadastro',
+          subTitle: 'Produto não foi inserido, favor tente novamente mais tarde! ',
+          buttons: [
+            {
+              text: 'Ok'
+            }
+          ]
+        }).present();
       }
     );
   }
 
 
+  limparCamposFormulario(){
+    this.produto.categoria = "";
+    this.produto.codigoProduto = "";
+    this.produto.descricao = "";
+    this.produto.nome = "";
+  }
 }
