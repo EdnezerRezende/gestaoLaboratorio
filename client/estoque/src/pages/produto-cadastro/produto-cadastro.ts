@@ -47,10 +47,10 @@ export class ProdutoCadastroPage {
           ]
         }).present();
       },
-    () => {
+    (err:Error) => {
         this._alertCtrl.create({
           title: 'Falha de cadastro',
-          subTitle: 'Produto não foi inserido, favor tente novamente mais tarde! ',
+          subTitle: err.message,
           buttons: [
             {
               text: 'Ok'
