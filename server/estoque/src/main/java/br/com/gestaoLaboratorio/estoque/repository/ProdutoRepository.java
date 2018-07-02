@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, String> {
 
-    boolean existsByCodigoProdutoAndCategoria(Produto produto);
+//    boolean existsByCodigoProdutoAndCategoria(Produto produto);
+
 }

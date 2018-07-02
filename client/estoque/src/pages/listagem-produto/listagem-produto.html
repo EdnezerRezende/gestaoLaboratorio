@@ -2,12 +2,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>listagem-produto</ion-title>
+    <ion-title>Produtos Cadastrados</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding >
-
+    <ion-searchbar animated="true" placeholder="Pesquisar por nome" (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list sliding="true" >
+      <ion-item detail-push  *ngFor="let produto of produtosSearch">
+        <h2><label>Nome: </label>{{produto.nome | uppercase }}</h2>
+        <h4><label>Descrição: </label>{{produto.descricao}}</h4>
+        <h4><label>Código: </label>{{produto.codigoProduto}} - <label>Categoria: </label>{{produto.categoria}}</h4>
+        <ion-icon (click)="deletarProduto(produto)" item-right isActive="true" name="ios-close-circle-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
 </ion-content>
