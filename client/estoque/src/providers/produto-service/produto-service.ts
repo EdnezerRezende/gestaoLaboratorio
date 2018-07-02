@@ -15,4 +15,9 @@ export class ProdutoServiceProvider {
     return this._http
               .post(this._url+'produto/salvar', produto);
   }
+
+  obterProdutos(){
+    return this._http.get<Produto[]>(this._url+'produto/obterProdutos');
+                
+  }
 }

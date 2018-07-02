@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ProdutoPage } from '../pages/produto/produto';
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
+import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   selector: 'myapp',
@@ -13,7 +14,7 @@ import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-
 })
 export class MyApp {
   @ViewChild(Nav) public nav: Nav;
-  rootPage:any = HomePage;
+  rootPage:any = TabsPage.name;
 
   public paginas = [
     {titulo: 'Produtos', componente: ProdutoPage.name, icone: 'ios-flask-outline'}

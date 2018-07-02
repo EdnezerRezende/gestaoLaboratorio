@@ -11,21 +11,12 @@ export class HomePage {
 
   produtos: string = "Calibrador";
   
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams
     ) {
-
+     
   }
-
-  direcionaPagina(pagina:string){
-    if (pagina == "inserir"){
-      this.navCtrl.push(EstoqueCadastroPage.name);
-    }else{
-      this.navCtrl.push(EstoqueListagemPage.name);
-    }
-  }
-
- 
 
 
 }
