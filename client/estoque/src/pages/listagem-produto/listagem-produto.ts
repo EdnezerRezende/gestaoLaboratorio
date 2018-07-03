@@ -32,6 +32,7 @@ export class ListagemProdutoPage {
         this.produtos = listaProdutos; this.produtosSearch = listaProdutos;
       },
       (err:Error) => {
+        console.log(err.message);
         this._alertCtrl.create({
           title: 'Falha',
           subTitle: 'Não foi possível obter a Lista de Produtos, tente novamente mais tarde!',

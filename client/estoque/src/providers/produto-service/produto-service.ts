@@ -2,24 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Produto } from '../../modelos/produtos';
+import { HttpRestServiceProvider } from '../http-rest-service/http-rest-service';
 
 
 @Injectable()
 export class ProdutoServiceProvider {
 
-  private _url = 'http://localhost:8080/api/';
+  private _url:string;
+  
   public log:any;
   public handleError:any;
 
   private _headers = new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'
   ,'Access-Control-Allow-Origin': '*'});
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _httpRest: HttpRestServiceProvider) {
+    this._url = this._httpRest.getUrl();
   }
 
   salvar(produto: Produto){
-    return this._http
-              .post(this._url+'produto/salvar', produto);
+    return this._http.post(this._url+'produto/salvar', produto);
   }
 
   obterProdutos(){

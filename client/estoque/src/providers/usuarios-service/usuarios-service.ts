@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../../modelos/usuario';
+import { HttpRestServiceProvider } from '../http-rest-service/http-rest-service';
 
 
 @Injectable()
 export class UsuariosServiceProvider {
+  private _url:string = this._httpRest.getUrl();
 
   private _usuarioLogado: Usuario;
   
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _httpRest: HttpRestServiceProvider) {
     this._usuarioLogado = new Usuario();
     this.dadosFicticios();
   }
@@ -16,7 +18,7 @@ export class UsuariosServiceProvider {
   efetuaLogin(email, senha) {
     this.dadosFicticios();
     return true;
-    // return this._http.post<Usuario>('http://localhost:8080/api/login', { email, senha})
+    // return this._http.post<Usuario>(this._url + 'login', { email, senha})
     //           .do((usuario: Usuario) => this._usuarioLogado = usuario);
   }
 

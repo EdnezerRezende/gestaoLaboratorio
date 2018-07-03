@@ -22,6 +22,7 @@ import 'rxjs/operators/retry';
 
 
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
+import { HttpRestServiceProvider } from '../providers/http-rest-service/http-rest-service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-
     BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProdutoServiceProvider,
-    UsuariosServiceProvider
+    UsuariosServiceProvider,
+    HttpRestServiceProvider
   ]
 })
 export class AppModule {}
