@@ -1,0 +1,54 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Fornecedor Cadastro</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="salvarfornecedor()" #formulario="ngForm"  >
+    <ion-item >
+      <ion-label stacked >Nome da Empresa</ion-label>
+      <ion-input [(ngModel)]="fornecedor.nomeFornecedor" name="nomeFornecedor" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >CNPJ</ion-label>
+      <ion-input [(ngModel)]="fornecedor.cnpj"  name="cnpj" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >contrato</ion-label>
+      <ion-input [(ngModel)]="fornecedor.contrato" name="contrato" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >Endereço</ion-label>
+      <ion-input [(ngModel)]="fornecedor.endereco" name="endereco" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >CEP</ion-label>
+      <ion-input [(ngModel)]="fornecedor.cep" name="cep" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >Cidade</ion-label>
+      <ion-input [(ngModel)]="fornecedor.cidade" name="cidade" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >UF</ion-label>
+      <ion-input [(ngModel)]="fornecedor.uf" name="uf" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >Nome do Contato</ion-label>
+      <ion-input [(ngModel)]="fornecedor.nomeContato" name="nomeContato" type="text"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label stacked >Telefone do Contato</ion-label>
+      <ion-input [(ngModel)]="fornecedor.telefoneContato" name="telefoneContato" type="text"></ion-input>
+    </ion-item>
+  </form>
+  <ion-fab top right edge>
+    <button ion-fab (click)="formulario.ngSubmit.emit()">
+      <ion-icon name="send"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

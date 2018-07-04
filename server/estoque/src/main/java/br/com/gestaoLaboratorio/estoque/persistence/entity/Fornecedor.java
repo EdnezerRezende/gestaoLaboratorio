@@ -30,6 +30,6 @@ public class Fornecedor {
 
     private String cnpj;
 
-    private String inscricao;
+    private String contrato;
 
 }

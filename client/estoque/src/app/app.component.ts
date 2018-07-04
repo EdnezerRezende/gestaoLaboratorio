@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ProdutoPage } from '../pages/produto/produto';
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 import { TabsPage } from '../pages/tabs/tabs';
+import { FornecedorPage } from '../pages/fornecedor/fornecedor';
 
 @Component({
   selector: 'myapp',
@@ -17,7 +18,8 @@ export class MyApp {
   rootPage:any = TabsPage.name;
 
   public paginas = [
-    {titulo: 'Produtos', componente: ProdutoPage.name, icone: 'ios-flask-outline'}
+    {titulo: 'Produtos', componente: ProdutoPage.name, icone: 'ios-flask-outline'},
+    {titulo: 'Fornecedores', componente: FornecedorPage.name, icone: 'ios-medkit-outline'}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,

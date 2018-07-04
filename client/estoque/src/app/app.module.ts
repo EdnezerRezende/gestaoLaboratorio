@@ -23,6 +23,7 @@ import 'rxjs/operators/retry';
 
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 import { HttpRestServiceProvider } from '../providers/http-rest-service/http-rest-service';
+import { FornecedorServiceProvider } from '../providers/fornecedor-service/fornecedor-service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { HttpRestServiceProvider } from '../providers/http-rest-service/http-res
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProdutoServiceProvider,
     UsuariosServiceProvider,
-    HttpRestServiceProvider
+    HttpRestServiceProvider,
+    FornecedorServiceProvider
   ]
 })
 export class AppModule {}
