@@ -26,7 +26,7 @@ public class Fornecedor {
 
     private String nomeContato;
 
-    private int telefoneContato;
+    private Long telefoneContato;
 
     private String cnpj;
 

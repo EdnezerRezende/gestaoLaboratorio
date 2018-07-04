@@ -20,7 +20,7 @@ export class FornecedorListagemPage {
       this.obterFornecedores();
   }
 
-  copiaListaProdutos(){
+  copiaListaFornecedores(){
     return this.fornecedores;
   }
 
@@ -28,7 +28,10 @@ export class FornecedorListagemPage {
     this._FornecedoresService.obterFornecedores()
     .subscribe(
       (listaFornecedores)=> 
-        this.fornecedores = listaFornecedores,
+       { 
+         this.fornecedores = listaFornecedores;
+         this.fornecedoresSearch = listaFornecedores;
+      },
       (err:Error) => {
         this._alertCtrl.create({
           title: 'Falha',
@@ -42,14 +45,14 @@ export class FornecedorListagemPage {
     });
   }
 
-  deletarProduto(fornecedor){
+  deletarFornecedor(fornecedor){
     this._FornecedoresService.deletarFornecedor(fornecedor.id)
       .subscribe(() => {
         let novosFornecedores = this.fornecedores.slice(0);
         let indice = novosFornecedores.indexOf(fornecedor);
         novosFornecedores.splice(indice, 1);
         this.fornecedores = novosFornecedores;
-        this.fornecedoresSearch = this.copiaListaProdutos();
+        this.fornecedoresSearch = this.copiaListaFornecedores();
 
         this._alertCtrl.create({
           title: 'Sucesso',
@@ -69,7 +72,7 @@ export class FornecedorListagemPage {
   }
 
   getItems(ev: any) {
-    this.fornecedoresSearch = this.copiaListaProdutos();
+    this.fornecedoresSearch = this.copiaListaFornecedores();
     const val = ev.target.value;
 
     if (val && val.trim() != '') {

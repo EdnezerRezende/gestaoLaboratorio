@@ -19,8 +19,8 @@ export class FornecedorCadastroPage {
     this.fornecedor = new Fornecedor();
   }
 
-  salvarfornecedor(fornecedor){
-    this._fornecedorService.salvar(fornecedor)
+  salvarfornecedor(){
+    this._fornecedorService.salvar(this.fornecedor)
     .subscribe(
       () => {
         this._alertCtrl.create({
