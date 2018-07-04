@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 import { Produto } from '../../modelos/produtos';
 
@@ -18,6 +18,7 @@ export class ListagemProdutoPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _produtoServiceProvider: ProdutoServiceProvider,
+    private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController) {
       this.obterProdutos();
   }
@@ -25,13 +26,23 @@ export class ListagemProdutoPage {
     return this.produtos;
   }
 
+  obterLoading(){
+    return this._loadingCtrl.create({
+      content: 'Carregando...'
+    });
+  }
+
   obterProdutos(){
+    let loading = this.obterLoading();
+    loading.present();
     this._produtoServiceProvider.obterProdutos()
     .subscribe(
       (listaProdutos)=> {
+        loading.dismiss();
         this.produtos = listaProdutos; this.produtosSearch = listaProdutos;
       },
       (err:Error) => {
+        loading.dismiss();
         console.log(err.message);
         this._alertCtrl.create({
           title: 'Falha',
@@ -46,9 +57,11 @@ export class ListagemProdutoPage {
   }
 
   deletarProduto(produto){
+    let loading = this.obterLoading();
+    loading.present();
     this._produtoServiceProvider.deletarProduto(produto.id)
       .subscribe(() => {
-
+        loading.dismiss();
         let novosProdutos = this.produtos.slice(0);
         let indice = novosProdutos.indexOf(produto);
         novosProdutos.splice(indice, 1);
@@ -64,6 +77,7 @@ export class ListagemProdutoPage {
         }).present();
       },
       (err:Error) => {
+        loading.dismiss();
         this._alertCtrl.create({
           title: 'Falha',
           subTitle: err.message,

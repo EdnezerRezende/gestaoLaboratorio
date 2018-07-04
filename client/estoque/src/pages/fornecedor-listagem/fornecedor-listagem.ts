@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Fornecedor } from '../../modelos/fornecedor';
 import { FornecedorServiceProvider } from '../../providers/fornecedor-service/fornecedor-service';
+import { Validacoes } from '../../util/validacoes';
 
 @IonicPage()
 @Component({
@@ -16,6 +17,7 @@ export class FornecedorListagemPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _FornecedoresService: FornecedorServiceProvider,
+    private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController) {
       this.obterFornecedores();
   }
@@ -23,16 +25,25 @@ export class FornecedorListagemPage {
   copiaListaFornecedores(){
     return this.fornecedores;
   }
+  obterLoading(){
+    return this._loadingCtrl.create({
+      content: 'Carregando...'
+    });
+  }
 
   obterFornecedores(){
+    let loading = this.obterLoading();
+    loading.present();
     this._FornecedoresService.obterFornecedores()
     .subscribe(
       (listaFornecedores)=> 
        { 
+         loading.dismiss();
          this.fornecedores = listaFornecedores;
          this.fornecedoresSearch = listaFornecedores;
       },
       (err:Error) => {
+        loading.dismiss();
         this._alertCtrl.create({
           title: 'Falha',
           subTitle: 'Não foi possível obter a Lista de Fornecedores, tente novamente mais tarde!',
@@ -46,8 +57,11 @@ export class FornecedorListagemPage {
   }
 
   deletarFornecedor(fornecedor){
+    let loading = this.obterLoading();
+    loading.present();
     this._FornecedoresService.deletarFornecedor(fornecedor.id)
       .subscribe(() => {
+        loading.dismiss();
         let novosFornecedores = this.fornecedores.slice(0);
         let indice = novosFornecedores.indexOf(fornecedor);
         novosFornecedores.splice(indice, 1);
@@ -63,6 +77,7 @@ export class FornecedorListagemPage {
         }).present();
       },
       (err:Error) => {
+        loading.dismiss();
         this._alertCtrl.create({
           title: 'Falha',
           subTitle: err.message,

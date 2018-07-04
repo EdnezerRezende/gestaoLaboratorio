@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Fornecedor } from '../../modelos/fornecedor';
 import { FornecedorServiceProvider } from '../../providers/fornecedor-service/fornecedor-service';
 
@@ -14,15 +14,27 @@ export class FornecedorCadastroPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     private _fornecedorService: FornecedorServiceProvider,
+    private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController
   ) {
     this.fornecedor = new Fornecedor();
   }
+ 
+
+  obterLoading(){
+    return this._loadingCtrl.create({
+      content: 'Carregando...'
+    });
+  }
 
   salvarfornecedor(){
+    let loading = this.obterLoading();
+    loading.present();
     this._fornecedorService.salvar(this.fornecedor)
     .subscribe(
       () => {
+        loading.dismiss();
+        // this._loading.finalizar();
         this._alertCtrl.create({
           title: 'Sucesso',
           subTitle: 'Fornecedor inserido! Deseja inserir mais produtos ? ',
@@ -42,6 +54,7 @@ export class FornecedorCadastroPage {
         }).present();
       },
     (err:Error) => {
+        loading.dismiss();
         this._alertCtrl.create({
           title: 'Falha de cadastro',
           subTitle: err.message,

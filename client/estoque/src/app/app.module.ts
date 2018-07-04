@@ -24,6 +24,7 @@ import 'rxjs/operators/retry';
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 import { HttpRestServiceProvider } from '../providers/http-rest-service/http-rest-service';
 import { FornecedorServiceProvider } from '../providers/fornecedor-service/fornecedor-service';
+import { BrMaskerModule } from 'brmasker-ionic-3';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FornecedorServiceProvider } from '../providers/fornecedor-service/forne
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    BrMaskerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
