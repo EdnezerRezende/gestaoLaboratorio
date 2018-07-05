@@ -16,11 +16,10 @@ export class EstoqueCadastroPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _barcodeScanner: BarcodeScanner) {
-      clearInterval(window.setTimeout(this.scan(), 1000));
-  }
-
-  ionViewDidLoad() {
+    }
     
+  ionViewDidEnter() {
+    setTimeout(()=>this.scan(), 10000);
   }
 
   scan(){
