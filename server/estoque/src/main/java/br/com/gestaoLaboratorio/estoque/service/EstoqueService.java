@@ -20,11 +20,20 @@ public class EstoqueService {
 
     public List<ItemEstoque> obterEstoqueGeral(){
 
-        List<ItemEstoque> itensEstoque = new ArrayList<ItemEstoque>();
-
-        itensEstoque = (List<ItemEstoque>) itemEstoqueRepository.findAll();
+        List<ItemEstoque> itensEstoque = itemEstoqueRepository.findAll();
 
         return itensEstoque;
+    }
+
+    public void salvarAtualizar(ItemEstoque itemEstoque) {
+        itemEstoqueRepository.save(itemEstoque);
+    }
+
+    public String excluirItemEstoque(Long idItemEstoque) {
+        ItemEstoque itemEstoque = new ItemEstoque();
+        itemEstoque.setId(idItemEstoque);
+        itemEstoqueRepository.delete(itemEstoque);
+        return "Excluído com sucesso";
     }
 
 }

@@ -25,6 +25,7 @@ import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-
 import { HttpRestServiceProvider } from '../providers/http-rest-service/http-rest-service';
 import { FornecedorServiceProvider } from '../providers/fornecedor-service/fornecedor-service';
 import { BrMaskerModule } from 'brmasker-ionic-3';
+import { EstoqueServiceProvider } from '../providers/estoque-service/estoque-service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
     ProdutoServiceProvider,
     UsuariosServiceProvider,
     HttpRestServiceProvider,
-    FornecedorServiceProvider
+    FornecedorServiceProvider,
+    EstoqueServiceProvider
   ]
 })
 export class AppModule {}

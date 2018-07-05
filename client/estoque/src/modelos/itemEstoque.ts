@@ -1,4 +1,5 @@
 import { Produto } from "./produtos";
+import { Fornecedor } from "./fornecedor";
 
 export class ItemEstoque{
     id: number;
@@ -10,5 +11,5 @@ export class ItemEstoque{
     dataCadastro: Date;
     dataSaida: Date;
     produto: Produto;
-    // fornecedor: Fornecedor;
+    fornecedor: Fornecedor;
 }

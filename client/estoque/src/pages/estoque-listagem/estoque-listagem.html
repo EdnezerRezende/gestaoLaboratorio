@@ -1,12 +1,21 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>estoque-listagem</ion-title>
+    <ion-title>Estoque Atual</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding >
-
+  <ion-searchbar animated="true" placeholder="Pesquisar por nome" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list sliding="true" >
+    <ion-item detail-push  *ngFor="let itemEstoque of itensEstoqueSearch">
+      <h2><label>Código Produto: </label>{{itemEstoque.produto.codigoProduto | uppercase }}</h2>
+      <h4><label>Nome: </label>{{itemEstoque.produto.nome}}</h4>
+      <h4><label>Localização: </label>{{itemEstoque.localEstoque}} / <label>Lote: </label>{{itemEstoque.lote}}</h4>
+      <h4><label>Qtd. Utilizado: </label>{{itemEstoque.qtdUtilizado}} / <label>Data Validade: </label>{{itemEstoque.dataValidade | date: 'dd/MM/yyyy'}}</h4>
+      <ion-icon (click)="deletarItemEstoque(itemEstoque)" item-right isActive="true" name="ios-trash-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
 </ion-content>
