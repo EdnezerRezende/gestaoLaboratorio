@@ -13,34 +13,37 @@ export class EstoqueCadastroPage {
   scanData : {};
   options :BarcodeScannerOptions;
 
+  id:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _barcodeScanner: BarcodeScanner) {
-    }
+  }
     
-  ionViewDidEnter() {
-    setTimeout(()=>this.scan(), 10000);
+  ionViewDidLoad(){
+    this.scan();
   }
 
   scan(){
-    
-    this.options = {showTorchButton: true,
+    this.options = {
+        showTorchButton: true,
         prompt : "Aponte para o Código",
-        resultDisplayDuration: 1500, torchOn: true,
+        resultDisplayDuration: 500,
+        torchOn: false,
         showFlipCameraButton: true
-    }
+    };
     this._barcodeScanner.scan(this.options)
       .then((barcodeData) => {
         this.scanData = barcodeData;
         this.navCtrl.push(EstoqueCadastroFormularioPage.name, {
           codigo:this.scanData
         });
+
       }, (err:Error) => {
         alert(err);
         this.navCtrl.push(EstoqueCadastroFormularioPage.name);    
         console.log("Error occured : " + err);
       }
-    );         
+    ); 
   }    
 
   inserirManualmente(){

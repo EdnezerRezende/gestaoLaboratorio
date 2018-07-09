@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ProdutoServiceProvider } from '../providers/produto-service/produto-service';
 import { HttpClientModule } from '@angular/common/http';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/do';
@@ -52,7 +53,8 @@ import { EstoqueServiceProvider } from '../providers/estoque-service/estoque-ser
     UsuariosServiceProvider,
     HttpRestServiceProvider,
     FornecedorServiceProvider,
-    EstoqueServiceProvider
+    EstoqueServiceProvider,
+    NativePageTransitions
   ]
 })
 export class AppModule {}

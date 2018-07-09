@@ -8,7 +8,7 @@
 
 
 <ion-content padding >
-  <ion-searchbar animated="true" placeholder="Pesquisar por nome" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar animated=true placeholder="Pesquisar por nome" (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list sliding="true" >
     <ion-item detail-push  *ngFor="let itemEstoque of itensEstoqueSearch">
       <h2><label>Código Produto: </label>{{itemEstoque.produto.codigoProduto | uppercase }}</h2>

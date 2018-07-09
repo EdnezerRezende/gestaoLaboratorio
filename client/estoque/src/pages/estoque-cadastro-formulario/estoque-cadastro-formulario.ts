@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ItemEstoque } from '../../modelos/itemEstoque';
 
 @IonicPage()
 @Component({
@@ -7,9 +8,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'estoque-cadastro-formulario.html',
 })
 export class EstoqueCadastroFormularioPage {
-  public itemEstoque:String;
+  public itemEstoque:ItemEstoque;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.itemEstoque = new ItemEstoque();
     if ( this.navParams.get('codigo') ){
       // obter dados do registro no servidor e retornar o item caso exista.
       this.itemEstoque = this.navParams.get('codigo');

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class HttpRestServiceProvider {
 
-  private _url = 'http://192.168.1.193:8080/api/';
+  private _url = 'http://192.168.0.49:8080/api/';
   public log:any;
   private _headers = new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'
   ,'Access-Control-Allow-Origin': '*'});

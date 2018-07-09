@@ -12,11 +12,24 @@
             </ion-item>
         
             <ion-list>
-                <button ion-item menuClose *ngFor="let pagina of paginas" 
-                    (click)="irPagina(pagina.componente)" >
-                    <ion-icon [name]="pagina.icone" item-left ></ion-icon>
-                    {{ pagina.titulo }}
-                </button>
+                <ion-item *ngFor="let pagina of paginas; let i=index" text-wrap 
+                    [ngClass]="{active: isLevel1Shown('idx'+i)}"
+                    (click)="toggleLevel1('idx'+i)" >
+                    <h1>
+                        <ion-icon [name]="pagina.icone" item-left ></ion-icon>
+                        {{ pagina.titulo }}
+                        <ion-icon color="success" item-right
+                        [name]="isLevel1Shown('idx'+i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+                    </h1>
+                    <ion-list *ngIf="isLevel1Shown('idx'+i)">
+                        <ion-item menuClose *ngFor="let sub of pagina.subTitulo" text-wrap (click)="irPagina(sub.componente)">
+                            <h3>
+                                <ion-icon name="pagina.iconeSub" item-left ></ion-icon>
+                                {{sub.submenu}}
+                            </h3>
+                        </ion-item>
+                    </ion-list>
+                </ion-item>
             </ion-list>
         </ion-content>
     </ion-menu>

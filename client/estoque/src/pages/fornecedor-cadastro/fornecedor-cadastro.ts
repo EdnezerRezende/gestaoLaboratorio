@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Fornecedor } from '../../modelos/fornecedor';
 import { FornecedorServiceProvider } from '../../providers/fornecedor-service/fornecedor-service';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 @IonicPage()
 @Component({
@@ -15,7 +16,8 @@ export class FornecedorCadastroPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     private _fornecedorService: FornecedorServiceProvider,
     private _loadingCtrl: LoadingController,
-    private _alertCtrl: AlertController
+    private _alertCtrl: AlertController,
+    private _nativePageTransitions: NativePageTransitions
   ) {
     this.fornecedor = new Fornecedor();
   }
@@ -47,7 +49,15 @@ export class FornecedorCadastroPage {
             },
             { text: 'Não', 
               handler: ()=>{
-              this.navCtrl.pop();
+                let options: NativeTransitionOptions={
+                  direction: 'left',
+                  duration: 400,
+                  slowdownfactor: -1,
+                  iosdelay: 50
+            
+                };
+                this._nativePageTransitions.slide(options);
+                this.navCtrl.pop();
               } 
             }
           ]
