@@ -36,7 +36,15 @@ import { EstoqueServiceProvider } from '../providers/estoque-service/estoque-ser
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: 'Voltar',
+      iconMode: 'ios',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      tabsPlacement: 'bottom',
+      pageTransition: 'md-transition  ',
+      menuType: 'overlay'
+    }),
     BrMaskerModule
   ],
   bootstrap: [IonicApp],

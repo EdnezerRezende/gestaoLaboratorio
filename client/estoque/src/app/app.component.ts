@@ -3,11 +3,8 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { ProdutoPage } from '../pages/produto/produto';
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 import { TabsPage } from '../pages/tabs/tabs';
-import { FornecedorPage } from '../pages/fornecedor/fornecedor';
 import { ProdutoCadastroPage } from '../pages/produto-cadastro/produto-cadastro';
 import { ListagemProdutoPage } from '../pages/listagem-produto/listagem-produto';
 import { FornecedorCadastroPage } from '../pages/fornecedor-cadastro/fornecedor-cadastro';
@@ -23,22 +20,14 @@ export class MyApp {
   rootPage:any = TabsPage.name;
   showLevel1 = null;
 
-  // public paginas = [
-  //   {titulo: 'Produtos', 
-  //             componente: ProdutoPage.name, 
-  //             icone: 'ios-flask-outline'},
-
-  //   {titulo: 'Fornecedores', componente: FornecedorPage.name, icone: 'ios-medkit-outline'}
-  // ];
-
   public paginas = [
     {titulo: "Produtos", 
-              subTitulo: [{submenu:"Cadastro", componente:ProdutoCadastroPage.name, iconeSub: "ios-paper-outline"
-                },{submenu:"Listar", componente:ListagemProdutoPage.name, iconeSub:"ios-list-box-outline"}], 
+              subTitulo: [{submenu:'Cadastro', componente:ProdutoCadastroPage.name, iconeSub: 'ios-paper-outline'
+                },{submenu:'Listar', componente:ListagemProdutoPage.name, iconeSub:'ios-list-box-outline'}], 
               icone: 'ios-flask-outline'},
-
-    {titulo: 'Fornecedores', subTitulo: [{submenu:"Cadastro", componente:FornecedorCadastroPage.name, iconeSub: "ios-paper-outline"
-  },{submenu:"Listar", componente:FornecedorListagemPage.name, iconeSub:"ios-list-box-outline"}], icone: 'ios-medkit-outline'}
+    {titulo: 'Fornecedores', 
+              subTitulo: [{submenu:'Cadastro', componente:FornecedorCadastroPage.name, iconeSub: 'ios-paper-outline'
+  },{submenu:'Listar', componente:FornecedorListagemPage.name, s:'ios-list-box-outline'}], icone: 'ios-medkit-outline'}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
@@ -50,6 +39,23 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+
+  ionViewWillLeave() {
+
+    let options: NativeTransitionOptions = {
+       direction: 'up',
+       duration: 500,
+       slowdownfactor: 3,
+       slidePixels: 20,
+       iosdelay: 100,
+       androiddelay: 150,
+       fixedPixelsTop: 0,
+       fixedPixelsBottom: 60
+      };
+   
+    this._nativePageTransitions.slide(options);
+   
+   }
 
   irPagina(componente){
     let options: NativeTransitionOptions={

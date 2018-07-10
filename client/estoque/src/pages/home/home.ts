@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { EstoqueCadastroPage } from '../estoque-cadastro/estoque-cadastro';
-import { EstoqueListagemPage } from '../estoque-listagem/estoque-listagem';
 
 @Component({
   selector: 'page-home',
