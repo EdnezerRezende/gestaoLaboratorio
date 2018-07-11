@@ -56,7 +56,24 @@ export class FornecedorListagemPage {
     });
   }
 
-  deletarFornecedor(fornecedor){
+  deletarFornecedor(fornecedor: Fornecedor){
+    this._alertCtrl.create({
+      title:'Confirmar',
+      subTitle:'Deseja deletar o item ' + fornecedor.nomeFornecedor + '?', 
+      buttons:[
+        {
+          text: 'Sim', handler: ()=> {
+            this.deletarFornecedorConfirmado(fornecedor);
+          }
+        },
+        {
+          text: 'Não'
+        }
+    ]
+    }).present();
+  }
+
+  deletarFornecedorConfirmado(fornecedor){
     let loading = this.obterLoading();
     loading.present();
     this._FornecedoresService.deletarFornecedor(fornecedor.id)

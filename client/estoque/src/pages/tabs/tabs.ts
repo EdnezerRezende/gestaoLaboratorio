@@ -4,6 +4,7 @@ import { EstoqueListagemPage } from '../estoque-listagem/estoque-listagem';
 import { HomePage } from '../home/home';
 import { EstoqueCadastroFormularioPage } from '../estoque-cadastro-formulario/estoque-cadastro-formulario';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
+import { EstoquePesquisarPage } from '../estoque-pesquisar/estoque-pesquisar';
 
 @IonicPage()
 @Component({
@@ -19,7 +20,7 @@ export class TabsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private _nativePageTransitions: NativePageTransitions) {
     this._nativePageTransitions.fade(null);
     this.tabhome = HomePage;
-    this.tab1 = EstoqueCadastroFormularioPage.name;
+    this.tab1 = EstoquePesquisarPage.name;
     this.tab2 = EstoqueListagemPage.name;
   }
 }

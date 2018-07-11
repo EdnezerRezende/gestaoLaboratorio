@@ -56,7 +56,25 @@ export class ListagemProdutoPage {
     });
   }
 
-  deletarProduto(produto){
+  deletarProduto(produto:Produto){
+    this._alertCtrl.create({
+      title:'Confirmar',
+      subTitle:'Deseja deletar o item ' + produto.codigoProduto + ' - ' + produto.nome + '?', 
+      buttons:[
+        {
+          text: 'Sim', handler: ()=> {
+            this.deletarProdutoConfirmado(produto);
+          }
+        },
+        {
+          text: 'Não'
+        }
+    ]
+    }).present();
+  }
+
+  deletarProdutoConfirmado(produto:Produto){
+    
     let loading = this.obterLoading();
     loading.present();
     this._produtoServiceProvider.deletarProduto(produto.id)

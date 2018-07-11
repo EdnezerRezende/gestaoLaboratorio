@@ -56,6 +56,23 @@ export class EstoqueListagemPage {
   }
 
   deletarItemEstoque(itemEstoque:ItemEstoque){
+    this._alertCtrl.create({
+      title:'Confirmar',
+      subTitle:'Deseja deletar o item ' + itemEstoque.produto.codigoProduto + ' - ' + itemEstoque.produto.nome + '?', 
+      buttons:[
+        {
+          text: 'Sim', handler: ()=> {
+            this.deletarItemEstoqueConfirmado(itemEstoque);
+          }
+        },
+        {
+          text: 'Não'
+        }
+    ]
+    }).present();
+  }
+
+  deletarItemEstoqueConfirmado(itemEstoque:ItemEstoque){
     let loading = this.obterLoading();
     loading.present();
     this._ItemEstoqueService.deletarItemEstoque(itemEstoque.id)

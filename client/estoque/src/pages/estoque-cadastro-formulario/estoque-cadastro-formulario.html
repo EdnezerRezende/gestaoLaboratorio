@@ -11,40 +11,30 @@
 <ion-content padding >
   <form (ngSubmit)="salvarItemEstoque()" #formulario="ngForm"  >
     <ion-item >
-      <ion-label stacked >Nome da Empresa</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.nomeFornecedor" name="nomeFornecedor" type="text"></ion-input>
+      <ion-label>Código do Produto</ion-label>
+      <ion-select [(ngModel)]="itemEstoque.produto" [ngModelOptions]="{standalone: true}"  [compareWith]="compareProduto">
+        <ion-option *ngFor="let produto of produtos" [value]="produto" >{{produto.codigoProduto}} - {{produto.nome}}</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item >
-      <ion-label stacked >CNPJ</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.cnpj"  name="cnpj" type="text"></ion-input>
+      <ion-label stacked >Local de Armazenamento</ion-label>
+      <ion-input [(ngModel)]="itemEstoque.localEstoque" [ngModelOptions]="{standalone: true}" name="localEstoque" type="text"></ion-input>
     </ion-item>
     <ion-item >
-      <ion-label stacked >contrato</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.contrato" name="contrato" type="text"></ion-input>
+      <ion-label stacked >Lote</ion-label>
+      <ion-input [(ngModel)]="itemEstoque.lote" [ngModelOptions]="{standalone: true}" name="lote" type="text"></ion-input>
     </ion-item>
     <ion-item >
-      <ion-label stacked >Endereço</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.endereco" name="endereco" type="text"></ion-input>
+      <ion-label stacked >Quantidade Utilizado</ion-label>
+      <ion-input [(ngModel)]="itemEstoque.qtdUtilizado" [ngModelOptions]="{standalone: true}" name="qtdUtilizado" type="text"></ion-input>
     </ion-item>
     <ion-item >
-      <ion-label stacked >CEP</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.cep" name="cep" type="text"></ion-input>
+      <ion-label stacked >Data Solicitado</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" doneText="Selecionar" cancelText="Cancelar" [ngModelOptions]="{standalone: true}" name="dataPedido" [(ngModel)]="itemEstoque.dataPedido"></ion-datetime>
     </ion-item>
     <ion-item >
-      <ion-label stacked >Cidade</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.cidade" name="cidade" type="text"></ion-input>
-    </ion-item>
-    <ion-item >
-      <ion-label stacked >UF</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.uf" name="uf" type="text"></ion-input>
-    </ion-item>
-    <ion-item >
-      <ion-label stacked >Nome do Contato</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.nomeContato" name="nomeContato" type="text"></ion-input>
-    </ion-item>
-    <ion-item >
-      <ion-label stacked >Telefone do Contato</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.telefoneContato" name="telefoneContato" type="text"></ion-input>
+      <ion-label stacked >Data de Validade</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" doneText="Selecionar" cancelText="Cancelar"  [ngModelOptions]="{standalone: true}" name="dataValidade" [(ngModel)]="itemEstoque.dataValidade"></ion-datetime>
     </ion-item>
   </form>
   <ion-fab top right edge>

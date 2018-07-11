@@ -2,29 +2,31 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { ItemEstoque } from '../../modelos/itemEstoque';
 import { EstoqueServiceProvider } from '../../providers/estoque-service/estoque-service';
-import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 import { Produto } from '../../modelos/produtos';
+import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 
 @IonicPage()
 @Component({
-  selector: 'page-estoque-cadastro-formulario',
-  templateUrl: 'estoque-cadastro-formulario.html',
+  selector: 'page-estoque-pesquisar',
+  templateUrl: 'estoque-pesquisar.html',
 })
-export class EstoqueCadastroFormularioPage {
+export class EstoquePesquisarPage {
   itensEstoque: ItemEstoque[];
   itensEstoqueSearch: ItemEstoque[];
   produtos: Produto[];
   searchQuery: string = '';
   itemEstoque:ItemEstoque;
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _ItemEstoqueService: EstoqueServiceProvider,
     private _loadingCtrl: LoadingController,
     private _produtosService: ProdutoServiceProvider,
     private _alertCtrl: AlertController) {
-      this.produtos = new Array<Produto>();
-      this.itemEstoque = new ItemEstoque;
-      this.obterProdutos();
+      this.obterItensEstoque();
+  }
+
+  copiaListaItensEstoque(){
+    return this.itensEstoque;
   }
 
   obterLoading(){
@@ -33,32 +35,36 @@ export class EstoqueCadastroFormularioPage {
     });
   }
 
-  obterProdutos(){
+  
+  obterItensEstoque(){
     let loading = this.obterLoading();
     loading.present();
-    this._produtosService.obterProdutos()
+    this._ItemEstoqueService.obterEstoque()
     .subscribe(
-      (listaProdutos)=> 
-      { 
+      (listaItemEstoque)=> 
+       { 
+         loading.dismiss();
+         this.itensEstoque = listaItemEstoque;
+         this.itensEstoque.forEach(element => {
+           this.produtos.push(element.produto);
+         });
+         this.itensEstoqueSearch = listaItemEstoque;
+      },
+      (err:Error) => {
         loading.dismiss();
-        this.produtos = listaProdutos;
-        console.log(this.produtos);
-     },
-     (err:Error) => {
-       loading.dismiss();
-       this._alertCtrl.create({
-         title: 'Falha',
-         subTitle: 'Não foi possível obter a Lista de Produtos, tente novamente mais tarde!',
-         buttons: [
-           {
-             text: 'Ok'
-           }
-         ]
-       }).present();
-   });
+        this._alertCtrl.create({
+          title: 'Falha',
+          subTitle: 'Não foi possível obter a Lista de Estoque, tente novamente mais tarde!',
+          buttons: [
+            {
+              text: 'Ok'
+            }
+          ]
+        }).present();
+    });
   }
 
-  salvarItemEstoque(){
+  atualizarItemEstoque(){
     let loading = this.obterLoading();
     loading.present();
     this._ItemEstoqueService.salvar(this.itemEstoque)
@@ -81,16 +87,24 @@ export class EstoqueCadastroFormularioPage {
     });
   }
 
-  compareProduto(e1: Produto, e2: Produto): boolean {
+  getItems(ev: any) {
+    this.itensEstoqueSearch = this.copiaListaItensEstoque();
+    const val = ev.target.value;
+
+    if (val && val.trim() != '') {
+      this.itensEstoqueSearch = this.itensEstoqueSearch.filter((item) => {
+        return (item.produto.nome.toLowerCase().indexOf(val.toLowerCase()) > -1 
+        || item.produto.codigoProduto.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
+
+  compareFn(e1: ItemEstoque, e2: ItemEstoque): boolean {
     return e1 && e2 ? e1.id === e2.id : e1 === e2;
   }
 
-  registrarItem(){
-    // enviarItem para o servidor 
-    // caso exista, 
-    // perguntar se deseja marcar utilização caso ainda esteja na validade e quantidade de utilização disponivel
-    // ou se deseja baixar do estoque.
-    // se não existir, apenas permitir cadastro.
+  compareProduto(e1: Produto, e2: Produto): boolean {
+    return e1 && e2 ? e1.id === e2.id : e1 === e2;
   }
 
 }

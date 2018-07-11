@@ -1,0 +1,21 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Pesquisar item do Estoque</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-searchbar animated=true placeholder="Pesquisar por nome e Código" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item>
+      <ion-label>Códigos</ion-label>
+    <ion-select [(ngModel)]="itemCodigoSelecionado" [compareWith]="compareFn">
+      <ion-option *ngFor="let item of itensEstoqueSearch" [value]="item.produto.codigoProduto"></ion-option>
+    </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

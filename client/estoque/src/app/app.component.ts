@@ -10,6 +10,8 @@ import { ListagemProdutoPage } from '../pages/listagem-produto/listagem-produto'
 import { FornecedorCadastroPage } from '../pages/fornecedor-cadastro/fornecedor-cadastro';
 import { FornecedorListagemPage } from '../pages/fornecedor-listagem/fornecedor-listagem';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
+import { EstoqueCadastroFormularioPage } from '../pages/estoque-cadastro-formulario/estoque-cadastro-formulario';
+import { EstoqueListagemPage } from '../pages/estoque-listagem/estoque-listagem';
 
 @Component({
   selector: 'myapp',
@@ -27,7 +29,10 @@ export class MyApp {
               icone: 'ios-flask-outline'},
     {titulo: 'Fornecedores', 
               subTitulo: [{submenu:'Cadastro', componente:FornecedorCadastroPage.name, iconeSub: 'ios-paper-outline'
-  },{submenu:'Listar', componente:FornecedorListagemPage.name, s:'ios-list-box-outline'}], icone: 'ios-medkit-outline'}
+  },{submenu:'Listar', componente:FornecedorListagemPage.name, s:'ios-list-box-outline'}], icone: 'ios-medkit-outline'},
+  {titulo: 'Estoque', 
+  subTitulo: [{submenu:'Cadastro', componente:EstoqueCadastroFormularioPage.name, iconeSub: 'ios-paper-outline'
+},{submenu:'Listar', componente:EstoqueListagemPage.name, s:'ios-list-box-outline'}], icone: 'ios-clipboard-outline'}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
