@@ -4,6 +4,7 @@ import { ItemEstoque } from '../../modelos/itemEstoque';
 import { EstoqueServiceProvider } from '../../providers/estoque-service/estoque-service';
 import { Produto } from '../../modelos/produtos';
 import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
+import { Validacoes } from '../../util/validacoes';
 
 @IonicPage()
 @Component({
@@ -16,12 +17,18 @@ export class EstoquePesquisarPage {
   produtos: Produto[];
   searchQuery: string = '';
   itemEstoque:ItemEstoque;
-  
+  mostrarForm: boolean = false;
+  somarVlrQtd:number;
+    
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _ItemEstoqueService: EstoqueServiceProvider,
     private _loadingCtrl: LoadingController,
     private _produtosService: ProdutoServiceProvider,
     private _alertCtrl: AlertController) {
+      this.itemEstoque = new ItemEstoque();
+      this.itensEstoque = new Array<ItemEstoque>();
+      this.produtos = new Array<Produto>();
+
       this.obterItensEstoque();
   }
 
@@ -64,7 +71,20 @@ export class EstoquePesquisarPage {
     });
   }
 
+  editarItemEstoque(itemEstoque:ItemEstoque){
+
+    if ( this.itemEstoque.id == itemEstoque.id ){
+      this.mostrarForm = false;
+      this.itemEstoque = new ItemEstoque();
+    }else{
+      this.itemEstoque = itemEstoque;
+      this.somarVlrQtd = this.itemEstoque.qtdUtilizado + 1;
+      this.mostrarForm = true;
+    }
+  }
+
   atualizarItemEstoque(){
+    this.itemEstoque.qtdUtilizado = this.somarVlrQtd;
     let loading = this.obterLoading();
     loading.present();
     this._ItemEstoqueService.salvar(this.itemEstoque)
@@ -102,7 +122,6 @@ export class EstoquePesquisarPage {
   compareFn(e1: ItemEstoque, e2: ItemEstoque): boolean {
     return e1 && e2 ? e1.id === e2.id : e1 === e2;
   }
-
   compareProduto(e1: Produto, e2: Produto): boolean {
     return e1 && e2 ? e1.id === e2.id : e1 === e2;
   }

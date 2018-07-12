@@ -4,5 +4,6 @@ export class Produto {
     nome: string;
     descricao: string;
     categoria: string;
+    qtdMaximoUtilizacao: number;
 
 }

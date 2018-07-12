@@ -22,4 +22,6 @@ public class Produto {
 
     private String categoria;
 
+    private Long qtdMaximoUtilizacao;
+
 }

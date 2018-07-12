@@ -168,7 +168,12 @@ export class Validacoes {
       return resultado === parseInt(digitos.charAt(1), 10);
     }
 
-
+    // static converterParaDataStringFormatada(data:string){
+    //   let ano = data.substr(0,4);
+    //   let mes = data.substr(4, 2);
+    //   let dia = data.substr(5,2);
+    //   return `${dia}/${mes}/${ano}`;
+    // }
   }
   
   
