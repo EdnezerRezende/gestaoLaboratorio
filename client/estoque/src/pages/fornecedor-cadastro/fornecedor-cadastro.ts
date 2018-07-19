@@ -83,11 +83,11 @@ export class FornecedorCadastroPage {
           ]
         }).present();
       },
-    (err:Error) => {
+    (err) => {
         loading.dismiss();
         this._alertCtrl.create({
           title: 'Falha de cadastro',
-          subTitle: err.message,
+          subTitle: err.error.message,
           buttons: [
             {
               text: 'Ok'

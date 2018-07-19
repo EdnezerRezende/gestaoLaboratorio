@@ -5,5 +5,5 @@ export class Produto {
     descricao: string;
     categoria: string;
     qtdMaximoUtilizacao: number;
-
+    qtdMinimaEstoque: number;
 }

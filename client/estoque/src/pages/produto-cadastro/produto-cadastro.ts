@@ -21,20 +21,27 @@ export class ProdutoCadastroPage {
     private _alertCtrl: AlertController,
     private formBuilder: FormBuilder
   ) {
+    this.criarFormulario();
+
     this.produto = new Produto();
+
+    if (this.navParams.get('produto')){
+      this.produto = this.navParams.get('produto');
+    }
     
+  }
+
+  criarFormulario(){
     this.formulario = this.formBuilder.group({
       codigoProduto: ['', Validators.required],
       nome: ['', [Validators.required]],//, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]
       descricao: ['', [Validators.required] ],
       categoria: ['', Validators.required],
-      qtdMaximoUtilizacao: ['', Validators.required]
+      qtdMaximoUtilizacao: ['', Validators.required],
+      qtdMinimaEstoque: ['', Validators.required]
     });
   }
 
-  ionViewDidLoad() {
-  }
-  
   obterLoading(){
     return this._loadingCtrl.create({
       content: 'Carregando...'
@@ -66,11 +73,11 @@ export class ProdutoCadastroPage {
           ]
         }).present();
       },
-    (err:Error) => {
+    (err) => {
         loading.dismiss();
         this._alertCtrl.create({
           title: 'Falha de cadastro',
-          subTitle: err.message,
+          subTitle: err.error.message,
           buttons: [
             {
               text: 'Ok'
@@ -87,5 +94,6 @@ export class ProdutoCadastroPage {
     this.produto.codigoProduto = "";
     this.produto.descricao = "";
     this.produto.nome = "";
+    this.criarFormulario();
   }
 }

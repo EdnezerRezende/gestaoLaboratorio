@@ -5,6 +5,7 @@ import { EstoqueServiceProvider } from '../../providers/estoque-service/estoque-
 import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 import { Produto } from '../../modelos/produtos';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -18,6 +19,8 @@ export class EstoqueCadastroFormularioPage {
   searchQuery: string = '';
   itemEstoque:ItemEstoque;
   private formulario: FormGroup;
+  dataPedido;
+  dataValidade;
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -31,7 +34,18 @@ export class EstoqueCadastroFormularioPage {
 
       this.produtos = new Array<Produto>();
       this.itemEstoque = new ItemEstoque;
+      
       this.obterProdutos();
+
+      if(this.navParams.get('itemEstoque')){
+        this.itemEstoque = this.navParams.get('itemEstoque'); 
+        this.converterDataParaIsoString(this.itemEstoque.dataPedido, this.itemEstoque.dataValidade);
+      }
+  }
+
+  converterDataParaIsoString(dataPedido:Date, dataValidade:Date) {
+    this.dataPedido = moment(dataPedido).subtract(1, 'month').toISOString();
+    this.dataValidade = moment(dataValidade).subtract(1, 'month').toISOString();
   }
 
   criarFormulario(){
@@ -39,7 +53,7 @@ export class EstoqueCadastroFormularioPage {
       produto: ['', Validators.required],
       localEstoque: ['', [Validators.required]],
       lote: ['', [Validators.required] ],
-      dataPedido: ['', Validators.required],
+      dataPedido: ['', [Validators.required] ],
       dataValidade: ['', Validators.required]
     });
   }
@@ -77,6 +91,8 @@ export class EstoqueCadastroFormularioPage {
   salvarItemEstoque(){
     let loading = this.obterLoading();
     loading.present();
+    this.itemEstoque.dataPedido = this.dataPedido;
+    this.itemEstoque.dataValidade = this.dataValidade;
     this._ItemEstoqueService.salvar(this.itemEstoque)
     .subscribe(
       ()=> 

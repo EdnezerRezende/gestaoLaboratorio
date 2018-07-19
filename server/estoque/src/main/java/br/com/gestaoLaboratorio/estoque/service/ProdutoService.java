@@ -17,7 +17,12 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public void salvar(Produto produto) {
-        Boolean existeProduto = produtoRepository.existsByAtivoIsTrueAndCodigoProdutoAndNome(produto.getCodigoProduto(), produto.getNome());
+        Boolean existeProduto = false;
+
+        if (produto.getId() == null) {
+            existeProduto = produtoRepository.existsByAtivoIsTrueAndCodigoProdutoAndNome(produto.getCodigoProduto(), produto.getNome());
+        }
+
         if (existeProduto) {
             throw new RuntimeException("Já existe o produto informado!");
         } else {

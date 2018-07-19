@@ -26,7 +26,9 @@ public class EstoqueService {
     public List<ItemEstoque> obterEstoqueGeral() {
 
         List<ItemEstoque> itensEstoque = itemEstoqueRepository.findAllByDataSaidaNullAndAtivoIsTrue();
-
+        for (ItemEstoque item : itensEstoque) {
+            item.setDataPedido(item.getDataPedido());
+        }
         return itensEstoque;
     }
 

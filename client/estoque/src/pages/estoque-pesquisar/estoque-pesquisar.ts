@@ -5,6 +5,7 @@ import { EstoqueServiceProvider } from '../../providers/estoque-service/estoque-
 import { Produto } from '../../modelos/produtos';
 import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 import { Validacoes } from '../../util/validacoes';
+import { EstoqueCadastroFormularioPage } from '../estoque-cadastro-formulario/estoque-cadastro-formulario';
 
 @IonicPage()
 @Component({
@@ -72,15 +73,8 @@ export class EstoquePesquisarPage {
   }
 
   editarItemEstoque(itemEstoque:ItemEstoque){
-
-    if ( this.itemEstoque.id == itemEstoque.id ){
-      this.mostrarForm = false;
-      this.itemEstoque = new ItemEstoque();
-    }else{
-      this.itemEstoque = itemEstoque;
-      this.somarVlrQtd = this.itemEstoque.qtdUtilizado + 1;
-      this.mostrarForm = true;
-    }
+    this.navCtrl.push(EstoqueCadastroFormularioPage.name, {itemEstoque: itemEstoque});
+    
   }
 
   atualizarItemEstoque(){

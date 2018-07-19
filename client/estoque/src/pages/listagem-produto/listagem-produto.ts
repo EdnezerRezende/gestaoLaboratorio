@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 import { Produto } from '../../modelos/produtos';
+import { ProdutoCadastroPage } from '../produto-cadastro/produto-cadastro';
 
 
 @IonicPage()
@@ -41,9 +42,9 @@ export class ListagemProdutoPage {
         loading.dismiss();
         this.produtos = listaProdutos; this.produtosSearch = listaProdutos;
       },
-      (err:Error) => {
+      (err) => {
         loading.dismiss();
-        console.log(err.message);
+        console.log(err.error.message);
         this._alertCtrl.create({
           title: 'Falha',
           subTitle: 'Não foi possível obter a Lista de Produtos, tente novamente mais tarde!',
@@ -94,14 +95,18 @@ export class ListagemProdutoPage {
           ]
         }).present();
       },
-      (err:Error) => {
+      (err) => {
         loading.dismiss();
         this._alertCtrl.create({
           title: 'Falha',
-          subTitle: err.message,
+          subTitle: err.error.message,
           buttons:[{text: 'Ok'}]
         }).present();
       })
+  }
+
+  alterarProduto(produto: Produto){
+    this.navCtrl.push(ProdutoCadastroPage.name, {produto: produto});
   }
 
   getItems(ev: any) {

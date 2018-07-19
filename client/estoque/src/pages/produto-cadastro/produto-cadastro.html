@@ -38,12 +38,20 @@
         Por favor, informe uma categoria.
     </h6>
     <ion-item >
-        <ion-label stacked >Quantidade Máxima de Utilização</ion-label>
-        <ion-input type="number" [(ngModel)]="produto.qtdMaximoUtilizacao" name="qtdMaximoUtilizacao" formControlName="qtdMaximoUtilizacao" ></ion-input>
-      </ion-item>
-      <h6 class="error" *ngIf="!formulario.controls.qtdMaximoUtilizacao.valid && (formulario.controls.qtdMaximoUtilizacao.dirty || formulario.controls.qtdMaximoUtilizacao.touched)">
-          Por favor, informe uma quantidade máxima de utilização.
-      </h6>
+      <ion-label stacked >Quantidade Máxima de Utilização</ion-label>
+      <ion-input type="number" [(ngModel)]="produto.qtdMaximoUtilizacao" name="qtdMaximoUtilizacao" formControlName="qtdMaximoUtilizacao" ></ion-input>
+    </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.qtdMaximoUtilizacao.valid && (formulario.controls.qtdMaximoUtilizacao.dirty || formulario.controls.qtdMaximoUtilizacao.touched)">
+        Por favor, informe uma quantidade máxima de utilização.
+    </h6>
+
+    <ion-item >
+      <ion-label stacked >Quantidade Mínima Permitida</ion-label>
+      <ion-input type="number" [(ngModel)]="produto.qtdMinimaEstoque" name="qtdMinimaEstoque" formControlName="qtdMinimaEstoque" ></ion-input>
+    </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.qtdMinimaEstoque.valid && (formulario.controls.qtdMinimaEstoque.dirty || formulario.controls.qtdMinimaEstoque.touched)">
+        Por favor, informe uma quantidade mínima permitida em estoque.
+    </h6>
   </form>
 
   <ion-fab top right edge>
