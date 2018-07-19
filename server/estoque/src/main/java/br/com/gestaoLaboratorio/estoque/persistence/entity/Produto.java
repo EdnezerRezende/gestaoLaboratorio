@@ -24,4 +24,6 @@ public class Produto {
 
     private Long qtdMaximoUtilizacao;
 
+    private Boolean ativo;
+
 }

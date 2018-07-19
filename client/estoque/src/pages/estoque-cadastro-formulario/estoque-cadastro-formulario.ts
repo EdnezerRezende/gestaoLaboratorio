@@ -4,6 +4,7 @@ import { ItemEstoque } from '../../modelos/itemEstoque';
 import { EstoqueServiceProvider } from '../../providers/estoque-service/estoque-service';
 import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 import { Produto } from '../../modelos/produtos';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -16,15 +17,31 @@ export class EstoqueCadastroFormularioPage {
   produtos: Produto[];
   searchQuery: string = '';
   itemEstoque:ItemEstoque;
+  private formulario: FormGroup;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _ItemEstoqueService: EstoqueServiceProvider,
     private _loadingCtrl: LoadingController,
     private _produtosService: ProdutoServiceProvider,
-    private _alertCtrl: AlertController) {
+    private _alertCtrl: AlertController,
+    private formBuilder: FormBuilder) {
+
+      this.criarFormulario();
+
       this.produtos = new Array<Produto>();
       this.itemEstoque = new ItemEstoque;
       this.obterProdutos();
+  }
+
+  criarFormulario(){
+    this.formulario = this.formBuilder.group({
+      produto: ['', Validators.required],
+      localEstoque: ['', [Validators.required]],
+      lote: ['', [Validators.required] ],
+      dataPedido: ['', Validators.required],
+      dataValidade: ['', Validators.required]
+    });
   }
 
   obterLoading(){
@@ -42,7 +59,6 @@ export class EstoqueCadastroFormularioPage {
       { 
         loading.dismiss();
         this.produtos = listaProdutos;
-        console.log(this.produtos);
      },
      (err:Error) => {
        loading.dismiss();
@@ -66,6 +82,17 @@ export class EstoqueCadastroFormularioPage {
       ()=> 
        { 
          loading.dismiss();
+         this._alertCtrl.create({
+          title: 'Sucesso',
+          subTitle: 'Foi cadastrado com sucesso!',
+          buttons: [
+            {
+              text: 'Ok'
+            }
+          ]
+        }).present();
+         this.itemEstoque = new ItemEstoque();
+         this.criarFormulario();
       },
       (err:Error) => {
         loading.dismiss();

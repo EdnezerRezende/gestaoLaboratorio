@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -27,6 +27,7 @@ import { HttpRestServiceProvider } from '../providers/http-rest-service/http-res
 import { FornecedorServiceProvider } from '../providers/fornecedor-service/fornecedor-service';
 import { BrMaskerModule } from 'brmasker-ionic-3';
 import { EstoqueServiceProvider } from '../providers/estoque-service/estoque-service';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { EstoqueServiceProvider } from '../providers/estoque-service/estoque-ser
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Voltar',
@@ -47,12 +49,16 @@ import { EstoqueServiceProvider } from '../providers/estoque-service/estoque-ser
     }),
     BrMaskerModule
   ],
+  exports:[
+    BrMaskerModule
+  ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage
   ],
   providers: [
+    CommonModule,
     StatusBar,
     SplashScreen,
     BarcodeScanner,
@@ -63,6 +69,7 @@ import { EstoqueServiceProvider } from '../providers/estoque-service/estoque-ser
     FornecedorServiceProvider,
     EstoqueServiceProvider,
     NativePageTransitions
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}

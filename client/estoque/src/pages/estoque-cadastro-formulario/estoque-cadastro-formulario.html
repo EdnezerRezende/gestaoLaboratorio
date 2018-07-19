@@ -2,43 +2,51 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Cadastro de Estoque</ion-title>
+    <ion-title >Cadastro de Estoque</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding >
-  <form (ngSubmit)="salvarItemEstoque()" #formulario="ngForm"  >
+  <form [formGroup]="formulario"  >
     <ion-item >
       <ion-label>Código do Produto</ion-label>
-      <ion-select [(ngModel)]="itemEstoque.produto" [ngModelOptions]="{standalone: true}"  [compareWith]="compareProduto">
+      <ion-select [(ngModel)]="itemEstoque.produto" formControlName="produto" [compareWith]="compareProduto">
         <ion-option *ngFor="let produto of produtos" [value]="produto" >{{produto.codigoProduto}} - {{produto.nome}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item >
       <ion-label stacked >Local de Armazenamento</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.localEstoque" [ngModelOptions]="{standalone: true}" name="localEstoque" type="text"></ion-input>
+      <ion-input [(ngModel)]="itemEstoque.localEstoque" formControlName="localEstoque" name="localEstoque" type="text"></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.localEstoque.valid && (formulario.controls.localEstoque.dirty || formulario.controls.localEstoque.touched)">
+        Por favor, informe um local de estoque.
+    </h6>
     <ion-item >
       <ion-label stacked >Lote</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.lote" [ngModelOptions]="{standalone: true}" name="lote" type="text"></ion-input>
+      <ion-input [(ngModel)]="itemEstoque.lote" formControlName="lote" name="lote" type="text"></ion-input>
     </ion-item>
-    <ion-item >
-      <ion-label stacked >Quantidade Utilizado</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.qtdUtilizado" [ngModelOptions]="{standalone: true}" name="qtdUtilizado" type="text"></ion-input>
-    </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.lote.valid && (formulario.controls.lote.dirty || formulario.controls.lote.touched)">
+        Por favor, informe o lote.
+    </h6>
     <ion-item >
       <ion-label stacked >Data Solicitado</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY" doneText="Selecionar" cancelText="Cancelar" [ngModelOptions]="{standalone: true}" name="dataPedido" [(ngModel)]="itemEstoque.dataPedido"></ion-datetime>
+      <ion-datetime displayFormat="DD/MM/YYYY" doneText="Selecionar" formControlName="dataPedido"  cancelText="Cancelar"  name="dataPedido" [(ngModel)]="itemEstoque.dataPedido"></ion-datetime>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.dataPedido.valid && (formulario.controls.dataPedido.dirty || formulario.controls.dataPedido.touched)">
+        Por favor, informe a data em que o produto foi solicitado ao fornecedor.
+    </h6>
     <ion-item >
       <ion-label stacked >Data de Validade</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY" doneText="Selecionar" cancelText="Cancelar"  [ngModelOptions]="{standalone: true}" name="dataValidade" [(ngModel)]="itemEstoque.dataValidade"></ion-datetime>
+      <ion-datetime displayFormat="DD/MM/YYYY" doneText="Selecionar" cancelText="Cancelar"  formControlName="dataValidade"  name="dataValidade" [(ngModel)]="itemEstoque.dataValidade"></ion-datetime>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.dataValidade.valid && (formulario.controls.dataValidade.dirty || formulario.controls.dataValidade.touched)">
+        Por favor, informe a data de Validade.
+    </h6>
   </form>
   <ion-fab top right edge>
-    <button ion-fab (click)="formulario.ngSubmit.emit()">
+    <button ion-fab (click)="salvarItemEstoque()" [disabled]="formulario.invalid">
       <ion-icon name="send"></ion-icon>
     </button>
   </ion-fab>

@@ -2,52 +2,86 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Fornecedor Cadastro</ion-title>
+    <ion-title >Fornecedor Cadastro</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="salvarfornecedor()" #formulario="ngForm"  >
+  <form  [formGroup]="formulario"  >
     <ion-item >
       <ion-label stacked >Nome da Empresa</ion-label>
-      <ion-input [(ngModel)]="fornecedor.nomeFornecedor" name="nomeFornecedor" type="text"></ion-input>
+      <ion-input [(ngModel)]="fornecedor.nomeFornecedor" formControlName="nomeFornecedor" name="nomeFornecedor"  type="text"></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.nomeFornecedor.valid && (formulario.controls.nomeFornecedor.dirty || formulario.controls.nomeFornecedor.touched)">
+      Por favor, informe um Nome de Fornecedor.
+    </h6>
     <ion-item >
-      <ion-label stacked >CNPJ</ion-label>
-      <ion-input [(ngModel)]="fornecedor.cnpj"  name="cnpj" type="text"></ion-input>
+      <ion-label stacked >CNPJ</ion-label> 
+      <ion-input [(ngModel)]="fornecedor.cnpj" formControlName="cnpj" [brmasker]="{person:true}" name="cnpj"  type="text"></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.cnpj.valid && (formulario.controls.cnpj.dirty || formulario.controls.cnpj.touched)">
+        Por favor, informe um Cnpj Válido.
+    </h6>
     <ion-item >
-      <ion-label stacked >contrato</ion-label>
-      <ion-input [(ngModel)]="fornecedor.contrato" name="contrato" type="text"></ion-input>
+      <ion-label stacked >Contrato</ion-label>
+      <ion-input [(ngModel)]="fornecedor.contrato" name="contrato" formControlName="contrato"  type="text"></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.contrato.valid && (formulario.controls.contrato.dirty || formulario.controls.contrato.touched)">
+        Por favor, informe um contrato.
+    </h6>
+    <ion-item >
+      <ion-label stacked >E-mail</ion-label>
+      <ion-input [(ngModel)]="fornecedor.email" name="email"  formControlName="email" type="text"></ion-input>
+    </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.email.valid && (formulario.controls.email.dirty || formulario.controls.email.touched)">
+        Por favor, informe um e-mail válido.
+    </h6>
     <ion-item >
       <ion-label stacked >Endereço</ion-label>
-      <ion-input [(ngModel)]="fornecedor.endereco" name="endereco" type="text"></ion-input>
+      <ion-input [(ngModel)]="fornecedor.endereco" name="endereco" formControlName="endereco"  type="text"></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.endereco.valid && (formulario.controls.endereco.dirty || formulario.controls.endereco.touched)">
+        Por favor, informe um endereco.
+    </h6>
     <ion-item >
       <ion-label stacked >CEP</ion-label>
-      <ion-input [(ngModel)]="fornecedor.cep" name="cep" type="text"></ion-input>
+      <ion-input [(ngModel)]="fornecedor.cep" [brmasker]="{mask:'00.000-000', len:10}"  formControlName="cep"  name="cep" type="text"></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.cep.valid && (formulario.controls.cep.dirty || formulario.controls.cep.touched)">
+        Por favor, informe um cep.
+    </h6>
     <ion-item >
       <ion-label stacked >Cidade</ion-label>
-      <ion-input [(ngModel)]="fornecedor.cidade" name="cidade" type="text"></ion-input>
+      <ion-input [(ngModel)]="fornecedor.cidade" name="cidade" type="text" formControlName="cidade" ></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.cidade.valid && (formulario.controls.cidade.dirty || formulario.controls.cidade.touched)">
+        Por favor, informe uma cidade.
+    </h6>
     <ion-item >
       <ion-label stacked >UF</ion-label>
-      <ion-input [(ngModel)]="fornecedor.uf" name="uf" type="text"></ion-input>
+      <ion-input [(ngModel)]="fornecedor.uf" name="uf" type="text" formControlName="uf" ></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.uf.valid && (formulario.controls.uf.dirty || formulario.controls.uf.touched)">
+        Por favor, informe uma uf.
+    </h6>
     <ion-item >
       <ion-label stacked >Nome do Contato</ion-label>
-      <ion-input [(ngModel)]="fornecedor.nomeContato" name="nomeContato" type="text"></ion-input>
+      <ion-input [(ngModel)]="fornecedor.nomeContato" name="nomeContato" type="text" formControlName="nomeContato"></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.nomeContato.valid && (formulario.controls.nomeContato.dirty || formulario.controls.nomeContato.touched)">
+        Por favor, informe um nome de contato.
+    </h6>
     <ion-item >
-      <ion-label stacked >Telefone do Contato</ion-label>
-      <ion-input [(ngModel)]="fornecedor.telefoneContato" name="telefoneContato" type="text"></ion-input>
+      <ion-label stacked >Celular do Contato</ion-label>
+      <ion-input [(ngModel)]="fornecedor.telefoneContato" [brmasker]="{phone: true}"  formControlName="telefoneContato" name="telefoneContato" type="text"></ion-input>
     </ion-item>
+    <h6 class="error" *ngIf="!formulario.controls.telefoneContato.valid && (formulario.controls.telefoneContato.dirty || formulario.controls.telefoneContato.touched)">
+        Por favor, informe um número de Celular do contato.
+    </h6>
   </form>
-  <ion-fab top right edge>
-    <button ion-fab (click)="formulario.ngSubmit.emit()">
+  <ion-fab top right edge >
+    <button ion-fab (click)="salvarfornecedor()" [disabled]="formulario.invalid">
       <ion-icon name="send"></ion-icon>
     </button>
   </ion-fab>

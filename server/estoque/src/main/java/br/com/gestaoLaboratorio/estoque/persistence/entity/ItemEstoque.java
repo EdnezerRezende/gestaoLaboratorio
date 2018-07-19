@@ -1,13 +1,14 @@
 package br.com.gestaoLaboratorio.estoque.persistence.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class ItemEstoque {
 
     @Id
@@ -28,13 +29,19 @@ public class ItemEstoque {
 
     private LocalDate dataSaida;
 
+    private Boolean ativo;
+
     @OneToOne
     private Produto produto;
 
     @OneToOne
     private Fornecedor fornecedor;
 
-   // @OneToMany
+    // @OneToMany
     //private List<ItemProdutoHistorico> itemProdutoHistorico;
+
+    @Transient
+    private Long quantidadeTotal;
+
 
 }

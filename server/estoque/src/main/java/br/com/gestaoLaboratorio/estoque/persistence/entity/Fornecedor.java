@@ -30,6 +30,10 @@ public class Fornecedor {
 
     private String cnpj;
 
+    private String email;
+
     private String contrato;
+
+    private Boolean ativo;
 
 }

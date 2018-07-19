@@ -1,6 +1,7 @@
 export class Fornecedor{
     id:number;
     nomeFornecedor:string;
+    email: string;
     endereco:string;
     cep:string;
     cidade:string;

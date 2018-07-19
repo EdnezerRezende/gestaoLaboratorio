@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { ItemEstoque } from '../../modelos/itemEstoque';
 import { HttpRestServiceProvider } from '../http-rest-service/http-rest-service';
+import { EstoqueTotal } from '../../modelos/estoqueTotal';
 
 @Injectable()
 export class EstoqueServiceProvider {
@@ -31,4 +32,8 @@ export class EstoqueServiceProvider {
     })
     .catch((error: HttpErrorResponse) => this._httpRest.handleAngularJsonBug(error));
   } 
+
+  obterEstoqueTotal(){
+    return this._http.get<EstoqueTotal[]>(this._url + 'estoque/totalEstoque', {headers: this._headers});
+  }
 }

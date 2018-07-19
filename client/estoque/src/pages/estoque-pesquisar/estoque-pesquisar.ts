@@ -92,6 +92,17 @@ export class EstoquePesquisarPage {
       ()=> 
        { 
          loading.dismiss();
+         this._alertCtrl.create({
+          title: 'Sucesso',
+          subTitle: 'Foi atualizado com sucesso!',
+          buttons: [
+            {
+              text: 'Ok'
+            }
+          ]
+        }).present();
+         this.mostrarForm = false;
+         this.itemEstoque = new ItemEstoque();
       },
       (err:Error) => {
         loading.dismiss();

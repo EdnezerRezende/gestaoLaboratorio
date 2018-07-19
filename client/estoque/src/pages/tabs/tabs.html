@@ -1,5 +1,5 @@
 <ion-tabs tabsHighlight="true" tabsPlacement="bottom"  >
   <ion-tab tabIcon="home" tabTitle="Home" [root]="tabhome"></ion-tab>
-  <ion-tab tabIcon="list-box" tabTitle="Registrar" [root]="tab1"></ion-tab>
-  <ion-tab tabIcon="list-box" tabTitle="Listar" [root]="tab2"></ion-tab>
+  <ion-tab tabIcon="list-box" tabTitle="Registrar" (ionChange)="doChange($event)" [root]="tab1"></ion-tab>
+  <ion-tab tabIcon="archive" tabTitle="Estoque" (ionChange)="doChange($event)" [root]="tab2"></ion-tab>
 </ion-tabs>

@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { Fornecedor } from '../../modelos/fornecedor';
 import { FornecedorServiceProvider } from '../../providers/fornecedor-service/fornecedor-service';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { BrMaskModel, BrMaskerIonic3, BrMaskerModule } from 'brmasker-ionic-3';
+import { ValidatorCnpj } from './../../diretivas/validator-cnpj';
 
 @IonicPage()
 @Component({
@@ -12,14 +15,28 @@ import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/na
 export class FornecedorCadastroPage {
   
   public fornecedor: Fornecedor;
+  private formulario: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     private _fornecedorService: FornecedorServiceProvider,
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController,
-    private _nativePageTransitions: NativePageTransitions
+    private _nativePageTransitions: NativePageTransitions,
+    private formBuilder: FormBuilder
   ) {
     this.fornecedor = new Fornecedor();
+    this.formulario = this.formBuilder.group({
+      nomeFornecedor: ['', Validators.required],
+      email: ['', [Validators.required]],//, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]
+      cnpj: ['', [Validators.required, ValidatorCnpj] ],
+      contrato: ['', Validators.required],
+      endereco: ['', Validators.required],
+      cep: ['', Validators.required],
+      cidade: ['', Validators.required],
+      uf: ['', Validators.required],
+      nomeContato: ['', Validators.required],
+      telefoneContato: ['', Validators.required]
+    });
   }
  
 
@@ -32,6 +49,9 @@ export class FornecedorCadastroPage {
   salvarfornecedor(){
     let loading = this.obterLoading();
     loading.present();
+    let telefone = this.fornecedor.telefoneContato.toString();
+    let telefonenovo = telefone.trim().replace("(", "").replace(")", "").replace("-","").valueOf();
+    this.fornecedor.telefoneContato = parseInt(telefonenovo);
     this._fornecedorService.salvar(this.fornecedor)
     .subscribe(
       () => {
@@ -91,5 +111,16 @@ export class FornecedorCadastroPage {
 
   }
   
+  // protected createForm(): FormGroup {
+  //   return new FormGroup({
+  //     cnpj: new FormControl(this.createcnpj())
+  //   });
+  // }
+   
+  // private createcnpj(): string {
+  //   const config: BrMaskModel = new BrMaskModel();
+  //   config.person = true;
+  //   return this.brMaskerIonic3.writeCreateValue('99999999999', config);
+  // }
 
 }

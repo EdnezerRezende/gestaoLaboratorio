@@ -52,6 +52,7 @@ export class EstoqueListagemPage {
             }
           ]
         }).present();
+        this.navCtrl.goToRoot;
     });
   }
 

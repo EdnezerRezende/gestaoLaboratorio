@@ -2,14 +2,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Pesquisar item do Estoque</ion-title>
+    <ion-title class="alinharLabel">Pesquisar item do Estoque</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-searchbar *ngIf="!mostrarForm" animated=true placeholder="Pesquisar por nome e Código" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar *ngIf="!mostrarForm" animated=true placeholder="Pesquisar" (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list sliding="true" >
     <button ion-item detail-push (click)="editarItemEstoque(itemEstoque)" *ngFor="let itemEstoque of itensEstoqueSearch">
       <h2 ><label>Código Produto: </label>{{itemEstoque.produto.codigoProduto | uppercase }}</h2>
@@ -25,7 +25,7 @@
     </ion-item>
     <ion-item >
       <ion-label stacked >Lote</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.lote" [ngModelOptions]="{standalone: true}" name="lote" type="text"></ion-input>
+      <ion-input disabled="true" [(ngModel)]="itemEstoque.lote" [ngModelOptions]="{standalone: true}" name="lote" type="text"></ion-input>
     </ion-item>
     <ion-item >
       <ion-label stacked >Quantidade Utilizado</ion-label>
@@ -33,15 +33,15 @@
     </ion-item>
     <ion-item >
       <ion-label stacked >Data Solicitado</ion-label>
-      <ion-datetime  doneText="Selecionar" cancelText="Cancelar" [ngModelOptions]="{standalone: true}" name="dataPedido" [(ngModel)]="itemEstoque.dataPedido"></ion-datetime>
+      <ion-input disabled="true" [ngModelOptions]="{standalone: true}" name="dataPedido" [ngModel]="itemEstoque.dataPedido | date:'yyyy-MM-dd'" (ngModelChange)="itemEstoque.dataPedido = $event" type="date"></ion-input>
     </ion-item>
     <ion-item >
       <ion-label stacked >Data de Validade</ion-label>
-      <ion-datetime  doneText="Selecionar" cancelText="Cancelar"  [ngModelOptions]="{standalone: true}" name="dataValidade" [(ngModel)]="itemEstoque.dataValidade"></ion-datetime>
+      <ion-input disabled="true" [ngModelOptions]="{standalone: true}" name="dataValidade" [ngModel]="itemEstoque.dataValidade | date:'yyyy-MM-dd'" (ngModelChange)="itemEstoque.dataValidade = $event" type="date"></ion-input>
     </ion-item>
   </form>
   <ion-fab top right edge *ngIf="mostrarForm">
-    <button ion-fab (click)="formulario.ngSubmit.emit()">
+    <button ion-fab (click)="atualizarItemEstoque()">
       <ion-icon name="send"></ion-icon>
     </button>
   </ion-fab>

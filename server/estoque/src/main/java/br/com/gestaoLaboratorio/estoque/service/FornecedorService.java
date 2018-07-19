@@ -15,21 +15,23 @@ public class FornecedorService {
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
-    public List<Fornecedor> listaFornecedor(){
+    public List<Fornecedor> listaFornecedor() {
 
-        List<Fornecedor> fornecedores = fornecedorRepository.findAll();
+        List<Fornecedor> fornecedores = fornecedorRepository.findAllByAtivoIsTrue();
 
         return fornecedores;
     }
 
     public void salvarAtualizar(Fornecedor fornecedor) {
+        fornecedor.setAtivo(true);
         fornecedorRepository.save(fornecedor);
     }
 
     public String excluirFornecedor(Long idFornecedor) {
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setId(idFornecedor);
-        fornecedorRepository.delete(fornecedor);
+        fornecedor.setAtivo(false);
+        fornecedorRepository.save(fornecedor);
         return "Excluído com sucesso";
     }
 }
