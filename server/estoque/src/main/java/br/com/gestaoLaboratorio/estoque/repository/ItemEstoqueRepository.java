@@ -18,7 +18,7 @@ public interface ItemEstoqueRepository extends JpaRepository<ItemEstoque, Long> 
 
 
     @Async
-    @Query(value = "Select new br.com.gestaoLaboratorio.estoque.persistence.entity.DTO.EstoqueDTO( produto.codigoProduto, produto.nome, count(estoque)) from  Produto produto  left join ItemEstoque estoque on estoque.produto = produto  group by produto.codigoProduto, produto.nome order by produto.nome")
+    @Query(value = "Select new br.com.gestaoLaboratorio.estoque.persistence.entity.DTO.EstoqueDTO( produto.codigoProduto, produto.nome, count(estoque.produto)) from  Produto produto  left join ItemEstoque estoque on estoque.produto = produto where estoque.dataSaida = null group by produto.codigoProduto, produto.nome order by produto.nome")
     List<EstoqueDTO> totalEstoque();
 
 

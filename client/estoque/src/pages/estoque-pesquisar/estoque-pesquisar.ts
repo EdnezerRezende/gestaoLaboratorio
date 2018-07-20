@@ -6,6 +6,7 @@ import { Produto } from '../../modelos/produtos';
 import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 import { Validacoes } from '../../util/validacoes';
 import { EstoqueCadastroFormularioPage } from '../estoque-cadastro-formulario/estoque-cadastro-formulario';
+import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @IonicPage()
 @Component({
@@ -20,17 +21,25 @@ export class EstoquePesquisarPage {
   itemEstoque:ItemEstoque;
   mostrarForm: boolean = false;
   somarVlrQtd:number;
+
+
+  scanData : {};
+  options :BarcodeScannerOptions;
     
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _ItemEstoqueService: EstoqueServiceProvider,
     private _loadingCtrl: LoadingController,
     private _produtosService: ProdutoServiceProvider,
-    private _alertCtrl: AlertController) {
+    private _alertCtrl: AlertController,
+    private _barcodeScanner: BarcodeScanner) {
       this.itemEstoque = new ItemEstoque();
       this.itensEstoque = new Array<ItemEstoque>();
       this.produtos = new Array<Produto>();
 
-      this.obterItensEstoque();
+  }
+
+  ionViewWillEnter(){
+    this.obterItensEstoque();
   }
 
   copiaListaItensEstoque(){
@@ -111,6 +120,50 @@ export class EstoquePesquisarPage {
         }).present();
     });
   }
+
+  pesquisarScan(){
+    this.options = {
+        prompt : "Scaneando... "
+    }
+    this._barcodeScanner.scan(this.options).then((barcodeData) => {
+        let textoCodigo = barcodeData.text.split(" ");
+        let itemEstoque: ItemEstoque = new ItemEstoque();
+        itemEstoque.produto = new Produto();
+        itemEstoque.produto.codigoProduto = textoCodigo[0].substr(1,textoCodigo[0].length);
+        let lote = textoCodigo[1].split("17 ");
+        itemEstoque.lote = lote[0].substr(0, lote[0].length-2);
+        let dataValidade = textoCodigo[2].split("/");
+        let data = dataValidade[2]+ "-"+ dataValidade[1]+"-"+ dataValidade[0];
+        itemEstoque.dataValidade = new Date(data);
+
+        alert(itemEstoque.dataValidade);//código produto (espaço) Lote (17) (espaço) validade
+        alert(itemEstoque.lote);
+        alert(itemEstoque.produto.codigoProduto);
+
+        this.itensEstoque.forEach(element => {
+          if ( element.produto.codigoProduto == itemEstoque.produto.codigoProduto && element.lote == itemEstoque.lote){
+              itemEstoque = element;
+              this.editarItemEstoque(itemEstoque);
+          } 
+        });
+
+        this._alertCtrl.create({
+          title: 'Não Encontrado',
+          subTitle: 'Este item não foi localizado dentro do estoque, favor cadastra-lo',
+          buttons: [
+            {
+              text: 'Ok'
+            }
+          ]
+        }).present();
+
+        
+        // this.getItems(itemEstoque.produto.codigoProduto);
+        this.scanData = barcodeData;
+    }, (err) => {
+        console.log("Error occured : " + err);
+    });         
+}    
 
   getItems(ev: any) {
     this.itensEstoqueSearch = this.copiaListaItensEstoque();

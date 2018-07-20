@@ -6,6 +6,7 @@ import { ProdutoServiceProvider } from '../../providers/produto-service/produto-
 import { Produto } from '../../modelos/produtos';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import moment from 'moment';
+import { DISABLED } from '@angular/forms/src/model';
 
 @IonicPage()
 @Component({
@@ -53,7 +54,7 @@ export class EstoqueCadastroFormularioPage {
       produto: ['', Validators.required],
       localEstoque: ['', [Validators.required]],
       lote: ['', [Validators.required] ],
-      dataPedido: ['', [Validators.required] ],
+      dataPedido: [{value: '', disabled: true}] ,
       dataValidade: ['', Validators.required]
     });
   }
@@ -107,14 +108,19 @@ export class EstoqueCadastroFormularioPage {
             }
           ]
         }).present();
-         this.itemEstoque = new ItemEstoque();
-         this.criarFormulario();
+        
+        if (this.itemEstoque.id != undefined){
+          this.navCtrl.pop();
+        }
+
+        this.itemEstoque = new ItemEstoque();
+        this.criarFormulario();
       },
-      (err:Error) => {
+      (err) => {
         loading.dismiss();
         this._alertCtrl.create({
-          title: 'Falha',
-          subTitle: 'Não foi possível atualizar o Item informado, tente novamente mais tarde!',
+          title: 'Mensagem',
+          subTitle: err.error.message,
           buttons: [
             {
               text: 'Ok'

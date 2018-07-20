@@ -40,6 +40,9 @@ public class EstoqueService {
             itemEstoque.setAtivo(true);
             itemEstoque.setDataCadastro(LocalDate.now());
         } else {
+
+            itemEstoque.setQtdUtilizado(itemEstoque.getQtdUtilizado() + 1);
+
             if (itemEstoque.getQtdUtilizado() >= itemEstoque.getProduto().getQtdMaximoUtilizacao()) {
                 itemEstoqueAtingido = true;
             }
@@ -51,6 +54,10 @@ public class EstoqueService {
         }
 
         itemEstoqueRepository.save(itemEstoque);
+
+        if (itemEstoqueAtingido) {
+            throw new RuntimeException("A Utilização deste item já foi atingido e baixado no sistema, favor descartá-lo!");
+        }
     }
 
     public String excluirItemEstoque(Long idItemEstoque) {
