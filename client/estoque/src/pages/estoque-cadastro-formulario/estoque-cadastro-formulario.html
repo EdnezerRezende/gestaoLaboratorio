@@ -10,6 +10,11 @@
 
 <ion-content padding >
   <form [formGroup]="formulario"  >
+    <ion-row >
+      <ion-col col-2 >
+        <ion-icon  class="styloBotaoScanCadastro" (click)="pesquisarScan()" ion-item name="ios-barcode-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
     <ion-item >
       <ion-label>Código do Produto</ion-label>
       <ion-select [(ngModel)]="itemEstoque.produto" formControlName="produto" [compareWith]="compareProduto">

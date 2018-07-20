@@ -10,11 +10,11 @@
 
 <ion-content padding>
   <ion-row >
-    <ion-col>
+    <ion-col col-10>
         <ion-searchbar animated=true placeholder="Pesquisar" (ionInput)="getItems($event)"></ion-searchbar>
     </ion-col>
     <ion-col col-2>
-      <ion-icon style="font-size: 55px; padding-left: 0px; padding-top: 1px;" (click)="pesquisarScan()" ion-item name="ios-barcode-outline"></ion-icon>
+      <ion-icon  class="styloBotaoScan" (click)="pesquisarScan()" ion-item name="ios-barcode-outline"></ion-icon>
     </ion-col>
   </ion-row>
   

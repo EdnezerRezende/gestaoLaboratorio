@@ -7,6 +7,7 @@ import { Produto } from '../../modelos/produtos';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import moment from 'moment';
 import { DISABLED } from '@angular/forms/src/model';
+import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @IonicPage()
 @Component({
@@ -23,13 +24,15 @@ export class EstoqueCadastroFormularioPage {
   dataPedido;
   dataValidade;
   
+  options :BarcodeScannerOptions;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _ItemEstoqueService: EstoqueServiceProvider,
     private _loadingCtrl: LoadingController,
     private _produtosService: ProdutoServiceProvider,
     private _alertCtrl: AlertController,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private _barcodeScanner: BarcodeScanner) {
 
       this.criarFormulario();
 
@@ -133,6 +136,72 @@ export class EstoqueCadastroFormularioPage {
   compareProduto(e1: Produto, e2: Produto): boolean {
     return e1 && e2 ? e1.id === e2.id : e1 === e2;
   }
+
+  pesquisarScan(){
+    this.options = {
+        prompt : "Scaneando... "
+    }
+    this._barcodeScanner.scan(this.options).then((barcodeData) => {
+        let itemEstoque: ItemEstoque = new ItemEstoque();
+        itemEstoque.produto = new Produto();
+        if ( barcodeData.format == 'CODE_128'){
+          let textoCodigo = barcodeData.text.split(" ");
+          let lote:any;
+
+          itemEstoque.produto.codigoProduto = textoCodigo[0].substr(1,textoCodigo[0].length);
+          
+          lote = textoCodigo[1].split("17 ");
+          itemEstoque.lote = lote[0].substr(0, lote[0].length-2);
+          
+          let dataValidade = textoCodigo[2].split("/");
+          itemEstoque.dataValidade = new Date(dataValidade[2]+ "-"+ dataValidade[1]+"-"+ dataValidade[0]);
+
+          this.itemEstoque =  this.verificarItens(itemEstoque);
+
+        } else if ( barcodeData.format == 'DATA_MATRIX' ){
+          // tratar o outro código de barras 
+          alert("Você usou outro código");
+          alert(barcodeData.text);
+
+          this.itemEstoque =  this.verificarItens(itemEstoque);
+
+        } else { 
+          this._alertCtrl.create({
+            title: 'Formato Inválido',
+            subTitle: 'O código lido não corresponde aos padrões estabelecidos!',
+            buttons: [
+              {
+                text: 'Ok'
+              }
+            ]
+          }).present();
+        }
+    }, (err) => {
+        console.log("Error occured : " + err);
+    });         
+}    
+
+  verificarItens(itemEstoque: ItemEstoque){
+
+    this.produtos.forEach(element => {
+      if ( element.codigoProduto == itemEstoque.produto.codigoProduto){
+        return itemEstoque.produto = element;
+      }
+    });
+
+    this._alertCtrl.create({
+      title: 'Produto Não Encontrado',
+      subTitle: 'Não encontramos o produto deste item, favor cadastra-lo!',
+      buttons: [
+        {
+          text: 'Ok'
+        }
+      ]
+    }).present();
+    
+    return new ItemEstoque();
+  }
+  
 
   registrarItem(){
     // enviarItem para o servidor 

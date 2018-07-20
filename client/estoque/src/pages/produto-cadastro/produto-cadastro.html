@@ -11,14 +11,14 @@
   <form [formGroup]="formulario"   >
     <ion-item >
       <ion-label stacked >Código</ion-label>
-      <ion-input [(ngModel)]="produto.codigoProduto" [brmasker]="{mask:0*00-00}" formControlName="codigoProduto" name="codigoProduto" type="text"></ion-input>
+      <ion-input [(ngModel)]="produto.codigoProduto"  (ngModelChange)="produto.codigoProduto = $event.toLocaleUpperCase()" [brmasker]="{mask:'9999-99',len: 7, type: 'all'}" formControlName="codigoProduto" name="codigoProduto" type="text"></ion-input>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.codigoProduto.valid && (formulario.controls.codigoProduto.dirty || formulario.controls.codigoProduto.touched)">
         Por favor, informe um Código de Produto.
     </h6>
     <ion-item >
       <ion-label stacked >Nome</ion-label>
-      <ion-input [(ngModel)]="produto.nome" name="nome" formControlName="nome" type="text"></ion-input>
+      <ion-input [(ngModel)]="produto.nome" (ngModelChange)="produto.nome = $event.toLocaleUpperCase()" name="nome" formControlName="nome" type="text"></ion-input>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.nome.valid && (formulario.controls.nome.dirty || formulario.controls.nome.touched)">
         Por favor, informe um nome.
@@ -32,7 +32,7 @@
     </h6>
     <ion-item >
       <ion-label stacked >Categoria</ion-label>
-      <ion-input [(ngModel)]="produto.categoria" name="categoria" formControlName="categoria" type="text"></ion-input>
+      <ion-input [(ngModel)]="produto.categoria" (ngModelChange)="produto.categoria = $event.toLocaleUpperCase()" name="categoria" formControlName="categoria" type="text"></ion-input>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.categoria.valid && (formulario.controls.categoria.dirty || formulario.controls.categoria.touched)">
         Por favor, informe uma categoria.

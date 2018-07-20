@@ -35,4 +35,22 @@ myapp {
     .alinharLabel{
         text-align: center;
     }
+    .styloBotaoScan{
+        font-size: 39px;
+        padding-left: 6px;
+        margin-top: 7px;
+        /* padding-top: 1px; */
+        background-color: lightgrey;
+        border-radius: 0px 3px 3px 0px;
+        box-shadow: -2px 2px 4px #aaaaaa;
+        margin-left: -17px;
+    }
+    .styloBotaoScanCadastro{
+        font-size: 39px;
+        padding-left: 6px;
+        background-color: lightgrey;
+        border-radius: 0px 3px 3px 0px;
+        box-shadow: -2px 2px 4px #aaaaaa;
+        margin-left: 140px;
+    }
 }

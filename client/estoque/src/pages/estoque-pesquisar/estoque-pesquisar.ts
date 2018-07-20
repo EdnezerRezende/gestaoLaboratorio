@@ -22,8 +22,6 @@ export class EstoquePesquisarPage {
   mostrarForm: boolean = false;
   somarVlrQtd:number;
 
-
-  scanData : {};
   options :BarcodeScannerOptions;
     
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -126,45 +124,64 @@ export class EstoquePesquisarPage {
         prompt : "Scaneando... "
     }
     this._barcodeScanner.scan(this.options).then((barcodeData) => {
-        let textoCodigo = barcodeData.text.split(" ");
         let itemEstoque: ItemEstoque = new ItemEstoque();
         itemEstoque.produto = new Produto();
-        itemEstoque.produto.codigoProduto = textoCodigo[0].substr(1,textoCodigo[0].length);
-        let lote = textoCodigo[1].split("17 ");
-        itemEstoque.lote = lote[0].substr(0, lote[0].length-2);
-        let dataValidade = textoCodigo[2].split("/");
-        let data = dataValidade[2]+ "-"+ dataValidade[1]+"-"+ dataValidade[0];
-        itemEstoque.dataValidade = new Date(data);
+        if ( barcodeData.format == 'CODE_128'){
+          let textoCodigo = barcodeData.text.split(" ");
+          let lote:any;
 
-        alert(itemEstoque.dataValidade);//código produto (espaço) Lote (17) (espaço) validade
-        alert(itemEstoque.lote);
-        alert(itemEstoque.produto.codigoProduto);
+          itemEstoque.produto.codigoProduto = textoCodigo[0].substr(1,textoCodigo[0].length);
+          
+          lote = textoCodigo[1].split("17 ");
+          itemEstoque.lote = lote[0].substr(0, lote[0].length-2);
+          
+          let dataValidade = textoCodigo[2].split("/");
+          itemEstoque.dataValidade = new Date(dataValidade[2]+ "-"+ dataValidade[1]+"-"+ dataValidade[0]);
 
-        this.itensEstoque.forEach(element => {
-          if ( element.produto.codigoProduto == itemEstoque.produto.codigoProduto && element.lote == itemEstoque.lote){
-              itemEstoque = element;
-              this.editarItemEstoque(itemEstoque);
-          } 
-        });
+          this.verificarItens(itemEstoque);
 
-        this._alertCtrl.create({
-          title: 'Não Encontrado',
-          subTitle: 'Este item não foi localizado dentro do estoque, favor cadastra-lo',
-          buttons: [
-            {
-              text: 'Ok'
-            }
-          ]
-        }).present();
+        } else if ( barcodeData.format == 'DATA_MATRIX' ){
+          // tratar o outro código de barras 
+          alert("Você usou outro código");
+          alert(barcodeData.text);
 
-        
-        // this.getItems(itemEstoque.produto.codigoProduto);
-        this.scanData = barcodeData;
+          this.verificarItens(itemEstoque);
+
+        } else { 
+          this._alertCtrl.create({
+            title: 'Formato Inválido',
+            subTitle: 'O código lido não corresponde aos padrões estabelecidos!',
+            buttons: [
+              {
+                text: 'Ok'
+              }
+            ]
+          }).present();
+        }
     }, (err) => {
         console.log("Error occured : " + err);
     });         
 }    
 
+  verificarItens(itemEstoque: ItemEstoque){
+    this.itensEstoque.forEach(element => {
+      if ( element.produto.codigoProduto == itemEstoque.produto.codigoProduto && element.lote == itemEstoque.lote){
+          itemEstoque = element;
+          this.editarItemEstoque(itemEstoque);
+      } 
+    });
+
+    this._alertCtrl.create({
+      title: 'Não Encontrado',
+      subTitle: 'Este item não foi localizado dentro do estoque, favor cadastra-lo',
+      buttons: [
+        {
+          text: 'Ok'
+        }
+      ]
+    }).present();
+  }
+  
   getItems(ev: any) {
     this.itensEstoqueSearch = this.copiaListaItensEstoque();
     const val = ev.target.value;

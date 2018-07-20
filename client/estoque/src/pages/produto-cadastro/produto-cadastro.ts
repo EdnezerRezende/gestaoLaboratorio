@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { Produto } from '../../modelos/produtos';
 import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UpperCasePipe } from '@angular/common';
 
 
 @IonicPage()
@@ -24,7 +25,11 @@ export class ProdutoCadastroPage {
     this.criarFormulario();
 
     this.produto = new Produto();
+    this.produto.codigoProduto = '';
+    this.produto.nome = '';
+    this.produto.categoria = '';
 
+    
     if (this.navParams.get('produto')){
       this.produto = this.navParams.get('produto');
     }
@@ -33,7 +38,7 @@ export class ProdutoCadastroPage {
 
   criarFormulario(){
     this.formulario = this.formBuilder.group({
-      codigoProduto: ['', Validators.required],
+      codigoProduto: ['', [Validators.required]],//, Validators.pattern("^\d1[0-9]+d1[a-zA-Z]+\d2[0-9]+\-\d2[0-9]$")
       nome: ['', [Validators.required]],//, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]
       descricao: ['', [Validators.required] ],
       categoria: ['', Validators.required],
