@@ -10,4 +10,8 @@ import java.util.List;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     public List<Usuario> findAllByEmailEquals(String email);
+
+    public Usuario findByEmailEquals(String email);
+
+    public Boolean existsUsuarioByEmailEquals(String email);
 }

@@ -3,6 +3,7 @@ package br.com.gestaoLaboratorio.estoque.persistence.entity;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -73,5 +74,9 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        senha = passwordEncoder.encode(senha);
     }
 }
