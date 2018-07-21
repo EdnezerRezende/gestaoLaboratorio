@@ -133,7 +133,7 @@ export class EstoquePesquisarPage {
           itemEstoque.produto.codigoProduto = textoCodigo[0].substr(1,textoCodigo[0].length);
           
           lote = textoCodigo[1].split("17 ");
-          itemEstoque.lote = lote[0].substr(0, lote[0].length-2);
+          itemEstoque.lote = lote[0].substr(0, lote[0].length);
           
           let dataValidade = textoCodigo[2].split("/");
           itemEstoque.dataValidade = new Date(dataValidade[2]+ "-"+ dataValidade[1]+"-"+ dataValidade[0]);
@@ -141,9 +141,13 @@ export class EstoquePesquisarPage {
           this.verificarItens(itemEstoque);
 
         } else if ( barcodeData.format == 'DATA_MATRIX' ){
-          // tratar o outro código de barras 
-          alert("Você usou outro código");
           alert(barcodeData.text);
+
+          itemEstoque.lote = barcodeData.text.substr(27,9);
+          let dataValidade = "20" + barcodeData.text.substr(19, 6);
+          itemEstoque.produto.codigoProduto = barcodeData.text.substr(40, 6);
+          
+          itemEstoque.dataValidade = new Date(dataValidade.substr(0,4)+ "-"+ dataValidade.substr(4,2)+"-"+ dataValidade.substr(6,2));
 
           this.verificarItens(itemEstoque);
 

@@ -19,7 +19,6 @@ export class EstoqueListagemConsolidadaPage {
     private _ItemEstoqueService: EstoqueServiceProvider,
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController) {
-      
   }
 
   ionViewWillEnter(){

@@ -13,4 +13,6 @@ public class EstoqueDTO {
 
     private Long quantidadeTotal;
 
+    private Long qtdMinimaEstoque;
+
 }

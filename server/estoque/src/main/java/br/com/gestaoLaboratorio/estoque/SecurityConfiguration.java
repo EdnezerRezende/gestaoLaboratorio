@@ -20,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .antMatchers("/api/usuario/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/usuario/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/produto/**").hasRole("ADMIN")

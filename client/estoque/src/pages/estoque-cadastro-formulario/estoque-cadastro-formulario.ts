@@ -52,6 +52,10 @@ export class EstoqueCadastroFormularioPage {
     this.dataValidade = moment(dataValidade).subtract(1, 'month').toISOString();
   }
 
+  converterDataParaIsoStringCadastro(dataValidade:Date) {
+    this.dataValidade = moment(dataValidade).toISOString();
+  }
+
   criarFormulario(){
     this.formulario = this.formBuilder.group({
       produto: ['', Validators.required],
@@ -151,19 +155,25 @@ export class EstoqueCadastroFormularioPage {
           itemEstoque.produto.codigoProduto = textoCodigo[0].substr(1,textoCodigo[0].length);
           
           lote = textoCodigo[1].split("17 ");
-          itemEstoque.lote = lote[0].substr(0, lote[0].length-2);
+          itemEstoque.lote = lote[0].substr(0, lote[0].length);
           
           let dataValidade = textoCodigo[2].split("/");
           itemEstoque.dataValidade = new Date(dataValidade[2]+ "-"+ dataValidade[1]+"-"+ dataValidade[0]);
 
           this.itemEstoque =  this.verificarItens(itemEstoque);
+          this.converterDataParaIsoStringCadastro(this.itemEstoque.dataValidade );
 
         } else if ( barcodeData.format == 'DATA_MATRIX' ){
-          // tratar o outro código de barras 
-          alert("Você usou outro código");
           alert(barcodeData.text);
 
+          itemEstoque.lote = barcodeData.text.substr(27,9);
+          let dataValidade = "20" + barcodeData.text.substr(19, 6);
+          itemEstoque.produto.codigoProduto = barcodeData.text.substr(40, 6);
+          
+          itemEstoque.dataValidade = new Date(dataValidade.substr(0,4)+ "-"+ dataValidade.substr(4,2)+"-"+ dataValidade.substr(6,2));
+
           this.itemEstoque =  this.verificarItens(itemEstoque);
+          this.converterDataParaIsoStringCadastro(this.itemEstoque.dataValidade );
 
         } else { 
           this._alertCtrl.create({
@@ -183,23 +193,28 @@ export class EstoqueCadastroFormularioPage {
 
   verificarItens(itemEstoque: ItemEstoque){
 
+    let itemComProduto: ItemEstoque;
+    
     this.produtos.forEach(element => {
-      if ( element.codigoProduto == itemEstoque.produto.codigoProduto){
-        return itemEstoque.produto = element;
+      let codigoProduto:string = element.codigoProduto.replace('-', '');
+      
+      if ( codigoProduto == itemEstoque.produto.codigoProduto){
+        itemEstoque.produto = element;
       }
     });
 
-    this._alertCtrl.create({
-      title: 'Produto Não Encontrado',
-      subTitle: 'Não encontramos o produto deste item, favor cadastra-lo!',
-      buttons: [
-        {
-          text: 'Ok'
-        }
-      ]
-    }).present();
-    
-    return new ItemEstoque();
+    if ( itemEstoque.produto.id == undefined){
+      this._alertCtrl.create({
+        title: 'Produto Não Encontrado',
+        subTitle: 'Não encontramos o produto deste item, favor cadastrá-lo!',
+        buttons: [
+          {
+            text: 'Ok'
+          }
+        ]
+      }).present();
+    }
+    return itemEstoque;
   }
   
 
