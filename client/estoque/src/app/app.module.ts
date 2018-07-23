@@ -28,6 +28,19 @@ import { FornecedorServiceProvider } from '../providers/fornecedor-service/forne
 import { BrMaskerModule } from 'brmasker-ionic-3';
 import { EstoqueServiceProvider } from '../providers/estoque-service/estoque-service';
 import { CommonModule } from '@angular/common';
+import { AuthProvider } from '../providers/auth/auth';
+import {Storage, IonicStorageModule} from "@ionic/storage";
+import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
+
+// // private _url = 'http://192.168.1.248:8080/api/';
+// private _url = 'http://192.168.0.49:8080/api/';
+
+export function jwtOptionsFactory(storage: Storage) {
+  return {
+    tokenGetter: () => storage.get('jwt_token'),
+    whitelistedDomains: ['http://192.168.0.49:8080']
+  }
+}
 
 @NgModule({
   declarations: [
@@ -38,6 +51,13 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     CommonModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [Storage]
+      }
+    }),
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Voltar',
       iconMode: 'ios',
@@ -47,6 +67,7 @@ import { CommonModule } from '@angular/common';
       pageTransition: 'md-transition  ',
       menuType: 'overlay'
     }),
+    IonicStorageModule.forRoot(),
     BrMaskerModule
   ],
   exports:[
@@ -68,7 +89,8 @@ import { CommonModule } from '@angular/common';
     HttpRestServiceProvider,
     FornecedorServiceProvider,
     EstoqueServiceProvider,
-    NativePageTransitions
+    NativePageTransitions,
+    AuthProvider
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ItemEstoque } from '../../modelos/itemEstoque';
 import { HttpRestServiceProvider } from '../http-rest-service/http-rest-service';
 import { EstoqueTotal } from '../../modelos/estoqueTotal';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class EstoqueServiceProvider {
@@ -29,8 +30,10 @@ export class EstoqueServiceProvider {
   deletarItemEstoque(id: number){
     return this._http.delete(this._url + `estoque/excluirItemEstoque/${id}`, {
       headers: this._headers
-    })
-    .catch((error: HttpErrorResponse) => this._httpRest.handleAngularJsonBug(error));
+    });
+    // .catch((error: HttpErrorResponse) => 
+    //     this._httpRest.handleAngularJsonBug(error)
+    //   );
   } 
 
   obterEstoqueTotal(){

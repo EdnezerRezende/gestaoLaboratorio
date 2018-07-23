@@ -29,8 +29,8 @@ export class ProdutoServiceProvider {
   deletarProduto(id: number){
     return this._http.delete(this._url + `produto/excluirProduto/${id}`, {
       headers: this._headers
-    })
-    .catch((error: HttpErrorResponse) => this._httpRest.handleAngularJsonBug(error));
+    });
+    // .catch((error: HttpErrorResponse) => this._httpRest.handleAngularJsonBug(error));
   }        
 
   

@@ -1,5 +1,5 @@
 app:
-  secret: the_secret
+  secret: se o Senhor não guardar a casa em vão vigia a sentinela
   token-validity-in-seconds: 2592000
 
 spring:

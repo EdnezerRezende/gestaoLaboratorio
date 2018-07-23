@@ -12,6 +12,9 @@ import { FornecedorListagemPage } from '../pages/fornecedor-listagem/fornecedor-
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 import { EstoqueCadastroFormularioPage } from '../pages/estoque-cadastro-formulario/estoque-cadastro-formulario';
 import { EstoqueListagemPage } from '../pages/estoque-listagem/estoque-listagem';
+import { AuthProvider } from '../providers/auth/auth';
+import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   selector: 'myapp',
@@ -19,23 +22,24 @@ import { EstoqueListagemPage } from '../pages/estoque-listagem/estoque-listagem'
 })
 export class MyApp {
   @ViewChild(Nav) public nav: Nav;
-  rootPage:any = TabsPage.name;
+  // rootPage:any = TabsPage.name;
+  rootPage:any = null;
   showLevel1 = null;
 
   public paginas = [
     {titulo: "Produtos", 
-              subTitulo: [{submenu:'Cadastro', componente:ProdutoCadastroPage.name, iconeSub: 'ios-paper-outline'
-                },{submenu:'Listar', componente:ListagemProdutoPage.name, iconeSub:'ios-list-box-outline'}], 
-              icone: 'ios-flask-outline'},
+              subTitulo: [{submenu:'Cadastro', componente:ProdutoCadastroPage.name, iconeSub: 'md-paper'
+                },{submenu:'Listar', componente:ListagemProdutoPage.name, iconeSub:'md-list-box'}], 
+              icone: 'md-flask'},
     {titulo: 'Fornecedores', 
-              subTitulo: [{submenu:'Cadastro', componente:FornecedorCadastroPage.name, iconeSub: 'ios-paper-outline'
-  },{submenu:'Listar', componente:FornecedorListagemPage.name, s:'ios-list-box-outline'}], icone: 'ios-medkit-outline'},
+              subTitulo: [{submenu:'Cadastro', componente:FornecedorCadastroPage.name, iconeSub: 'md-paper'
+  },{submenu:'Listar', componente:FornecedorListagemPage.name, s:'md-list-box'}], icone: 'md-medkit'},
   {titulo: 'Estoque', 
-  subTitulo: [{submenu:'Cadastro', componente:EstoqueCadastroFormularioPage.name, iconeSub: 'ios-paper-outline'
-},{submenu:'Listar', componente:EstoqueListagemPage.name, s:'ios-list-box-outline'}], icone: 'ios-clipboard-outline'}
+  subTitulo: [{submenu:'Cadastro', componente:EstoqueCadastroFormularioPage.name, iconeSub: 'md-paper'
+},{submenu:'Listar', componente:EstoqueListagemPage.name, s:'md-list-box'}], icone: 'md-clipboard'}
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private _authProvider: AuthProvider,
     private _usuariosService: UsuariosServiceProvider, private _nativePageTransitions: NativePageTransitions) {
       if (platform.is('ios')
       || platform.is('android')
@@ -49,6 +53,17 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+    this._authProvider.authUser.subscribe(jwt => {
+      if (jwt) {
+        this.rootPage = TabsPage.name;
+      }
+      else {
+        this.rootPage = LoginPage.name;
+      }
+    });
+
+    _authProvider.checkLogin();
   }
 
   ionViewWillLeave() {

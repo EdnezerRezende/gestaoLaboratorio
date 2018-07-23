@@ -30,13 +30,13 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
 
-        Usuario user = new Usuario();
-        user.setEmail("admin");
-        user.setSenha(this.passwordEncoder.encode("admin"));
-        this.userService.salvar(user);
+//        Usuario user = new Usuario();
+//        user.setEmail("admin");
+//        user.setSenha(this.passwordEncoder.encode("admin"));
+//        this.userService.salvar(user);
     }
 
-    @GetMapping("/authenticate")
+    @GetMapping("/api/authenticate")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void authenticate() {
         // we don't have to do anything here
@@ -46,7 +46,7 @@ public class AuthController {
         // if the jwt token is still valid
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public String authorize(@Valid @RequestBody Usuario loginUser,
                             HttpServletResponse response) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -62,7 +62,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/api/signup")
     public String signup(@RequestBody Usuario signupUser) {
         if (userService.usernameExists(signupUser.getUsername())) {
             return "EXISTS";
