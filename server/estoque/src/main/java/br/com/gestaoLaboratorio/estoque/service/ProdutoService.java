@@ -38,11 +38,9 @@ public class ProdutoService {
         return produtos;
     }
 
-    public String excluirProduto(Long idProduto) {
-        Produto produto = new Produto();
-        produto.setId(idProduto);
+    public void excluirProduto(Long idProduto) {
+        Produto produto = produtoRepository.findById(idProduto);
         produto.setAtivo(false);
         produtoRepository.save(produto);
-        return "Excluído com sucesso";
     }
 }

@@ -14,9 +14,9 @@
       <ion-item detail-push  *ngFor="let produto of produtosSearch">
         <h2><label>Nome: </label>{{produto.nome | uppercase }}</h2>
         <h4><label>Descrição: </label>{{produto.descricao}}</h4>
-        <h4><label>Código: </label>{{produto.codigoProduto}} - <label>Categoria: </label>{{produto.categoria}}</h4>
-        <ion-icon (click)="alterarProduto(produto)" item-right isActive="true" name="ios-create-outline"></ion-icon>
-        <ion-icon (click)="deletarProduto(produto)" item-right isActive="true" name="ios-trash-outline"></ion-icon>
+        <h4><label>Código: </label>{{produto.codigoProduto.substr(0,4)}}-{{produto.codigoProduto.substr(4,2)}} - <label>Categoria: </label>{{produto.categoria.nomeCategoria | uppercase}}</h4>
+        <ion-icon (click)="alterarProduto(produto)" item-right isActive="true" name="md-create"></ion-icon>
+        <ion-icon (click)="deletarProduto(produto)" item-right isActive="true" name="md-trash"></ion-icon>
       </ion-item>
     </ion-list>
 </ion-content>

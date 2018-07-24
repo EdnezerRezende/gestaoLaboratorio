@@ -27,11 +27,9 @@ public class FornecedorService {
         fornecedorRepository.save(fornecedor);
     }
 
-    public String excluirFornecedor(Long idFornecedor) {
-        Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setId(idFornecedor);
+    public void excluirFornecedor(Long idFornecedor) {
+        Fornecedor fornecedor = fornecedorRepository.findById(idFornecedor);
         fornecedor.setAtivo(false);
         fornecedorRepository.save(fornecedor);
-        return "Excluído com sucesso";
     }
 }

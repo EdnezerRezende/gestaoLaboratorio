@@ -18,30 +18,36 @@
     <ion-item >
       <ion-label>Código do Produto</ion-label>
       <ion-select [(ngModel)]="itemEstoque.produto" formControlName="produto" [compareWith]="compareProduto">
-        <ion-option *ngFor="let produto of produtos" [value]="produto" >{{produto.codigoProduto}} - {{produto.nome}}</ion-option>
+        <ion-option *ngFor="let produto of produtos" [value]="produto" >{{produto.codigoProduto.substr(0,4)}}-{{produto.codigoProduto.substr(4,2)}} - {{produto.nome}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item >
-      <ion-label stacked >Local de Armazenamento</ion-label>
+      <ion-label>Local de Armazenamento</ion-label>
+      <ion-select [(ngModel)]="itemEstoque.localEstoque" formControlName="localEstoque" [compareWith]="compareProduto">
+        <ion-option *ngFor="let local of localArmazenamento" [value]="local" >{{local.local}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <!-- <ion-item >
+      <ion-label stacked ></ion-label>
       <ion-input [(ngModel)]="itemEstoque.localEstoque" formControlName="localEstoque" name="localEstoque" type="text"></ion-input>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.localEstoque.valid && (formulario.controls.localEstoque.dirty || formulario.controls.localEstoque.touched)">
         Por favor, informe um local de estoque.
-    </h6>
+    </h6> -->
     <ion-item >
       <ion-label stacked >Lote</ion-label>
-      <ion-input [(ngModel)]="itemEstoque.lote" formControlName="lote" name="lote" type="text"></ion-input>
+      <ion-input [(ngModel)]="itemEstoque.lote" (ngModelChange)="itemEstoque.lote = $event.toLocaleUpperCase()" formControlName="lote" name="lote" type="text"></ion-input>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.lote.valid && (formulario.controls.lote.dirty || formulario.controls.lote.touched)">
         Por favor, informe o lote.
     </h6>
-    <ion-item >
+    <!-- <ion-item >
       <ion-label stacked >Data Solicitado</ion-label>
       <ion-datetime displayFormat="DD/MM/YYYY" doneText="Selecionar" formControlName="dataPedido"  cancelText="Cancelar"  name="dataPedido" [(ngModel)]="dataPedido"></ion-datetime>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.dataPedido.valid && (formulario.controls.dataPedido.dirty || formulario.controls.dataPedido.touched)">
         Por favor, informe a data em que o produto foi solicitado ao fornecedor.
-    </h6>
+    </h6> -->
     <ion-item >
       <ion-label stacked >Data de Validade</ion-label>
       <ion-datetime displayFormat="DD/MM/YYYY" doneText="Selecionar" cancelText="Cancelar"  formControlName="dataValidade"  name="dataValidade" [(ngModel)]="dataValidade"></ion-datetime>

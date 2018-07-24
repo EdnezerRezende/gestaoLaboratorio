@@ -29,7 +29,7 @@ export class FornecedorServiceProvider {
 
 
   deletarFornecedor(id: number){
-    return this._http.delete(this._url + `fornecedor/excluirFornecedor/${id}`, {
+    return this._http.post(this._url + `fornecedor/excluirFornecedor/${id}`, {
       headers: this._headers
     });
     // .catch((error: HttpErrorResponse) => this._httpRest.handleAngularJsonBug(error));

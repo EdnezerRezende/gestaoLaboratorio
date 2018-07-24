@@ -12,7 +12,7 @@
     <ion-searchbar *ngIf="!mostrarForm" animated=true placeholder="Pesquisar" (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
       <ion-item *ngFor="let item of itensEstoqueSearch" [ngStyle]="{'background-color':item.quantidadeTotal <= item.qtdMinimaEstoque ? '#808080': ''}">
-        <h2><label>Código Produto: </label>{{item.codigo | uppercase }}</h2>
+        <h2><label>Código Produto: </label>{{item.codigo.substr(0,4) | uppercase }}-{{item.codigo.substr(4,2)}}</h2>
         <h4><label>Nome: </label>{{item.nomeProduto | uppercase }}</h4>
         <h4 class="negritar"><label >Quantidade Total: </label>{{item.quantidadeTotal }}</h4>
       </ion-item>

@@ -11,11 +11,11 @@
   <ion-searchbar animated=true placeholder="Pesquisar " (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list sliding="true" >
     <ion-item detail-push  *ngFor="let itemEstoque of itensEstoqueSearch">
-      <h2><label>Código Produto: </label>{{itemEstoque.produto.codigoProduto | uppercase }}</h2>
-      <h4><label>Nome: </label>{{itemEstoque.produto.nome}}</h4>
-      <h4><label>Localização: </label>{{itemEstoque.localEstoque}} / <label>Lote: </label>{{itemEstoque.lote}}</h4>
+      <h2><label>Código Produto: </label>{{itemEstoque.produto.codigoProduto.substr(0,4) | uppercase }}-{{itemEstoque.produto.codigoProduto.substr(4,2)}}</h2>
+      <h4><label>Nome: </label>{{itemEstoque.produto.nome | uppercase}}</h4>
+      <h4><label>Localização: </label>{{itemEstoque.localEstoque | uppercase}} / <label>Lote: </label>{{itemEstoque.lote | uppercase}}</h4>
       <h4><label>Qtd. Utilizado: </label>{{itemEstoque.qtdUtilizado}} / <label>Data Validade: </label>{{itemEstoque.dataValidade | date: 'dd/MM/yyyy'}}</h4>
-      <ion-icon (click)="deletarItemEstoque(itemEstoque)" item-right isActive="true" name="ios-trash-outline"></ion-icon>
+      <ion-icon (click)="deletarItemEstoque(itemEstoque)" item-right isActive="true" name="md-trash"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

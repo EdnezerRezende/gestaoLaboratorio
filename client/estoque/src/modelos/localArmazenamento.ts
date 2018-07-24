@@ -1,0 +1,3 @@
+enum LocalArmazenamento{
+    FREEZER, EXTERNO
+}

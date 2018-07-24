@@ -11,4 +11,6 @@ public interface FornecedorRepository extends JpaRepository<Fornecedor, String> 
 
     List<Fornecedor> findAllByAtivoIsTrue();
 
+    Fornecedor findById(Long idFornecedor);
+
 }

@@ -28,7 +28,12 @@ myapp {
         background-size: contain;
         opacity: 0.2;
         background-color: rgba(245, 248, 248, 0.959) transparent;
+        
     }
+    page-home{
+        background-color: white;
+    }
+    
     .aberturaMenu{
         transition: 0.5s ease-in;
     }
@@ -52,5 +57,8 @@ myapp {
         border-radius: 0px 3px 3px 0px;
         box-shadow: -2px 2px 4px #aaaaaa;
         margin-left: 350%;
+    }
+    .ios.ion-page.show-page.nav-decor{
+        background: none;
     }
 }

@@ -25,26 +25,20 @@
     </h6>
     <ion-item >
       <ion-label stacked >Descrição</ion-label>
-      <ion-input [(ngModel)]="produto.descricao" name="descricao" formControlName="descricao" type="text"></ion-input>
+      <ion-input [(ngModel)]="produto.descricao" name="descricao"   formControlName="descricao" type="text"></ion-input>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.descricao.valid && (formulario.controls.descricao.dirty || formulario.controls.descricao.touched)">
         Por favor, informe uma descricao.
     </h6>
-    <ion-item >
+    <ion-item>
       <ion-label stacked >Categoria</ion-label>
-      <ion-input [(ngModel)]="produto.categoria" (ngModelChange)="produto.categoria = $event.toLocaleUpperCase()" name="categoria" formControlName="categoria" type="text"></ion-input>
+      <ion-select [(ngModel)]="categoriaSelecionada" formControlName="categoria" [compareWith]="compareFn">
+        <ion-option *ngFor="let categoria of categorias"  [value]="categoria">{{categoria.codigoCategoria}}-{{categoria.nomeCategoria | uppercase}}</ion-option>
+      </ion-select>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.categoria.valid && (formulario.controls.categoria.dirty || formulario.controls.categoria.touched)">
         Por favor, informe uma categoria.
     </h6>
-    <ion-item >
-      <ion-label stacked >Quantidade Máxima de Utilização</ion-label>
-      <ion-input type="number" [(ngModel)]="produto.qtdMaximoUtilizacao" name="qtdMaximoUtilizacao" formControlName="qtdMaximoUtilizacao" ></ion-input>
-    </ion-item>
-    <h6 class="error" *ngIf="!formulario.controls.qtdMaximoUtilizacao.valid && (formulario.controls.qtdMaximoUtilizacao.dirty || formulario.controls.qtdMaximoUtilizacao.touched)">
-        Por favor, informe uma quantidade máxima de utilização.
-    </h6>
-
     <ion-item >
       <ion-label stacked >Quantidade Mínima Permitida</ion-label>
       <ion-input type="number" [(ngModel)]="produto.qtdMinimaEstoque" name="qtdMinimaEstoque" formControlName="qtdMinimaEstoque" ></ion-input>

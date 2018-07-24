@@ -28,7 +28,7 @@ export class EstoqueServiceProvider {
   }
 
   deletarItemEstoque(id: number){
-    return this._http.delete(this._url + `estoque/excluirItemEstoque/${id}`, {
+    return this._http.post(this._url + `estoque/excluirItemEstoque/${id}`, {
       headers: this._headers
     });
     // .catch((error: HttpErrorResponse) => 

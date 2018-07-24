@@ -40,7 +40,8 @@ export class ListagemProdutoPage {
     .subscribe(
       (listaProdutos)=> {
         loading.dismiss();
-        this.produtos = listaProdutos; this.produtosSearch = listaProdutos;
+        this.produtos = listaProdutos;
+        this.produtosSearch = listaProdutos;
       },
       (err) => {
         loading.dismiss();

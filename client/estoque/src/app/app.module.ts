@@ -31,6 +31,9 @@ import { CommonModule } from '@angular/common';
 import { AuthProvider } from '../providers/auth/auth';
 import {Storage, IonicStorageModule} from "@ionic/storage";
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
+import { CategoriaServiceProvider } from '../providers/categoria-service/categoria-service';
+
+import { OrderModule } from 'ngx-order-pipe';
 
 // // private _url = 'http://192.168.1.248:8080/api/';
 // private _url = 'http://192.168.0.49:8080/api/';
@@ -50,6 +53,7 @@ export function jwtOptionsFactory(storage: Storage) {
   imports: [
     BrowserModule,
     CommonModule,
+    OrderModule,
     HttpClientModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {
@@ -90,7 +94,8 @@ export function jwtOptionsFactory(storage: Storage) {
     FornecedorServiceProvider,
     EstoqueServiceProvider,
     NativePageTransitions,
-    AuthProvider
+    AuthProvider,
+    CategoriaServiceProvider
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

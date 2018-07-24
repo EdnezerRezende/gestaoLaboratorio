@@ -23,7 +23,8 @@ export class EstoqueCadastroFormularioPage {
   private formulario: FormGroup;
   dataPedido;
   dataValidade;
-  
+  localArmazenamento: any[];
+
   options :BarcodeScannerOptions;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -38,7 +39,8 @@ export class EstoqueCadastroFormularioPage {
 
       this.produtos = new Array<Produto>();
       this.itemEstoque = new ItemEstoque;
-      
+      this.itemEstoque.lote = "";
+      this.localArmazenamento = [{local: "FREEZER"}, {local: "EXTERNO"}];
       this.obterProdutos();
 
       if(this.navParams.get('itemEstoque')){
@@ -61,7 +63,7 @@ export class EstoqueCadastroFormularioPage {
       produto: ['', Validators.required],
       localEstoque: ['', [Validators.required]],
       lote: ['', [Validators.required] ],
-      dataPedido: [{value: '', disabled: true}] ,
+      // dataPedido: [{value: '', disabled: true}] ,
       dataValidade: ['', Validators.required]
     });
   }

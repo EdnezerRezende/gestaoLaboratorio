@@ -33,40 +33,26 @@ public class EstoqueService {
     }
 
     public void salvarAtualizar(ItemEstoque itemEstoque) {
-        Boolean itemEstoqueAtingido = false;
 
         if (itemEstoque.getId() == null) {
             itemEstoque.setQtdUtilizado(0L);
             itemEstoque.setAtivo(true);
             itemEstoque.setDataCadastro(LocalDate.now());
         } else {
-
             itemEstoque.setQtdUtilizado(itemEstoque.getQtdUtilizado() + 1);
-
-            if (itemEstoque.getQtdUtilizado() >= itemEstoque.getProduto().getQtdMaximoUtilizacao()) {
-                itemEstoqueAtingido = true;
-            }
-        }
-
-        if (itemEstoqueAtingido) {
             itemEstoque.setDataSaida(LocalDate.now());
             itemEstoque.setAtivo(false);
         }
 
         itemEstoqueRepository.save(itemEstoque);
 
-        if (itemEstoqueAtingido) {
-            throw new RuntimeException("A Utilização deste item já foi atingido e baixado no sistema, favor descartá-lo!");
-        }
     }
 
-    public String excluirItemEstoque(Long idItemEstoque) {
-        ItemEstoque itemEstoque = new ItemEstoque();
-        itemEstoque.setId(idItemEstoque);
+    public void excluirItemEstoque(Long idItemEstoque) {
+        ItemEstoque itemEstoque = itemEstoqueRepository.findById(idItemEstoque);
         itemEstoque.setAtivo(false);
         itemEstoque.setDataSaida(LocalDate.now());
         itemEstoqueRepository.save(itemEstoque);
-        return "Excluído com sucesso";
     }
 
     public List<EstoqueDTO> obterTotalEstoque() {

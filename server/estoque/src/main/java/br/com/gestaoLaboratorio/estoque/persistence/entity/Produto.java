@@ -2,10 +2,7 @@ package br.com.gestaoLaboratorio.estoque.persistence.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -20,9 +17,8 @@ public class Produto {
 
     private String descricao;
 
-    private String categoria;
-
-    private Long qtdMaximoUtilizacao;
+    @OneToOne
+    private Categoria categoria;
 
     private Long qtdMinimaEstoque;
 
