@@ -32,6 +32,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import {Storage, IonicStorageModule} from "@ionic/storage";
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import { CategoriaServiceProvider } from '../providers/categoria-service/categoria-service';
+import { Camera } from '@ionic-native/camera'
 
 import { OrderModule } from 'ngx-order-pipe';
 
@@ -71,7 +72,11 @@ export function jwtOptionsFactory(storage: Storage) {
       pageTransition: 'md-transition  ',
       menuType: 'overlay'
     }),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      name: 'estoque',
+      storeName: 'agendamentos',
+      driverOrder: ['indexeddb']
+    }),
     BrMaskerModule
   ],
   exports:[
@@ -95,7 +100,8 @@ export function jwtOptionsFactory(storage: Storage) {
     EstoqueServiceProvider,
     NativePageTransitions,
     AuthProvider,
-    CategoriaServiceProvider
+    CategoriaServiceProvider,
+    Camera
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

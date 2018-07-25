@@ -88,5 +88,6 @@
     <plugin name="phonegap-plugin-barcodescanner" spec="^8.0.0" />
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
     <allow-navigation href="http://192.168.1.239:8100" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <engine name="android" spec="7.1.0" />
 </widget>

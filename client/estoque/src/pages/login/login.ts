@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import {finalize} from 'rxjs/operators';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Usuario } from '../../modelos/usuario';
+import { UsuariosServiceProvider } from '../../providers/usuarios-service/usuarios-service';
 
 @IonicPage()
 @Component({
@@ -14,6 +15,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     private  _loadingCtrl: LoadingController,
     private _toastCtrl: ToastController,
+    private _usuariosService: UsuariosServiceProvider,
     private _authProvider: AuthProvider) {
   }
 
@@ -31,7 +33,9 @@ export class LoginPage {
       .login(usuario)
       .pipe(finalize(() => loading.dismiss()))
       .subscribe(
-        () => {},
+        () => {
+          this._usuariosService.setUsuarioLogado(usuario);
+        },
         err => this.handleError(err));
   }
 

@@ -15,6 +15,7 @@ import { EstoqueListagemPage } from '../pages/estoque-listagem/estoque-listagem'
 import { AuthProvider } from '../providers/auth/auth';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { PerfilPage } from '../pages/perfil/perfil';
 
 @Component({
   selector: 'myapp',
@@ -33,10 +34,12 @@ export class MyApp {
               icone: 'md-flask'},
     {titulo: 'Fornecedores', 
               subTitulo: [{submenu:'Cadastro', componente:FornecedorCadastroPage.name, iconeSub: 'md-paper'
-  },{submenu:'Listar', componente:FornecedorListagemPage.name, s:'md-list-box'}], icone: 'md-medkit'},
+  },{submenu:'Listar', componente:FornecedorListagemPage.name, iconeSub:'md-list-box'}], icone: 'md-medkit'},
   {titulo: 'Estoque', 
   subTitulo: [{submenu:'Cadastro', componente:EstoqueCadastroFormularioPage.name, iconeSub: 'md-paper'
-},{submenu:'Listar', componente:EstoqueListagemPage.name, s:'md-list-box'}], icone: 'md-clipboard'}
+},{submenu:'Listar', componente:EstoqueListagemPage.name, iconeSub:'md-list-box'}], icone: 'md-clipboard'},
+{titulo: "Perfil", subTitulo: [{submenu:'Alterar', componente:PerfilPage.name, iconeSub: 'md-paper'
+}], icone: 'md-person'}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private _authProvider: AuthProvider,
