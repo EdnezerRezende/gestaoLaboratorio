@@ -41,6 +41,12 @@
       <ion-icon name="call" item-left></ion-icon>
       <p>{{ usuarioLogado.telefone }}</p>
     </ion-item>
+    <ion-item>
+      <button (click)="alterarDadosUsuario()" class="botaoAlterarSenha" ion-button >
+        <ion-icon name="md-lock"></ion-icon>
+        <label style="padding-left: 7px;">Alterar Senha</label>
+      </button>
+    </ion-item>
   </ion-card>
 
 </ion-content>

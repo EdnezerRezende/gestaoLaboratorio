@@ -5,6 +5,8 @@ import {tap} from 'rxjs/operators';
 import {Storage} from "@ionic/storage";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import { HttpRestServiceProvider } from '../http-rest-service/http-rest-service';
+import { UsuariosServiceProvider } from '../usuarios-service/usuarios-service';
+import { Usuario } from '../../modelos/usuario';
 
 @Injectable()
 export class AuthProvider {
@@ -16,14 +18,16 @@ export class AuthProvider {
 
   constructor(private _httpClient: HttpClient, private _httpRest:HttpRestServiceProvider,
               private _storage: Storage,
-              private _jwtHelper: JwtHelperService) {
+              private _jwtHelper: JwtHelperService,
+            private _usuarios: UsuariosServiceProvider) {
                 this._url = this._httpRest.getUrl();
   }
 
 
   checkLogin() {
+    let usuario:Usuario = this._usuarios.obtemUsuarioLogado();
     this._storage.get(this.jwtTokenName).then(jwt => {
-      if (jwt && !this._jwtHelper.isTokenExpired(jwt)) {
+      if (jwt && !this._jwtHelper.isTokenExpired(jwt) && (usuario != undefined && usuario.email != undefined) ) {
         this._httpClient.get(`${this._url}authenticate`)
           .subscribe(() => this.authUser.next(jwt),
             (err) => this._storage.remove(this.jwtTokenName).then(() => this.authUser.next(null)));

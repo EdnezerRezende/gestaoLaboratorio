@@ -1,0 +1,47 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Alterar senha</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form #form="ngForm" (ngSubmit)="alterarSenha(form.value)" novalidate>
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Usuário</ion-label>
+            <ion-input type="text" name="username" [(ngModel)]="_usuario.email" disabled #username="ngModel"
+                      [class.invalid]="username.errors && username.dirty"></ion-input>
+          </ion-item>
+          <ion-item class="error-message" *ngIf="username.errors?.required && username.dirty">
+            Usuário/E-mail é requerido.
+          </ion-item>
+  
+          <ion-item>
+            <ion-label floating>Nova Senha</ion-label>
+            <ion-input type="password" name="password" [(ngModel)]="senha1" required #password="ngModel"
+                      [class.invalid]="password.errors && password.dirty"></ion-input>
+          </ion-item>
+          <ion-item class="error-message" *ngIf="password.errors?.required && password.dirty">
+            A senha é requerida.
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Repetir Senha</ion-label>
+            <ion-input type="password" name="password2" [(ngModel)]="senha2" required #password2="ngModel"
+                      [class.invalid]="password2.errors && password2.dirty"></ion-input>
+          </ion-item>
+          <ion-item class="error-message" *ngIf="password2.errors?.required && password2.dirty">
+            A senha é requerida.
+          </ion-item>
+          
+  
+          <div padding>
+            <button ion-button color="primary" block type="submit" [disabled]="!form.valid">Alterar Senha</button>
+          </div>
+  
+        </ion-list>
+      </form>
+</ion-content>

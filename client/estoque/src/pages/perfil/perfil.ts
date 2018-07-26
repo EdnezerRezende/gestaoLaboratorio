@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UsuariosServiceProvider } from '../../providers/usuarios-service/usuarios-service';
 import { Camera } from '@ionic-native/camera';
 import { normalizeURL } from 'ionic-angular/util/util';
+import { AlterarSenhaPage } from '../alterar-senha/alterar-senha';
 
 @IonicPage()
 @Component({
@@ -38,6 +39,9 @@ export class PerfilPage {
     .catch(err => console.log(err));
   }
 
-  
+  alterarDadosUsuario(){
+    this.navCtrl.push(AlterarSenhaPage.name, {usuario: this._usuariosService.obtemUsuarioLogado()})
+    // this._usuariosService.alterarDadosUsuario();
+  }
 
 }

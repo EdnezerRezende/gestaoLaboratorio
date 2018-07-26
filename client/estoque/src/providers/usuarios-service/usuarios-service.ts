@@ -49,4 +49,8 @@ export class UsuariosServiceProvider {
     localStorage.setItem(CHAVE,avatar);
   }
 
+  alterarDadosUsuario(usuario:Usuario){
+    return this._http.post(this._url+'alterarSenha', usuario, {headers:this._headers})
+  }
+
 }

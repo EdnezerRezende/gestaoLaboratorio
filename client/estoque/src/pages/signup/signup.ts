@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController, LoadingController
 import { NgModel } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import {finalize} from 'rxjs/operators';
+import { UsuariosServiceProvider } from '../../providers/usuarios-service/usuarios-service';
+import { Usuario } from '../../modelos/usuario';
 
 @IonicPage()
 @Component({
@@ -13,11 +15,18 @@ export class SignupPage {
   @ViewChild('username')
   usernameModel: NgModel;
 
+  private _usuario: Usuario;
+    
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _authProvider: AuthProvider,
     private _loadingCtrl: LoadingController,
+    private _usuarioProvider: UsuariosServiceProvider,
     private _toastCtrl: ToastController) {
+
+      if (this.navParams.get('usuario')){
+        this._usuario = this.navParams.get('usuario');
+      }
   }
 
   signup(value: any) {
