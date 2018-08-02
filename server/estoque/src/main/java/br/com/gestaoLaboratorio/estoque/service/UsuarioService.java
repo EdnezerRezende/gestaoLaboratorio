@@ -37,4 +37,5 @@ public class UsuarioService {
     public Usuario lookup(String email) {
         return usuarioRepository.findByEmailEquals(email);
     }
+
 }

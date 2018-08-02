@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Produto } from '../../modelos/produtos';
 import { HttpRestServiceProvider } from '../http-rest-service/http-rest-service';

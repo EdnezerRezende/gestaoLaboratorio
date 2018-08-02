@@ -31,5 +31,10 @@ public class UsuarioController {
         return usuarioService.listaUsuarios();
     }
 
+    @RequestMapping(value = "usuarioLogado", method = POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Usuario usuarioLogado(@RequestBody(required = true) String email) {
+
+        return usuarioService.lookup(email);
+    }
 
 }

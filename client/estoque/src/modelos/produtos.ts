@@ -7,4 +7,8 @@ export class Produto {
     descricao: string;
     categoria: Categoria;
     qtdMinimaEstoque: number;
+    solicitado: boolean;
+    qtdSolicitado: number;
+    dataSolicitado: Date;
+
 }

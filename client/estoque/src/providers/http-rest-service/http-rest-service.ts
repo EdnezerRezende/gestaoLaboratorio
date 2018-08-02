@@ -1,17 +1,18 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class HttpRestServiceProvider {
 
-  // private _url = 'http://192.168.1.248:8080/api/';
-  private _url = 'http://192.168.0.49:8080/api/';
+  private _url = 'http://192.168.1.248:8080/api/';
+  // private _url = 'http://192.168.0.49:8080/api/';
+  // private _url = 'https://gestaolaboratorio.herokuapp.com/api/';
   public log:any;
   private _headers = new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'
-  ,'Access-Control-Allow-Origin': '*'});
+  ,'Access-Control-Allow-Origin': '*'});  
 
-  constructor(private _http: HttpClient) {
+  constructor() {
 
   }
 

@@ -72,4 +72,12 @@ public class AuthController {
         userService.salvar(signupUser);
         return tokenProvider.createToken(signupUser.getUsername());
     }
+
+    @PostMapping("/api/alterarSenha")
+    public void alterarSenha(@RequestBody Usuario signupUser) {
+        if (userService.usernameExists(signupUser.getUsername())) {
+            signupUser.encodePassword(passwordEncoder);
+            userService.salvar(signupUser);
+        }
+    }
 }

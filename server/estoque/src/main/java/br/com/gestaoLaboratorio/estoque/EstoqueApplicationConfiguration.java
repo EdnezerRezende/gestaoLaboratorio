@@ -9,6 +9,7 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @SpringBootApplication
+@EnableScheduling
 @EnableWebMvc
 public class EstoqueApplicationConfiguration {
 
@@ -38,6 +40,7 @@ public class EstoqueApplicationConfiguration {
             }
         };
     }
+
 
     @Bean
     public FormattingConversionService mvcConversionService() {

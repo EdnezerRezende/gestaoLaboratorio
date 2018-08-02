@@ -15,14 +15,14 @@
                 <ion-item no-lines id="aberturaMenu" *ngFor="let pagina of paginas | orderBy:'titulo'; let i=index" text-wrap 
                     [ngClass]="{active: isLevel1Shown('idx'+i)}"
                     (click)="toggleLevel1('idx'+i)" style="justify-content: space-around " >
-                    <h1 >
+                    <h2 >
                         <ion-icon [name]="pagina.icone" item-left ></ion-icon>
                         {{ pagina.titulo }}
                         <ion-icon style="justify-content: flex-end;
                         display: flex;
                         margin-top: -33px;" color="success" item-right 
                         [name]="isLevel1Shown('idx'+i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
-                    </h1>
+                    </h2>
                     <ion-list  *ngIf="isLevel1Shown('idx'+i)" >
                         <ion-item no-lines menuClose *ngFor="let sub of pagina.subTitulo" text-wrap (click)="irPagina(sub.componente)">
                             <h3>

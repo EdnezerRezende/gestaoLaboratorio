@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { ItemEstoque } from '../../modelos/itemEstoque';
 import { EstoqueServiceProvider } from '../../providers/estoque-service/estoque-service';
 import { Produto } from '../../modelos/produtos';
-import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
-import { Validacoes } from '../../util/validacoes';
 import { EstoqueCadastroFormularioPage } from '../estoque-cadastro-formulario/estoque-cadastro-formulario';
 import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner';
 
@@ -27,7 +25,7 @@ export class EstoquePesquisarPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _ItemEstoqueService: EstoqueServiceProvider,
     private _loadingCtrl: LoadingController,
-    private _produtosService: ProdutoServiceProvider,
+    // private _produtosService: ProdutoServiceProvider,
     private _alertCtrl: AlertController,
     private _barcodeScanner: BarcodeScanner) {
       this.itemEstoque = new ItemEstoque();

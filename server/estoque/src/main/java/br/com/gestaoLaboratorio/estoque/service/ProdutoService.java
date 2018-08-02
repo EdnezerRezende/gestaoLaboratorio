@@ -27,6 +27,7 @@ public class ProdutoService {
             throw new RuntimeException("Já existe o produto informado!");
         } else {
             produto.setAtivo(true);
+            produto.setSolicitado(false);
             produtoRepository.save(produto);
         }
     }

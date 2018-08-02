@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { EstoqueServiceProvider } from '../../providers/estoque-service/estoque-service';
-import { ItemEstoque } from '../../modelos/itemEstoque';
 import { EstoqueTotal } from '../../modelos/estoqueTotal';
 
 @IonicPage()

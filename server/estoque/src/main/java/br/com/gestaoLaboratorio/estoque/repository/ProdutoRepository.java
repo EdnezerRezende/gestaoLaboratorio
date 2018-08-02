@@ -13,6 +13,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, String> {
 
     Produto findById(Long idProduto);
 
+    Produto findByCodigoProdutoAndSolicitadoIsFalse(String codProduto);
+
     Boolean existsByAtivoIsTrueAndCodigoProdutoAndNome(String codigoProduto, String nome);
 
 }

@@ -3,7 +3,7 @@ package br.com.gestaoLaboratorio.estoque.infra.validator;
 import org.springframework.util.StringUtils;
 
 public abstract class Validator {
-    public static boolean isNull(Object value){
+    public static boolean isNull(Object value) {
         if (value instanceof String) {
             if (StringUtils.isEmpty(value)) {
                 return true;
@@ -15,7 +15,7 @@ public abstract class Validator {
     }
 
     public static void isNull(Object value, String message, Object... fields) {
-        if(!isNull(value)){
+        if (!isNull(value)) {
             throw new RuntimeException(message);
         }
     }
@@ -37,7 +37,7 @@ public abstract class Validator {
         }
     }
 
-    public static boolean isEquals(Object first, Object second){
+    public static boolean isEquals(Object first, Object second) {
         return isNotNull(first) && isNotNull(second) && first.equals(second);
     }
 
@@ -48,6 +48,7 @@ public abstract class Validator {
             throw new RuntimeException(message);
         }
     }
+
     public static void isEqualsNull(Object first, Object second, Object third, String message, Object... fields) {
         isNotNull(first, message, fields);
         isNotNull(second, message, fields);

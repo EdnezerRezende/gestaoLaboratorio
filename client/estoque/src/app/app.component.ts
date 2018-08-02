@@ -16,6 +16,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { PerfilPage } from '../pages/perfil/perfil';
+import { PedidoPage } from '../pages/pedido/pedido';
 
 @Component({
   selector: 'myapp',
@@ -38,8 +39,10 @@ export class MyApp {
   {titulo: 'Estoque', 
   subTitulo: [{submenu:'Cadastro', componente:EstoqueCadastroFormularioPage.name, iconeSub: 'md-paper'
 },{submenu:'Listar', componente:EstoqueListagemPage.name, iconeSub:'md-list-box'}], icone: 'md-clipboard'},
-{titulo: "Perfil", subTitulo: [{submenu:'Alterar', componente:PerfilPage.name, iconeSub: 'md-paper'
-}], icone: 'md-person'}
+{titulo: "Perfil", subTitulo: [{submenu:'Alterar Senha', componente:PerfilPage.name, iconeSub: 'md-paper'
+}], icone: 'md-person'},
+{titulo: "Pedidos", subTitulo: [{submenu:'Fazer Pedido', componente:PedidoPage.name, iconeSub: 'md-paper'
+}], icone: 'md-mail-open'}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private _authProvider: AuthProvider,

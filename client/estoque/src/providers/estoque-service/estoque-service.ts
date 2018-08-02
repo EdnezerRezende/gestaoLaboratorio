@@ -1,9 +1,10 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ItemEstoque } from '../../modelos/itemEstoque';
 import { HttpRestServiceProvider } from '../http-rest-service/http-rest-service';
 import { EstoqueTotal } from '../../modelos/estoqueTotal';
 import 'rxjs/add/operator/catch';
+import { Produto } from '../../modelos/produtos';
 
 @Injectable()
 export class EstoqueServiceProvider {
@@ -38,5 +39,9 @@ export class EstoqueServiceProvider {
 
   obterEstoqueTotal(){
     return this._http.get<EstoqueTotal[]>(this._url + 'estoque/totalEstoque', {headers: this._headers});
+  }
+
+  obterPedidos(){
+    return this._http.get<Produto[]>(this._url + 'estoque/obterPedidos', {headers: this._headers});
   }
 }

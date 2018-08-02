@@ -4,9 +4,8 @@ import { ItemEstoque } from '../../modelos/itemEstoque';
 import { EstoqueServiceProvider } from '../../providers/estoque-service/estoque-service';
 import { ProdutoServiceProvider } from '../../providers/produto-service/produto-service';
 import { Produto } from '../../modelos/produtos';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import moment from 'moment';
-import { DISABLED } from '@angular/forms/src/model';
 import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @IonicPage()
@@ -195,7 +194,7 @@ export class EstoqueCadastroFormularioPage {
 
   verificarItens(itemEstoque: ItemEstoque){
 
-    let itemComProduto: ItemEstoque;
+    // let itemComProduto: ItemEstoque;
     
     this.produtos.forEach(element => {
       let codigoProduto:string = element.codigoProduto.replace('-', '');

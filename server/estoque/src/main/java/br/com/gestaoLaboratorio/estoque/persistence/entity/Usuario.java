@@ -1,5 +1,6 @@
 package br.com.gestaoLaboratorio.estoque.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,8 @@ public class Usuario implements UserDetails {
 
     private String endereco;
 
+    private String telefone;
+
     private String cep;
 
     private LocalDate dataCadastro;
@@ -39,9 +42,11 @@ public class Usuario implements UserDetails {
     private Boolean bloqueado;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "role_id")
     private List<Role> perfil;
 
     @Override
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "Usuario")
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return perfil;
     }

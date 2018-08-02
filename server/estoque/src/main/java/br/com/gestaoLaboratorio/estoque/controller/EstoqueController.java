@@ -2,6 +2,7 @@ package br.com.gestaoLaboratorio.estoque.controller;
 
 import br.com.gestaoLaboratorio.estoque.persistence.entity.DTO.EstoqueDTO;
 import br.com.gestaoLaboratorio.estoque.persistence.entity.ItemEstoque;
+import br.com.gestaoLaboratorio.estoque.persistence.entity.Produto;
 import br.com.gestaoLaboratorio.estoque.service.EstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,6 +31,12 @@ public class EstoqueController {
     public List<EstoqueDTO> totalEstoque() {
 
         return estoqueService.obterTotalEstoque();
+    }
+
+    @RequestMapping(value = "obterPedidos", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Produto> obterPedidos() {
+
+        return estoqueService.obteListaPedidos();
     }
 
 

@@ -35,6 +35,7 @@ import { CategoriaServiceProvider } from '../providers/categoria-service/categor
 import { Camera } from '@ionic-native/camera'
 
 import { OrderModule } from 'ngx-order-pipe';
+import { PedidosServiceProvider } from '../providers/pedidos-service/pedidos-service';
 
 // // private _url = 'http://192.168.1.248:8080/api/';
 // private _url = 'http://192.168.0.49:8080/api/';
@@ -80,7 +81,8 @@ export function jwtOptionsFactory(storage: Storage) {
     BrMaskerModule
   ],
   exports:[
-    BrMaskerModule
+    BrMaskerModule,
+    OrderModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -101,7 +103,8 @@ export function jwtOptionsFactory(storage: Storage) {
     NativePageTransitions,
     AuthProvider,
     CategoriaServiceProvider,
-    Camera
+    Camera,
+    PedidosServiceProvider
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

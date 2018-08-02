@@ -2,6 +2,7 @@ package br.com.gestaoLaboratorio.estoque.service;
 
 import br.com.gestaoLaboratorio.estoque.persistence.entity.DTO.EstoqueDTO;
 import br.com.gestaoLaboratorio.estoque.persistence.entity.ItemEstoque;
+import br.com.gestaoLaboratorio.estoque.persistence.entity.Produto;
 import br.com.gestaoLaboratorio.estoque.repository.ItemEstoqueRepository;
 import br.com.gestaoLaboratorio.estoque.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,6 +61,25 @@ public class EstoqueService {
         List<EstoqueDTO> listaEstoque = itemEstoqueRepository.totalEstoque();
 
         return listaEstoque;
+    }
+
+    public List<Produto> obteListaPedidos() {
+        List<EstoqueDTO> listaEstoque = itemEstoqueRepository.totalEstoque();
+
+        List<Produto> produtos = new ArrayList<>();
+
+        for (EstoqueDTO p : listaEstoque) {
+            if (p.getQtdMinimaEstoque() >= p.getQuantidadeTotal()) {
+                Produto produto = produtoRepository.findByCodigoProdutoAndSolicitadoIsFalse(p.getCodigo());
+                if (produto != null) {
+                    produto.setQtdSolicitado(p.getQtdMinimaEstoque() - p.getQuantidadeTotal());
+                    produtos.add(produto);
+                }
+
+            }
+        }
+
+        return produtos;
     }
 
 }
