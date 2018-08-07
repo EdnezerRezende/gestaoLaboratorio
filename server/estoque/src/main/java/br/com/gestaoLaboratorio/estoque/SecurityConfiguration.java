@@ -32,25 +32,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/api/**").permitAll()
-//                .antMatchers("/api/login").permitAll()
-//                .antMatchers("/api/public").permitAll()
-//                .antMatchers("/api/usuario/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.POST, "/api/usuario/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.POST, "/api/produto/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET, "/api/produto/listaProdutos").hasRole("ADMIN")
-//                .antMatchers("/").hasRole("ADMIN")
-                .anyRequest().authenticated()
-//                .and().formLogin()
-//                .and().httpBasic()
-                .and().apply(new JWTConfigurer(tokenProvider))
-                .and().sessionManagement()
-//                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        http
+                .csrf()
+                .disable()
+                .cors()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.csrf().disable();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+//                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/login/**").permitAll()
+                .antMatchers("/api/signup").hasRole(("ADMIN"))
+                .antMatchers("/api/usuario/**").hasRole(("ADMIN"))
+                .antMatchers("/api/produto/**").hasRole(("ADMIN"))
+                .antMatchers("/api/fornecedor/**").hasRole(("ADMIN"))
+                .antMatchers("/api/estoque/**").hasRole(("ADMIN"))
+                .antMatchers("/api/email/**").hasRole(("ADMIN"))
+                .antMatchers("/api/categoria/**").hasRole(("ADMIN"))
+                .anyRequest().authenticated()
+                .and().apply(new JWTConfigurer(tokenProvider))
+                .and().sessionManagement()
+        ;
     }
 
     @Override

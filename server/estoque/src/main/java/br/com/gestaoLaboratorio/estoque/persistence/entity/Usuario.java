@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -33,6 +32,8 @@ public class Usuario implements UserDetails {
 
     private String cep;
 
+    private String cpf;
+
     private LocalDate dataCadastro;
 
     private String email;
@@ -41,13 +42,14 @@ public class Usuario implements UserDetails {
 
     private Boolean bloqueado;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "role_id")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuario_perfil", joinColumns = {@JoinColumn(name = "usuario_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "perfil_id", referencedColumnName = "id")})
     private List<Role> perfil;
 
     @Override
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "Usuario")
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public List<? extends GrantedAuthority> getAuthorities() {
         return perfil;
     }
 

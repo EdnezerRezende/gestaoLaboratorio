@@ -18,7 +18,7 @@
     <ion-item >
       <ion-label>Código do Produto</ion-label>
       <ion-select [(ngModel)]="itemEstoque.produto" formControlName="produto" [compareWith]="compareProduto">
-        <ion-option *ngFor="let produto of produtos" [value]="produto" >{{produto.codigoProduto.substr(0,4)}}-{{produto.codigoProduto.substr(4,2)}} - {{produto.nome}}</ion-option>
+        <ion-option *ngFor="let produto of produtos" [value]="produto" >{{produto.codigoProduto | uppercase}} - {{produto.nome}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item >

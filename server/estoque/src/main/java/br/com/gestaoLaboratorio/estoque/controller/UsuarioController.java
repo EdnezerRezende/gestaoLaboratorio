@@ -21,7 +21,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @RequestMapping(value = "salvar", method = POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void salvar(@RequestBody(required = true) Usuario usuario) {
+    public void salvar(@RequestBody(required = true) Usuario usuario) throws Exception {
         usuarioService.salvar(usuario);
     }
 

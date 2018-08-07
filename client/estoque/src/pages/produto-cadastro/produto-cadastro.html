@@ -11,7 +11,7 @@
   <form [formGroup]="formulario"   >
     <ion-item >
       <ion-label stacked >Código</ion-label>
-      <ion-input [(ngModel)]="produto.codigoProduto"  (ngModelChange)="produto.codigoProduto = $event.toLocaleUpperCase()" [brmasker]="{mask:'9999-99',len: 7, type: 'all'}" formControlName="codigoProduto" name="codigoProduto" type="text"></ion-input>
+      <ion-input [(ngModel)]="produto.codigoProduto"  (ngModelChange)="produto.codigoProduto = $event.toLocaleUpperCase()" formControlName="codigoProduto" name="codigoProduto" type="text"></ion-input>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.codigoProduto.valid && (formulario.controls.codigoProduto.dirty || formulario.controls.codigoProduto.touched)">
         Por favor, informe um Código de Produto.

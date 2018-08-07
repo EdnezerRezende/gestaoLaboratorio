@@ -1,5 +1,5 @@
 import { Component, ViewChild, enableProdMode } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav, App, IonicApp, NavController, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -17,6 +17,10 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { PedidoPage } from '../pages/pedido/pedido';
+import { UsuarioCadastroPage } from '../pages/usuario-cadastro/usuario-cadastro';
+import { Usuario } from '../modelos/usuario';
+import { Observable } from 'rxjs';
+// import { Usuario } from '../modelos/usuario';
 
 @Component({
   selector: 'myapp',
@@ -27,31 +31,56 @@ export class MyApp {
   // rootPage:any = TabsPage.name;
   rootPage:any = null;
   showLevel1 = null;
+  
+  // usuario: Usuario;
+  
+
+  mostraCadUsuario: boolean;
 
   public paginas = [
     {titulo: "Produtos", 
               subTitulo: [{submenu:'Cadastro', componente:ProdutoCadastroPage.name, iconeSub: 'md-paper'
                 },{submenu:'Listar', componente:ListagemProdutoPage.name, iconeSub:'md-list-box'}], 
-              icone: 'md-flask'},
+              icone: 'md-flask', mostra: true},
     {titulo: 'Fornecedores', 
               subTitulo: [{submenu:'Cadastro', componente:FornecedorCadastroPage.name, iconeSub: 'md-paper'
-  },{submenu:'Listar', componente:FornecedorListagemPage.name, iconeSub:'md-list-box'}], icone: 'md-medkit'},
+  },{submenu:'Listar', componente:FornecedorListagemPage.name, iconeSub:'md-list-box'}], icone: 'md-medkit', mostra: true},
   {titulo: 'Estoque', 
   subTitulo: [{submenu:'Cadastro', componente:EstoqueCadastroFormularioPage.name, iconeSub: 'md-paper'
-},{submenu:'Listar', componente:EstoqueListagemPage.name, iconeSub:'md-list-box'}], icone: 'md-clipboard'},
+},{submenu:'Listar', componente:EstoqueListagemPage.name, iconeSub:'md-list-box'}], icone: 'md-clipboard', mostra: true},
 {titulo: "Perfil", subTitulo: [{submenu:'Alterar Senha', componente:PerfilPage.name, iconeSub: 'md-paper'
-}], icone: 'md-person'},
+}], icone: 'md-person', mostra: true},
 {titulo: "Pedidos", subTitulo: [{submenu:'Fazer Pedido', componente:PedidoPage.name, iconeSub: 'md-paper'
-}], icone: 'md-mail-open'}
+}], icone: 'md-mail-open', mostra: true},
+{titulo: "Usuarios", subTitulo: [{submenu:'Cadastrar Usuário', componente:UsuarioCadastroPage.name, iconeSub: 'md-paper'
+}], icone: 'md-contacts', mostra: this.mostraCadUsuario}
+
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private _authProvider: AuthProvider,
-    private _usuariosService: UsuariosServiceProvider, private _nativePageTransitions: NativePageTransitions) {
+    private _usuariosService: UsuariosServiceProvider,
+    public menuCtrl: MenuController,
+    private _nativePageTransitions: NativePageTransitions, 
+    private _appCtrl: App) {
       if (platform.is('ios')
       || platform.is('android')
       || platform.is('windows')) {
-      
-    }
+      } 
+    
+    let options: NativeTransitionOptions = {
+      direction: 'up',
+      duration: 500,
+      slowdownfactor: 3,
+      slidePixels: 20,
+      iosdelay: 100,
+      androiddelay: 150,
+      fixedPixelsTop: 0,
+      fixedPixelsBottom: 60
+      };
+  
+    this._nativePageTransitions.slide(options);
+    
+    this.mostraCadUsuario = this.usuarioLogado.cpf === '78671043134';
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -59,6 +88,8 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+   
 
     this._authProvider.authUser.subscribe(jwt => {
       if (jwt) {
@@ -69,26 +100,18 @@ export class MyApp {
       }
     });
 
-    _authProvider.checkLogin();
+    this._authProvider.checkLogin();
   }
 
-  ionViewWillLeave() {
-
-    let options: NativeTransitionOptions = {
-       direction: 'up',
-       duration: 500,
-       slowdownfactor: 3,
-       slidePixels: 20,
-       iosdelay: 100,
-       androiddelay: 150,
-       fixedPixelsTop: 0,
-       fixedPixelsBottom: 60
-      };
-   
-    this._nativePageTransitions.slide(options);
-   
+  
+   logoff(){
+     this._usuariosService.setMenuLateralLogoff();
+     localStorage.removeItem('jwt_token');
+     this._authProvider.logout();
+    
+     window.location.reload();
+    
    }
-
   irPagina(componente){
     let options: NativeTransitionOptions={
       direction: 'left',
@@ -107,6 +130,10 @@ export class MyApp {
 
   get usuarioLogado() {
     return this._usuariosService.obtemUsuarioLogado();
+  }
+
+  get mostraMenuLateral(){
+    return this._usuariosService.obterMenuLateral();
   }
 
   toggleLevel1(idx) {

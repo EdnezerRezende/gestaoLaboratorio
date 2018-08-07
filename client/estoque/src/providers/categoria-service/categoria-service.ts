@@ -16,7 +16,9 @@ export class CategoriaServiceProvider {
   }
 
   obterCategorias(){
-    return this._http.get<Categoria[]>(this._url+'categoria/listaCategoria');
+    return this._http.get<Categoria[]>(this._url+'categoria/listaCategoria', {
+      headers: this._headers
+    });
   }
 
 }

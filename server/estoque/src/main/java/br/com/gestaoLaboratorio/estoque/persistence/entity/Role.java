@@ -1,11 +1,12 @@
 package br.com.gestaoLaboratorio.estoque.persistence.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,6 +21,13 @@ public class Role implements GrantedAuthority {
     private String perfil;
 
     private String descricao;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "usuario_perfil", joinColumns = {@JoinColumn(name = "perfil_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "usuario_id", referencedColumnName = "id")})
+    @JsonIgnore
+    private List<Usuario> usuario;
+
 
     @Override
     public String getAuthority() {

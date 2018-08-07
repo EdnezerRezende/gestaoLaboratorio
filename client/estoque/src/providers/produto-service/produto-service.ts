@@ -19,11 +19,15 @@ export class ProdutoServiceProvider {
   }
 
   salvar(produto: Produto){
-    return this._http.post(this._url+'produto/salvar', produto);
+    return this._http.post(this._url+'produto/salvar', produto,{
+      headers: this._headers
+    });
   }
 
   obterProdutos(){
-    return this._http.get<Produto[]>(this._url+'produto/listaProdutos');
+    return this._http.get<Produto[]>(this._url+'produto/listaProdutos',{
+      headers: this._headers
+    });
   }
 
   deletarProduto(id: number){

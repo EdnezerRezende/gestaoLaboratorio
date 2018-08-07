@@ -19,7 +19,9 @@ export class EstoqueServiceProvider {
   }
 
   obterEstoque(){
-    return this._http.get<ItemEstoque[]>(this._url+'estoque/listaEstoque');
+    return this._http.get<ItemEstoque[]>(this._url+'estoque/listaEstoque', {
+      headers: this._headers
+    });
   }
 
   salvar(itemEstoque: ItemEstoque){

@@ -1,5 +1,6 @@
-package br.com.gestaoLaboratorio.estoque;
+package br.com.gestaoLaboratorio.estoque.controller;
 
+import br.com.gestaoLaboratorio.estoque.EstoqueApplicationConfiguration;
 import br.com.gestaoLaboratorio.estoque.persistence.entity.Usuario;
 import br.com.gestaoLaboratorio.estoque.security.jwt.TokenProvider;
 import br.com.gestaoLaboratorio.estoque.service.UsuarioService;
@@ -63,7 +64,7 @@ public class AuthController {
     }
 
     @PostMapping("/api/signup")
-    public String signup(@RequestBody Usuario signupUser) {
+    public String signup(@RequestBody Usuario signupUser) throws Exception {
         if (userService.usernameExists(signupUser.getUsername())) {
             return "EXISTS";
         }
@@ -74,10 +75,12 @@ public class AuthController {
     }
 
     @PostMapping("/api/alterarSenha")
-    public void alterarSenha(@RequestBody Usuario signupUser) {
+    public void alterarSenha(@RequestBody Usuario signupUser) throws Exception {
         if (userService.usernameExists(signupUser.getUsername())) {
             signupUser.encodePassword(passwordEncoder);
             userService.salvar(signupUser);
+        } else {
+            throw new Exception("Não existe o usuário informado");
         }
     }
 }

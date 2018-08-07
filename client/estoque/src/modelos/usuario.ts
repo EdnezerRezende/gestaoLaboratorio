@@ -8,7 +8,8 @@ export class Usuario {
     matricula: string;
     endereco: string;
     cep: string;
-    dataCadadstro:Date;
+    cpf: string;
+    dataCadastro:Date;
     bloqueado: boolean;
 
 

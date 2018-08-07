@@ -18,6 +18,7 @@ export class AuthProvider {
 
   constructor(private _httpClient: HttpClient, private _httpRest:HttpRestServiceProvider,
               private _storage: Storage,
+              private _usuariosService: UsuariosServiceProvider,
               private _jwtHelper: JwtHelperService,
             private _usuarios: UsuariosServiceProvider) {
                 this._url = this._httpRest.getUrl();
@@ -42,27 +43,31 @@ export class AuthProvider {
 
   login(values: any): Observable<any> {
     return this._httpClient.post(`${this._url}login`, values, {responseType: 'text'})
-      .pipe(tap(jwt => this.handleJwtResponse(jwt)));
+      .pipe(tap(jwt => this.handleJwtResponse(jwt, values)));
   }
 
   logout() {
-    this._storage.remove(this.jwtTokenName).then(() => this.authUser.next(null));
+    return this._storage.remove(this.jwtTokenName).then(() => this.authUser.next(null));
   }
 
   signup(values: any): Observable<any> {
     return this._httpClient.post(`${this._url}signup`, values, {responseType: 'text'})
       .pipe(tap(jwt => {
         if (jwt !== 'EXISTS') {
-          return this.handleJwtResponse(jwt);
+          return this.handleJwtResponse(jwt, values);
         }
         return jwt;
       }));
   }
 
-  private handleJwtResponse(jwt: string) {
+  private handleJwtResponse(jwt: string, usuario:Usuario) {
     return this._storage.set(this.jwtTokenName, jwt)
-      .then(() => this.authUser.next(jwt))
-      .then(() => jwt);
+      .then(() => {this.authUser.next(jwt);
+        this._httpRest.criarHeaderAutorizacao(jwt);
+        localStorage.setItem('jwt_token', jwt);
+        this._usuariosService.setUsuarioLogado(usuario, jwt);
+      })
+      .then(() => {localStorage.setItem('jwt_token', jwt); return jwt;});
   }
 
 }

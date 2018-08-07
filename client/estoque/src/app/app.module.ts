@@ -36,14 +36,15 @@ import { Camera } from '@ionic-native/camera'
 
 import { OrderModule } from 'ngx-order-pipe';
 import { PedidosServiceProvider } from '../providers/pedidos-service/pedidos-service';
+import { TokenStorage } from '../providers/http-rest-service/TokenStorage';
 
 // // private _url = 'http://192.168.1.248:8080/api/';
 // private _url = 'http://192.168.0.49:8080/api/';
 
 export function jwtOptionsFactory(storage: Storage) {
   return {
-    tokenGetter: () => storage.get('jwt_token'),
-    whitelistedDomains: ['http://192.168.0.49:8080']
+    tokenGetter: () => {return localStorage.getItem('jwt_token');},
+    whitelistedDomains: ['localhost:8080']
   }
 }
 
@@ -73,11 +74,12 @@ export function jwtOptionsFactory(storage: Storage) {
       pageTransition: 'md-transition  ',
       menuType: 'overlay'
     }),
-    IonicStorageModule.forRoot({
-      name: 'estoque',
-      storeName: 'agendamentos',
-      driverOrder: ['indexeddb']
-    }),
+    IonicStorageModule.forRoot(),
+    // IonicStorageModule.forRoot({
+    //   name: 'estoque',
+    //   storeName: 'agendamentos',
+    //   driverOrder: ['indexeddb']
+    // }),
     BrMaskerModule
   ],
   exports:[
@@ -104,7 +106,8 @@ export function jwtOptionsFactory(storage: Storage) {
     AuthProvider,
     CategoriaServiceProvider,
     Camera,
-    PedidosServiceProvider
+    PedidosServiceProvider,
+    TokenStorage
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

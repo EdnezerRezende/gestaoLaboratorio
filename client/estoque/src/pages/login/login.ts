@@ -34,7 +34,7 @@ export class LoginPage {
       .pipe(finalize(() => loading.dismiss()))
       .subscribe(
         () => {
-          this._usuariosService.setUsuarioLogado(usuario);
+          
         },
         err => this.handleError(err));
   }

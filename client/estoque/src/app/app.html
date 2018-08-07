@@ -1,5 +1,6 @@
 <ion-split-pane>
-    <ion-menu [content]="conteudo" id="cabecalho-menu" *ngIf="usuarioLogado.email">
+    <ion-menu [content]="conteudo" id="cabecalho-menu" *ngIf="mostraMenuLateral">
+    <!-- <ion-menu [content]="conteudo" id="cabecalho-menu" *ngIf="usuarioLogado.email"> -->
         <ion-content>
             <ion-item id="cabecalho-menu" class="cabecalho-menu">
                 <div>
@@ -9,11 +10,14 @@
                 </div>
                 <h2>{{ usuarioLogado.nome }}</h2>
                 <p>{{ usuarioLogado.email }}</p>
+                <button menuClose ion-button round (click)="logoff() " icon-start>
+                    <ion-icon name="md-exit"></ion-icon> SAIR
+                </button>
             </ion-item>
         
             <ion-list sliding="false" id="aberturaMenu" >
                 <ion-item no-lines id="aberturaMenu" *ngFor="let pagina of paginas | orderBy:'titulo'; let i=index" text-wrap 
-                    [ngClass]="{active: isLevel1Shown('idx'+i)}"
+                    [ngClass]="{active: isLevel1Shown('idx'+i)}" 
                     (click)="toggleLevel1('idx'+i)" style="justify-content: space-around " >
                     <h2 >
                         <ion-icon [name]="pagina.icone" item-left ></ion-icon>
