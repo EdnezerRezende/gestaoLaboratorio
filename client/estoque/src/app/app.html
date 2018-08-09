@@ -27,9 +27,17 @@
                         margin-top: -33px;" color="success" item-right 
                         [name]="isLevel1Shown('idx'+i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
                     </h2>
-                    <ion-list  *ngIf="isLevel1Shown('idx'+i)" >
+                    <ion-list showWhen="android" style="margin-bottom: -26px;" *ngIf="isLevel1Shown('idx'+i)" >
                         <ion-item no-lines menuClose *ngFor="let sub of pagina.subTitulo" text-wrap (click)="irPagina(sub.componente)">
-                            <h3>
+                            <h3 style="margin-top: -12px;">
+                                <ion-icon color="sucess" [name]="sub.iconeSub" item-left ></ion-icon>
+                                {{sub.submenu}}
+                            </h3>
+                        </ion-item>
+                    </ion-list>
+                    <ion-list showWhen="ios" style="margin-bottom: -15px;" *ngIf="isLevel1Shown('idx'+i)" >
+                        <ion-item no-lines menuClose *ngFor="let sub of pagina.subTitulo" text-wrap (click)="irPagina(sub.componente)">
+                            <h3 style="margin-top: -10px;">
                                 <ion-icon color="sucess" [name]="sub.iconeSub" item-left ></ion-icon>
                                 {{sub.submenu}}
                             </h3>

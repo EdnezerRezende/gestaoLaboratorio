@@ -19,7 +19,7 @@ public class Pedidos {
 
     private String solicitante;
 
-    @OneToMany
+    @ManyToMany
     private List<Produto> produto;
 
     @ManyToOne

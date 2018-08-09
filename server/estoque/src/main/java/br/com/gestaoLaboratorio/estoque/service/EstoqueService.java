@@ -66,13 +66,20 @@ public class EstoqueService {
     public List<Produto> obteListaPedidos() {
         List<EstoqueDTO> listaEstoque = itemEstoqueRepository.totalEstoque();
 
+        return getProdutosPedidos(listaEstoque, false);
+    }
+
+    public List<Produto> getProdutosPedidos(List<EstoqueDTO> listaEstoque, boolean altera) {
         List<Produto> produtos = new ArrayList<>();
 
         for (EstoqueDTO p : listaEstoque) {
             if (p.getQtdMinimaEstoque() >= p.getQuantidadeTotal()) {
                 Produto produto = produtoRepository.findByCodigoProdutoAndSolicitadoIsFalse(p.getCodigo());
                 if (produto != null) {
-                    produto.setQtdSolicitado(p.getQtdMinimaEstoque() - p.getQuantidadeTotal());
+                    if (altera) {
+                        produto.setQtdSolicitado(p.getQtdMinimaEstoque() - p.getQuantidadeTotal());
+                        produto.setSolicitado(true);
+                    }
                     produtos.add(produto);
                 }
 

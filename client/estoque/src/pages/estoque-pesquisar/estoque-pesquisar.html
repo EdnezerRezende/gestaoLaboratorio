@@ -9,7 +9,7 @@
 
 
 <ion-content padding>
-  <ion-row >
+  <ion-row showWhen="android">
     <ion-col col-10>
         <ion-searchbar animated=true placeholder="Pesquisar" (ionInput)="getItems($event)"></ion-searchbar>
     </ion-col>
@@ -17,6 +17,14 @@
       <ion-icon  class="styloBotaoScan" (click)="pesquisarScan()" ion-item name="ios-barcode"></ion-icon>
     </ion-col>
   </ion-row>
+  <ion-row showWhen="ios">
+      <ion-col col-10>
+          <ion-searchbar animated=true placeholder="Pesquisar" (ionInput)="getItems($event)"></ion-searchbar>
+      </ion-col>
+      <ion-col col-2>
+        <ion-icon  class="styloBotaoScanIOS" (click)="pesquisarScan()" ion-item name="ios-barcode"></ion-icon>
+      </ion-col>
+    </ion-row>
   
   <ion-list sliding="true" >
     <button ion-item detail-push (click)="editarItemEstoque(itemEstoque)" *ngFor="let itemEstoque of itensEstoqueSearch">

@@ -95,6 +95,13 @@
             <artifactId>commons-email</artifactId>
             <version>1.5</version>
         </dependency>
+        <!--Dependencia Jasper-->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>5.6.0</version>
+        </dependency>
+
 
     </dependencies>
     <build>

@@ -4,6 +4,8 @@ import { EstoqueServiceProvider } from '../../providers/estoque-service/estoque-
 import { Produto } from '../../modelos/produtos';
 import { UsuariosServiceProvider } from '../../providers/usuarios-service/usuarios-service';
 import { PedidosServiceProvider } from '../../providers/pedidos-service/pedidos-service';
+import { CategoriaServiceProvider } from '../../providers/categoria-service/categoria-service';
+import { Categoria } from '../../modelos/categoria';
 
 
 @IonicPage()
@@ -14,17 +16,20 @@ import { PedidosServiceProvider } from '../../providers/pedidos-service/pedidos-
 export class PedidoPage {
 
   produtos: Produto[];
+  categorias: Categoria[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _ItemEstoqueService: EstoqueServiceProvider,
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController,
     private _usuarioService: UsuariosServiceProvider,
+    private _categoriasService: CategoriaServiceProvider,
     private _pedidosService: PedidosServiceProvider
    ) {
   }
 
   ionViewWillEnter(){
+    this.obterCategorias();
     this.obterProdutos();
   }
 
@@ -37,15 +42,53 @@ export class PedidoPage {
     });
   }
 
+  obterCategorias(){
+    this._categoriasService.obterCategorias()
+    .subscribe(
+      (listaCategorias) =>
+      {
+        this.categorias = listaCategorias;
+        console.log(this.categorias);
+      }, 
+      (err:Error) => {
+        this._alertCtrl.create({
+          title: 'Falha',
+          subTitle: 'Não foi possível obter a Lista de Categorias, tente novamente mais tarde!',
+          buttons: [
+            {
+              text: 'Ok'
+            }
+          ]
+        }).present();
+      }
+    )
+  }
+
   obterProdutos(){
     let loading = this.obterLoading();
     loading.present();
-    this._ItemEstoqueService.obterPedidos()
+    this._pedidosService.obterPedidos()
     .subscribe(
       (listaProdutos)=> 
        { 
          loading.dismiss();
          this.produtos = listaProdutos;
+
+         if (this.produtos.length == 0){
+          
+          this._alertCtrl.create({
+            title: 'Observação',
+            subTitle: 'No momento não encontramos nenhum produto a ser solicitado, \nquantidades mínimas estão supridas.',
+            buttons: [
+              {
+                text: 'Ok',
+                handler: ()=> {
+                  this.navCtrl.pop();
+                }
+              }
+            ]
+          }).present();
+         }
       },
       (err:Error) => {
         loading.dismiss();
