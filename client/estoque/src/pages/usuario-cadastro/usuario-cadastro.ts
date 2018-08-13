@@ -4,6 +4,7 @@ import { UsuariosServiceProvider } from '../../providers/usuarios-service/usuari
 import { Usuario } from '../../modelos/usuario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import moment from 'moment';
+import { DatePicker } from '@ionic-native/date-picker';
 
 @IonicPage()
 @Component({
@@ -13,7 +14,8 @@ import moment from 'moment';
 export class UsuarioCadastroPage {
 
   usuario: Usuario;
-  dataNascimento: Date;
+  dataNascimento: string;
+  dtNascimento: string;
 
   private formulario: FormGroup;
 
@@ -22,6 +24,7 @@ export class UsuarioCadastroPage {
               private _loadingCtrl: LoadingController,
               private _alertCtrl: AlertController,
               private formBuilder: FormBuilder,
+              private _datePicker: DatePicker
   ) {
     this.usuario = new Usuario();
     this.criarFormulario();
@@ -55,7 +58,7 @@ export class UsuarioCadastroPage {
     loading.present();
 
     this.tirarMascara();
-    this.usuario.dataNascimento = moment(this.dataNascimento).subtract(1, 'month').toISOString();
+    // this.usuario.dataNascimento = moment(this.dataNascimento).subtract(1, 'month').toISOString();
     
     this._usuarioService.salvarUsuario(this.usuario)
     .subscribe(
@@ -95,5 +98,13 @@ export class UsuarioCadastroPage {
     )
   }
 
+  selecionaData(){
+    this._datePicker.show({
+      date: new Date(),
+      mode: 'date'
+    })
+    .then(
+      data => this.dataNascimento = data.toISOString());
+  }
 
 }

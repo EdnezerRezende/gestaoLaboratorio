@@ -4,6 +4,7 @@ import br.com.gestaoLaboratorio.estoque.persistence.entity.DTO.EstoqueDTO;
 import br.com.gestaoLaboratorio.estoque.persistence.entity.Pedidos;
 import br.com.gestaoLaboratorio.estoque.persistence.entity.Produto;
 import br.com.gestaoLaboratorio.estoque.repository.PedidosRepository;
+import br.com.gestaoLaboratorio.estoque.repository.ProdutoRepository;
 import br.com.gestaoLaboratorio.estoque.util.Datas;
 import com.lowagie.text.pdf.PdfWriter;
 import net.sf.jasperreports.engine.*;
@@ -32,18 +33,21 @@ public class PedidosService {
     @Autowired
     private EstoqueService estoqueService;
 
-    public void gerarRelatorioPedidos() throws JRException, FileNotFoundException {
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    public void gerarRelatorioPedidos(List<Produto> produtos) throws JRException, FileNotFoundException {
         JasperCompileManager.compileReportToFile("src//main//java//br//com//gestaoLaboratorio//estoque//relatorios//pedidos//Pedidos_A_Solicitar.jrxml");
 
         LocalDate hoje = Datas.obterDataAtualyyyyMMdd();
 
-        List<Produto> listaProdutos = obterProdutosASerPedidos(hoje, true, true);
+        salvarProdutosEPedidoSolicitados(produtos, hoje);
 
         Map<String, Object> params = new HashMap<>();
 
         File reportFile = new File("src//main//java//br//com//gestaoLaboratorio//estoque//relatorios//pedidos//Pedidos_A_Solicitar.jasper");
         FileInputStream fin = new FileInputStream(reportFile);
-        JRDataSource ds = new JRBeanCollectionDataSource(listaProdutos);
+        JRDataSource ds = new JRBeanCollectionDataSource(produtos);
 
         JasperPrint print = JasperFillManager.fillReport(fin, params, ds);
 
@@ -59,15 +63,21 @@ public class PedidosService {
 
     }
 
+    private void salvarProdutosEPedidoSolicitados(List<Produto> produtos, LocalDate hoje) {
+        Pedidos pedido = new Pedidos();
+        for (Produto produto : produtos) {
+            produtoRepository.saveAndFlush(produto);
+        }
+        pedido.setProduto(produtos);
+        pedido.setDataPedido(hoje);
+
+        pedidosRepository.save(pedido);
+    }
+
     public List<Produto> obterProdutosASerPedidos(LocalDate hoje, boolean salvar, boolean alteraProduto) {
         List<EstoqueDTO> listaEstoque = pedidosRepository.totalEstoque();
         List<Produto> listaProdutos = estoqueService.getProdutosPedidos(listaEstoque, alteraProduto);
-        if (salvar) {
-            Pedidos pedido = new Pedidos();
-            pedido.setProduto(listaProdutos);
-            pedido.setDataPedido(hoje);
-            pedidosRepository.save(pedido);
-        }
+
         return listaProdutos;
     }
 

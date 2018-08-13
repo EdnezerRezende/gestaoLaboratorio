@@ -28,7 +28,7 @@ public class EnviarEmailService {
 
         if (!existeArquivo.exists()) {
             try {
-                pedidosService.gerarRelatorioPedidos();
+                pedidosService.gerarRelatorioPedidos(emailPedido.getProdutos());
             } catch (FileNotFoundException e) {
                 throw new RuntimeException("Não foi possível gerar o arquivo da Lista de Pedidos, favor tentar mais tarde!");
             } catch (JRException e) {

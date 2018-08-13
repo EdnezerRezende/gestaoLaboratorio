@@ -17,9 +17,9 @@
     <h6 class="error" *ngIf="!formulario.controls.nome.valid && (formulario.controls.nome.dirty || formulario.controls.nome.touched)">
       Por favor, informe o nome do Usuário.
     </h6>
-    <ion-item >
+    <ion-item (click)="selecionaData()">
       <ion-label stacked >Data de Nascimento</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY" doneText="Selecionar" cancelText="Cancelar"  formControlName="dataNascimento"  name="dataNascimento" [(ngModel)]="dataNascimento"></ion-datetime>
+      <ion-datetime disabled="true" displayFormat="DD/MM/YYYY" doneText="Selecionar" cancelText="Cancelar"  formControlName="dataNascimento"  name="dataNascimento" [(ngModel)]="dataNascimento"></ion-datetime>
     </ion-item>
     <h6 class="error" *ngIf="!formulario.controls.dataNascimento.valid && (formulario.controls.dataNascimento.dirty || formulario.controls.dataNascimento.touched)">
         Por favor, informe a data de nascimento.

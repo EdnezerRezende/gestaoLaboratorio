@@ -18,10 +18,11 @@ export class PedidosServiceProvider {
     this._headers = this._httpRest.getHeaders();
   }
 
-  public enviarEmail(usuarioLogado:Usuario, emailDestinatario:String){
+  public enviarEmail(usuarioLogado:Usuario, emailDestinatario:String, produtos: Produto[]){
     let emailPedido: EmailPedido = new EmailPedido();
     emailPedido.usuario = usuarioLogado;
     emailPedido.emailDestinatario = emailDestinatario;
+    emailPedido.produtos = produtos;
 
     return this._http.post(this._url+'email/enviar', emailPedido, {
       headers: this._headers

@@ -33,6 +33,7 @@ import {Storage, IonicStorageModule} from "@ionic/storage";
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import { CategoriaServiceProvider } from '../providers/categoria-service/categoria-service';
 import { Camera } from '@ionic-native/camera'
+import { DatePicker } from '@ionic-native/date-picker'
 
 import { OrderModule } from 'ngx-order-pipe';
 import { PedidosServiceProvider } from '../providers/pedidos-service/pedidos-service';
@@ -106,6 +107,7 @@ export function jwtOptionsFactory(storage: Storage) {
     AuthProvider,
     CategoriaServiceProvider,
     Camera,
+    DatePicker,
     PedidosServiceProvider,
     TokenStorage
   ],

@@ -18,6 +18,8 @@ export class PedidoPage {
   produtos: Produto[];
   categorias: Categoria[];
 
+  produtosSelecionados: Produto[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _ItemEstoqueService: EstoqueServiceProvider,
     private _loadingCtrl: LoadingController,
@@ -26,6 +28,7 @@ export class PedidoPage {
     private _categoriasService: CategoriaServiceProvider,
     private _pedidosService: PedidosServiceProvider
    ) {
+     this.produtosSelecionados = new Array<Produto>();
   }
 
   ionViewWillEnter(){
@@ -48,7 +51,6 @@ export class PedidoPage {
       (listaCategorias) =>
       {
         this.categorias = listaCategorias;
-        console.log(this.categorias);
       }, 
       (err:Error) => {
         this._alertCtrl.create({
@@ -88,7 +90,7 @@ export class PedidoPage {
               }
             ]
           }).present();
-         }
+         } 
       },
       (err:Error) => {
         loading.dismiss();
@@ -97,11 +99,14 @@ export class PedidoPage {
           subTitle: 'Não foi possível obter a Lista de Pedidos, tente novamente mais tarde!',
           buttons: [
             {
-              text: 'Ok'
+              text: 'Ok',
+              handler: ()=> {
+                this.navCtrl.pop();
+              }
             }
           ]
         }).present();
-        this.navCtrl.goToRoot;
+        // this.navCtrl.goToRoot;
     });
   }
 
@@ -120,26 +125,28 @@ export class PedidoPage {
         {
           text: 'Enviar',
           handler: data => {
-            if(data.email != '' ){
+            if( data.email != '' ){
               
               loading.present();
-
-              this._pedidosService.enviarEmail(this._usuarioService.obtemUsuarioLogado(), data.email)
+              this._pedidosService.enviarEmail(this._usuarioService.obtemUsuarioLogado(), data.email, this.produtosSelecionados)
               .subscribe(
                 (envioPedido)=>
-                       {
+                      {
                         loading.dismiss();
                         this._alertCtrl.create({
                           title: 'Sucesso',
                           subTitle: 'Pedido enviado com sucesso! Uma cópia do e-mail foi enviado para você.',
                           buttons: [
                             {
-                              text: 'Ok'
+                              text: 'Ok',
+                              handler: ()=> {
+                                this.navCtrl.pop();
+                              }
                             }
                           ]
                         }).present();
-                       },
-                       (err:Error) => {
+                      },
+                      (err:Error) => {
                         loading.dismiss();
                         this._alertCtrl.create({
                           title: 'Falha',
@@ -172,7 +179,41 @@ export class PedidoPage {
         }
       ]
     }).present();
-    
   }
 
+  selecionarProduto(produto: Produto){
+    let jaSelecionado:boolean = false;
+    if (this.produtosSelecionados != null && this.produtosSelecionados.length != 0 ){
+
+      let index = this.produtosSelecionados.indexOf(produto);
+      if (index < 0){
+        produto.solicitado = true;
+        this.produtosSelecionados.push(produto);
+      }else{
+        produto.solicitado = false;
+        this.produtosSelecionados.splice(index, 0);
+      }
+
+    }else{
+      this.produtosSelecionados.push(produto);
+    }
+    // if (!jaSelecionado){
+    //   this.produtosSelecionados.push(produto);
+    // }else{
+    //   let index = this.produtosSelecionados.indexOf(produto);
+    //   this.produtosSelecionados.splice(index,1);
+    // }
+  }
+
+  selecionarCategoria(categoria: Categoria){
+    this.produtos.forEach(produto => {
+      if ( produto.categoria.nomeCategoria == categoria.nomeCategoria && !produto.solicitado){
+        produto.solicitado = true;
+        this.produtosSelecionados.push(produto);
+      }else if ( produto.categoria.nomeCategoria == categoria.nomeCategoria && produto.solicitado){
+        let index = this.produtosSelecionados.indexOf(produto);
+        this.produtosSelecionados.splice(index, 0);
+      }
+    });
+  }
 }

@@ -7,6 +7,7 @@ import { Produto } from '../../modelos/produtos';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import moment from 'moment';
 import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { DatePicker } from '@ionic-native/date-picker';
 
 @IonicPage()
 @Component({
@@ -32,6 +33,7 @@ export class EstoqueCadastroFormularioPage {
     private _produtosService: ProdutoServiceProvider,
     private _alertCtrl: AlertController,
     private formBuilder: FormBuilder,
+    private _datePicker: DatePicker,
     private _barcodeScanner: BarcodeScanner) {
 
       this.criarFormulario();
@@ -225,6 +227,15 @@ export class EstoqueCadastroFormularioPage {
     // perguntar se deseja marcar utilização caso ainda esteja na validade e quantidade de utilização disponivel
     // ou se deseja baixar do estoque.
     // se não existir, apenas permitir cadastro.
+  }
+
+  selecionaData(){
+    this._datePicker.show({
+      date: new Date(),
+      mode: 'date'
+    })
+    .then(
+      data => this.dataValidade = data.toISOString());
   }
 
 }
