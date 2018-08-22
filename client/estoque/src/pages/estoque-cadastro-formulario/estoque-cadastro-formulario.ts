@@ -153,30 +153,26 @@ export class EstoqueCadastroFormularioPage {
         itemEstoque.produto = new Produto();
         if ( barcodeData.format == 'CODE_128'){
           let textoCodigo = barcodeData.text.split(" ");
-          let lote:any;
 
-          itemEstoque.produto.codigoProduto = textoCodigo[0].substr(1,textoCodigo[0].length);
+          itemEstoque.produto.codigoProduto = textoCodigo[0];
           
-          lote = textoCodigo[1].split("17 ");
-          itemEstoque.lote = lote[0].substr(0, lote[0].length);
+          itemEstoque.lote = textoCodigo[1].trim();
           
           let dataValidade = textoCodigo[2].split("/");
-          itemEstoque.dataValidade = new Date(dataValidade[2]+ "-"+ dataValidade[1]+"-"+ dataValidade[0]);
+          let dataValidade2 = moment(dataValidade[2].substr(0,4)+ "-"+ dataValidade[1]+"-"+ dataValidade[0]).add(1, 'days').format('YYYY-MM-DD');
 
-          this.itemEstoque =  this.verificarItens(itemEstoque);
-          this.converterDataParaIsoStringCadastro(this.itemEstoque.dataValidade );
+          itemEstoque.dataValidade = new Date(dataValidade2);
+
+          this.verificarItens(itemEstoque);
 
         } else if ( barcodeData.format == 'DATA_MATRIX' ){
-          alert(barcodeData.text);
-
-          itemEstoque.lote = barcodeData.text.substr(27,9);
-          let dataValidade = "20" + barcodeData.text.substr(19, 6);
-          itemEstoque.produto.codigoProduto = barcodeData.text.substr(40, 6);
-          
-          itemEstoque.dataValidade = new Date(dataValidade.substr(0,4)+ "-"+ dataValidade.substr(4,2)+"-"+ dataValidade.substr(6,2));
-
-          this.itemEstoque =  this.verificarItens(itemEstoque);
-          this.converterDataParaIsoStringCadastro(this.itemEstoque.dataValidade );
+                     
+          itemEstoque.lote = barcodeData.text.substr(19,9);
+          let dataValidade = "20" + barcodeData.text.substr(30, 6);
+          itemEstoque.produto.codigoProduto = barcodeData.text.substr(39, 11);
+          dataValidade = moment(dataValidade.substr(0,4)+ "-"+ dataValidade.substr(4,2)+"-"+ dataValidade.substr(6,2)).add(1, 'days').format('YYYY-MM-DD');
+          itemEstoque.dataValidade = new Date(dataValidade);
+          this.verificarItens(itemEstoque);
 
         } else { 
           this._alertCtrl.create({

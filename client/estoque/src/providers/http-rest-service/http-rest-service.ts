@@ -12,8 +12,8 @@ const TOKEN_HEADER_KEY = 'Authorization';
 @Injectable()
 export class HttpRestServiceProvider {
 
-  private _url = 'http://192.168.1.248:8080/api/';
-  // private _url = 'http://192.168.0.49:8080/api/';
+  // private _url = 'http://192.168.1.248:8080/api/';
+  private _url = 'http://192.168.0.49:8080/api/';
   // private _url = 'https://gestaolaboratorio.herokuapp.com/api/';
 
 
